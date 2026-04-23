@@ -103,4 +103,10 @@ This split makes merges from upstream a bit easier, except where you must resolv
 
 ---
 
+## Postscript (v0.1.0 publish)
+
+- Committed all of the above as **`a4b16f63`** on `main`, tagged **`v0.1.0`**, pushed to **`backup`** (`nikoloco2004/cowrie-honeypot-backup`).
+- Added root **`README.md`** (GitHub landing) and this file; **`etc/cowrie.cfg`** was **force-added** to the repo for this fork (it was listed in `.gitignore` as `cowrie.cfg` so it would not normally be committed). If you ever make the repo public, audit that file for anything sensitive.
+- GitHub release: [v0.1.0](https://github.com/nikoloco2004/cowrie-honeypot-backup/releases/tag/v0.1.0).
+
 *End of personal log. For day-to-day operation and where to change things, see `README.md` in this repository.*
