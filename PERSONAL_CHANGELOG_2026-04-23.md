@@ -171,6 +171,20 @@ This split makes merges from upstream a bit easier, except where you must resolv
 
 ---
 
+## Postscript (v0.4.2 publish)
+
+**Why:** Honeyfs overlays, **`fs.pickle`**, **`cowrie.cfg`**, and split **`lsb_release`** captures existed only on the Pi working tree; the backup remote could not reproduce the same decoy filesystem without committing them.
+
+**What we did**
+
+- Staged **`honeyfs/etc/crontab`**, **`os-release`**, **`sys/firmware/devicetree/base/model`**, **`home/priyas/.ssh`**, **`home/ryanm/.ssh`**, **`proc/device-tree/{compatible,model,serial-number}`**, updated **`src/cowrie/data/fs.pickle`**, **`etc/cowrie.cfg`**.
+- Added **`lsb_release_a.stdout.txt`** and **`lsb_release_a.stderr.txt`** under **`src/cowrie/data/ground_truth/pi5_debian13/`** (matching **`rpi_ground.Command_lsb_release`** + **`load_ground_line`**). Removed mistaken untracked copies under **`commands/`** and deleted zero-byte junk files **`exit`**, **`mkdir`**, **`touch`** at repo root.
+- **`RELEASE_NOTES_v0.4.2.md`**, **`README`**, this postscript.
+
+**Git:** Commit, tag **`v0.4.2`**, **`git push backup main && git push backup v0.4.2`**, optional **`gh release create`**.
+
+---
+
 ## PID consistency (`ps`, `ps aux`, `ps -ef`, `top -bn1`)
 
 **Why:** Ground-truth **`ps_aux.txt`**, **`ps_ef.txt`**, and **`top_bn1.txt`** came from different captures, so PIDs for the same logical processes (e.g. `sshd`) did not match — an easy honeypot fingerprint.

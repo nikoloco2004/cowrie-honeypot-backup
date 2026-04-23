@@ -5,7 +5,7 @@ This repository is a **git clone of [Cowrie](https://github.com/cowrie/cowrie)**
 - **Upstream:** [`cowrie/cowrie`](https://github.com/cowrie/cowrie) — `git remote` name: `origin`
 - **This backup fork:** `git remote` name: `backup` → your GitHub copy (private), used to snapshot configuration and custom code
 - **Baseline tag:** `v0.0.0` — clean snapshot before the Pi-5–specific work
-- **This document’s release:** `v0.4.1` — **repository filesystem map** since **`v0.0.0`**; see [Tags](#version-tags) and **`RELEASE_NOTES_v0.4.1.md`**
+- **This document’s release:** `v0.4.2` — **honeyfs + pickle + config sync**; see [Tags](#version-tags) and **`RELEASE_NOTES_v0.4.2.md`**
 
 Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.org/)
 
@@ -88,12 +88,19 @@ Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.
 | **v0.3.0** | Emulated host **anchor**: `fake_uptime_base` + `display_timezone`, dynamic `/proc/uptime`, session-cached **load average** (`uptime` matches `w`), Debian-style **`w`** + decoy rows, synthetic **`last`** tied to the same boot time when ground truth + fake uptime are enabled. **`ps -ef`** / **`top -bn1`** are built from **`ps_aux`** so **PIDs match**. |
 | **v0.4.0** | **`ps aux`** is **synthesized** from parsed `ps_aux` rows plus session **`-bash`** / **`ps`** lines (emulated PIDs, real argv); **`ps -ef`** / **`top`** use the **same** session table; optional **`ps_aux_tail_noise_max`**; **`format_ps_aux_line`** fix for **`%MEM`** vs **7-digit VSZ** collision. Details: **`RELEASE_NOTES_v0.4.0.md`**. |
 | **v0.4.1** | **Documentation:** categorized map of **fork-specific paths** vs **`v0.0.0`** (config, **`rpi_ground`**, **`ps_coherence`**, honeyfs, ground-truth corpus, docs). **`RELEASE_NOTES_v0.4.1.md`**. |
+| **v0.4.2** | **Working tree sync:** **`honeyfs/`** (crontab, **`os-release`**, devicetree, **`home/.../.ssh`**, **`proc/device-tree`**), updated **`fs.pickle`**, **`etc/cowrie.cfg`**, **`lsb_release_a.{stdout,stderr}.txt`** in ground truth. **`RELEASE_NOTES_v0.4.2.md`**. |
 
-Restore a tree: `git checkout v0.4.1` (or `v0.4.0`, `v0.3.0`, `v0.2.0`, `v0.1.0`, `v0.0.0`).
+Restore a tree: `git checkout v0.4.2` (or `v0.4.1`, `v0.4.0`, `v0.3.0`, `v0.2.0`, `v0.1.0`, `v0.0.0`).
 
 ---
 
 ## Changelog (summary)
+
+### v0.4.2
+
+- **Repo sync:** Uncommitted **honeyfs** overlays (**`crontab`**, **`os-release`**, devicetree paths, decoy **`home/.../.ssh`**, **`proc/device-tree`**), refreshed **`fs.pickle`**, **`etc/cowrie.cfg`**.
+- **`lsb_release`:** **`lsb_release_a.stdout.txt`** / **`lsb_release_a.stderr.txt`** committed under **`ground_truth/pi5_debian13/`** (correct path for **`load_ground_line`**). Removed empty stray files at repo root.
+- **Docs:** **`RELEASE_NOTES_v0.4.2.md`**.
 
 ### v0.4.1
 

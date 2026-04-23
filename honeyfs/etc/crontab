@@ -1,0 +1,8 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+0  8    * * *   priyas  /usr/bin/python3 /opt/vegabase/pipeline/ingest.py
+0  */1  * * *   priyas  /usr/bin/python3 /opt/vegabase/pipeline/run.py
+0  2    * * *   root    /bin/bash /opt/vegabase/scripts/backup.sh
