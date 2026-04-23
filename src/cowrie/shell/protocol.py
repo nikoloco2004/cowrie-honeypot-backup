@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import importlib
+import random
 import socket
 import sys
 import time
@@ -326,6 +327,36 @@ class HoneyPotBaseProtocol(insults.TerminalProtocol, TimeoutMixin):
             self._shell_loadavg_str = utils.shell_loadavg_for_bucket(bucket)
         assert self._shell_loadavg_str is not None
         return self._shell_loadavg_str
+
+    def get_emulated_shell_pid(self) -> int:
+        """
+        Stable fake PID for the interactive shell (plain `ps` first row).
+        """
+        pid = getattr(self, "_emulated_shell_pid", None)
+        if pid is None:
+            self._emulated_shell_pid = random.randint(20000, 65000)
+        return self._emulated_shell_pid
+
+    def next_emulated_ps_pid(self) -> int:
+        """
+        New PID for each plain `ps` invocation; gaps resemble procps on Linux.
+        """
+        last = getattr(self, "_last_ps_pid", None)
+        shell = self.get_emulated_shell_pid()
+        if last is None:
+            self._last_ps_pid = shell + random.randint(3000, 8500)
+        else:
+            self._last_ps_pid = last + random.randint(10, 50)
+        return self._last_ps_pid
+
+    def get_ps_display_tty(self) -> str:
+        env = self.environ or {}
+        st = env.get("SSH_TTY", "")
+        if st.startswith("/dev/"):
+            return st[5:]
+        if st:
+            return st
+        return "pts/0"
 
     def eofReceived(self) -> None:
         # Shell received EOF, nicely exit

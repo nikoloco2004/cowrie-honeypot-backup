@@ -139,4 +139,26 @@ This split makes merges from upstream a bit easier, except where you must resolv
 
 **Git:** Commit on `main`, annotated tag **`v0.3.0`**, push **`backup`** (`git push backup main && git push backup v0.3.0`). Create a GitHub Release from the tag if you want UI release notes.
 
+---
+
+## PID consistency (`ps`, `ps aux`, `ps -ef`, `top -bn1`)
+
+**Why:** Ground-truth **`ps_aux.txt`**, **`ps_ef.txt`**, and **`top_bn1.txt`** came from different captures, so PIDs for the same logical processes (e.g. `sshd`) did not match — an easy honeypot fingerprint.
+
+**What we did (v0.3.0 → v0.4.0)**
+
+- **`src/cowrie/core/ps_coherence.py`:** parse **`ps_aux.txt`** as the single canonical table; **infer PPID** for `ps -ef`; **format `ps -ef`** and **`top -bn1`** from the same rows. **v0.4.0:** **`ps aux`** is also built from **`build_session_ps_rows()`** + **`format_ps_aux_output()`** (not a verbatim file dump); session **`-bash` / `ps`** rows and optional tail noise; **`format_ps_aux_line()`** fixes **`%MEM`** vs 7-digit **`VSZ`** fusion; **`format_top_bn1`** uses the same session table. Full technical narrative: **`RELEASE_NOTES_v0.4.0.md`**.
+- **`Command_ps_gt`:** **`ps -ef` / `ps -e -f`** → **`format_ps_ef`**; **`ps aux`** → session builder + aux formatter; **plain `ps`** → procps-style **`bash`** + **`ps`** with **`get_emulated_shell_pid`** / **`next_emulated_ps_pid`** / **`get_ps_display_tty`** (`protocol.py`).
+- **`Command_top_cmd`:** **`format_top_bn1()`** — dynamic header, **Tasks** from session row list, static **%Cpu/Mem/Swap** tail from **`top_bn1.txt`** capture.
+
+---
+
+## Postscript (v0.4.0 publish)
+
+**Why:** Verbatim **`ps aux`** duplicated capture-time session lines, disagreed with plain **`ps`**, and replayed identically every run; reformatted rows could corrupt **`%MEM`/`VSZ`** when VSZ filled seven digits.
+
+**What we did:** See **`RELEASE_NOTES_v0.4.0.md`** (deep dive). **Cursor** agents: **`.cursor/rules/scalpel-hackathon.mdc`** (Project SCALPEL constraints).
+
+**Git:** Tag **`v0.4.0`** on **`main`**, push **`backup`** (`git push backup main && git push backup v0.4.0`). Optional GitHub Release body can paste or link **`RELEASE_NOTES_v0.4.0.md`**.
+
 *End of personal log. For day-to-day operation and where to change things, see `README.md` in this repository.*

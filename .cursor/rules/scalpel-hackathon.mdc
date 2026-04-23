@@ -1,0 +1,28 @@
+---
+description: Project SCALPEL hackathon — edge Cowrie deception goals, Red Team probes, scoring
+alwaysApply: true
+---
+
+# Project SCALPEL (Hybrid Deception Challenge)
+
+Use this context when changing the honeypot, ground-truth captures, escalation, or docs.
+
+## Platform
+
+- **Edge:** Cowrie SSH/SFTP on **Raspberry Pi 5** (organizer image: **64-bit headless Raspberry Pi OS**). Local intelligence should handle most interactions; **minimize cloud** use and **hide latency** on escalations.
+- **Cloud (Tier 2):** AWS (e.g. Bedrock, OpenSearch RAG). Escalate only when local fidelity is insufficient; design policy so escalations are not obvious from timing.
+- **Rules:** Cowrie required; **do not reimage** Pis; Red Team compares honeypot to a **clean baseline Pi** with the same probe suite.
+
+## Red Team evaluation (what to optimize against)
+
+- **Interaction realism (40%):** Stability, consistency, accuracy of Linux-like responses. **Demerits** per confirmed difference vs baseline; **crash = major penalty**.
+- **Edge efficiency (40%):** Penalize **escalation rate** (cloud calls); probes should stay local when possible.
+- **Presentation (20%):** Design rationale, tradeoffs, cost/latency strategy.
+
+Probe dimensions include **pre-auth fingerprinting**, **behavioral accuracy** (standard Linux commands), **filesystem integrity**, and **latency analysis**.
+
+## Engineering implications for this repo
+
+- Prefer **deterministic, session-coherent** outputs (clock, load, process tables) so probes cannot cross-check inconsistencies.
+- Ground-truth captures should match **what the baseline Pi can show**; avoid obvious static “tape replay” (e.g. identical attacker session lines across runs when behavior should vary).
+- Document **non-obvious** deception fixes in release notes, not only in code.

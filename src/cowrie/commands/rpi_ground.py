@@ -18,7 +18,7 @@ from cowrie.commands.ifconfig import Command_ifconfig
 from cowrie.commands.netstat import Command_netstat
 from cowrie.commands.service import Command_service
 from cowrie.commands.which import Command_which
-from cowrie.core import utils
+from cowrie.core import ps_coherence, utils
 from cowrie.core.config import CowrieConfig
 from cowrie.core.ground_truth import ground_truth_enabled, load_ground_line
 from cowrie.shell.command import HoneyPotCommand
@@ -102,9 +102,22 @@ class Command_ps_gt(Command_ps):
     def start(self) -> None:
         if not _gt() or not _ps_ground_mode(self.args):
             return super().start()
-        text = _w(
-            load_ground_line("ps_ef.txt" if _ps_ef(self.args) else "ps_aux.txt")
-        )
+        if _ps_ef(self.args):
+            ps_disp = ("ps " + " ".join(self.args)).strip()
+            rows = ps_coherence.build_session_ps_rows(
+                self.protocol, purpose="ef", ps_display_cmd=ps_disp
+            )
+            pp = ps_coherence.infer_ppids(rows)
+            text = _w(ps_coherence.format_ps_ef(rows, pp))
+        else:
+            noise_max = ps_coherence.ps_aux_tail_noise_max_config()
+            rows = ps_coherence.build_session_ps_rows(
+                self.protocol,
+                purpose="aux",
+                ps_display_cmd=("ps " + " ".join(self.args)).strip() or "ps aux",
+                tail_noise_max=noise_max,
+            )
+            text = _w(ps_coherence.format_ps_aux_output(rows))
         lines = text.splitlines(keepends=True)
         self._ps_emit_lines(lines, 0)
 
@@ -113,7 +126,22 @@ class Command_ps_gt(Command_ps):
             return super().call()
         if _ps_ground_mode(self.args):
             return
-        return super().call()
+        if self.args:
+            return super().call()
+        self._call_ps_plain_gt()
+
+    def _call_ps_plain_gt(self) -> None:
+        """
+        Default `ps` (no options): procps-style header; shell PID stable per session;
+        only the `ps` process PID changes each run (matches real Pi behavior).
+        """
+        tty = self.protocol.get_ps_display_tty()
+        shell_pid = self.protocol.get_emulated_shell_pid()
+        ps_pid = self.protocol.next_emulated_ps_pid()
+        cmd = "ps"
+        self.write("    PID TTY          TIME CMD\n")
+        self.write(f"{shell_pid:7d} {tty:<11}00:00:00 bash\n")
+        self.write(f"{ps_pid:7d} {tty:<11}00:00:00 {cmd}\n")
 
     def _ps_emit_lines(self, lines: list[str], idx: int) -> None:
         if idx >= len(lines):
@@ -213,11 +241,28 @@ class Command_which_gt(Command_which):
 
 
 class Command_lsb_release(HoneyPotCommand):
+    # def call(self) -> None:
+    #     if not _gt():
+    #         self.errorWrite("bash: lsb_release: command not found\n")
+    #         return
+    #     self.write(_w(load_ground_line("lsb_release_a.txt")))
     def call(self) -> None:
         if not _gt():
+            # Match real "command not found" — verify exact format on ground truth
             self.errorWrite("bash: lsb_release: command not found\n")
+            self.exit(127)
             return
-        self.write(_w(load_ground_line("lsb_release_a.txt")))
+        
+        # Emit stderr FIRST (matches real lsb_release ordering), then stdout
+        stderr_output = load_ground_line("lsb_release_a.stderr.txt")
+        stdout_output = load_ground_line("lsb_release_a.stdout.txt")
+        
+        if stderr_output:
+            self.errorWrite(_w(stderr_output))
+        if stdout_output:
+            self.write(_w(stdout_output))
+        
+        self.exit(0)
 
 
 class Command_hostnamectl(HoneyPotCommand):
@@ -298,7 +343,7 @@ class Command_top_cmd(HoneyPotCommand):
             return
         a = " ".join(self.args)
         if "-b" in a and ("-n" in a or re.search(r"-n[0-9]+", a) or "n1" in a):
-            self.write(_w(load_ground_line("top_bn1.txt")))
+            self.write(_w(ps_coherence.format_top_bn1(self.protocol)))
         else:
             self.write("top - running interactively (batch mode: top -b)\n")
 
