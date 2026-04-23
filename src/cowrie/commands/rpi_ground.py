@@ -7,6 +7,8 @@ from __future__ import annotations
 import random
 import re
 
+from twisted.internet import reactor
+
 import cowrie.commands.last as _lastm
 from cowrie.commands.base import Command_id, Command_ps
 from cowrie.commands.ifconfig import Command_ifconfig
@@ -50,22 +52,53 @@ class Command_netstat_gt(Command_netstat):
         return super().call()
 
 
+def _ps_ground_mode(args: list[str]) -> bool:
+    a = " ".join(args)
+    is_ef = bool(re.search(r"(^|\s)-ef($|\s)", a)) or (
+        "-e" in args and "-f" in args
+    )
+    is_aux = "aux" in a or ({"a", "u", "x"}.issubset(set(args)))
+    return bool(is_ef or is_aux or "u" in a)
+
+
+def _ps_ef(args: list[str]) -> bool:
+    a = " ".join(args)
+    return bool(
+        re.search(r"(^|\s)-ef($|\s)", a) or ("-e" in args and "-f" in args)
+    )
+
+
 class Command_ps_gt(Command_ps):
+    """
+    Ground-truth ps output is large; one write can reset SSH clients. Emit in
+    line batches scheduled on the reactor so the session stays stable.
+    """
+
+    _PS_CHUNK_LINES = 32
+
+    def start(self) -> None:
+        if not _gt() or not _ps_ground_mode(self.args):
+            return super().start()
+        text = _w(
+            load_ground_line("ps_ef.txt" if _ps_ef(self.args) else "ps_aux.txt")
+        )
+        lines = text.splitlines(keepends=True)
+        self._ps_emit_lines(lines, 0)
+
     def call(self) -> None:
         if not _gt():
             return super().call()
-        a = " ".join(self.args)
-        is_ef = (
-            bool(re.search(r"(^|\s)-ef($|\s)", a))
-            or ("-e" in self.args and "-f" in self.args)
-        )
-        is_aux = "aux" in a or ({"a", "u", "x"}.issubset(set(self.args)))
-        if is_ef:
-            self.write(_w(load_ground_line("ps_ef.txt")))
-        elif is_aux or "u" in a:
-            self.write(_w(load_ground_line("ps_aux.txt")))
-        else:
-            return super().call()
+        if _ps_ground_mode(self.args):
+            return
+        return super().call()
+
+    def _ps_emit_lines(self, lines: list[str], idx: int) -> None:
+        if idx >= len(lines):
+            self.exit()
+            return
+        end = min(idx + self._PS_CHUNK_LINES, len(lines))
+        self.write("".join(lines[idx:end]))
+        reactor.callLater(0, self._ps_emit_lines, lines, end)  # type: ignore[attr-defined]
 
 
 class Command_id_gt(Command_id):
