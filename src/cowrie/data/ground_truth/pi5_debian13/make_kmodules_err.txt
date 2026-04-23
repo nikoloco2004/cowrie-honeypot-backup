@@ -1,0 +1,4 @@
+make: Entering directory '/usr/src/linux-headers-6.12.75+rpt-rpi-2712'
+make[1]: *** /lib/modules/6.12.75+rpt-rpi-2712/build/scripts/Makefile.build: No rule to make target '/home/pi/Makefile'.  Stop.
+make: *** [Makefile: modules] Error 2
+make: Leaving directory '/usr/src/linux-headers-6.12.75+rpt-rpi-2712'

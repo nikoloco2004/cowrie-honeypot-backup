@@ -1,572 +1,1339 @@
-[    0.000000] Initializing cgroup subsys cpuset
-[    0.000000] Initializing cgroup subsys cpu
-[    0.000000] Linux version 2.6.26-2-686 (Debian 2.6.26-19lenny2) (dannf@debian.org) (gcc version 4.1.3 20080704 (prerelease) (Debian 4.1.2-25)) #1 SMP Wed Nov 4 20:45:37 UTC 2009
-[    0.000000] BIOS-provided physical RAM map:
-[    0.000000]  BIOS-e820: 0000000000000000 - 000000000009f800 (usable)
-[    0.000000]  BIOS-e820: 000000000009f800 - 00000000000a0000 (reserved)
-[    0.000000]  BIOS-e820: 00000000000ca000 - 00000000000cc000 (reserved)
-[    0.000000]  BIOS-e820: 00000000000dc000 - 00000000000e0000 (reserved)
-[    0.000000]  BIOS-e820: 00000000000e4000 - 0000000000100000 (reserved)
-[    0.000000]  BIOS-e820: 0000000000100000 - 000000001fef0000 (usable)
-[    0.000000]  BIOS-e820: 000000001fef0000 - 000000001feff000 (ACPI data)
-[    0.000000]  BIOS-e820: 000000001feff000 - 000000001ff00000 (ACPI NVS)
-[    0.000000]  BIOS-e820: 000000001ff00000 - 0000000020000000 (usable)
-[    0.000000]  BIOS-e820: 00000000e0000000 - 00000000f0000000 (reserved)
-[    0.000000]  BIOS-e820: 00000000fec00000 - 00000000fec10000 (reserved)
-[    0.000000]  BIOS-e820: 00000000fee00000 - 00000000fee01000 (reserved)
-[    0.000000]  BIOS-e820: 00000000fffe0000 - 0000000100000000 (reserved)
-[    0.000000] 0MB HIGHMEM available.
-[    0.000000] 512MB LOWMEM available.
-[    0.000000] found SMP MP-table at [c00f6aa0] 000f6aa0
-[    0.000000] Entering add_active_range(0, 0, 131072) 0 entries of 256 used
-[    0.000000] Zone PFN ranges:
-[    0.000000]   DMA             0 ->     4096
-[    0.000000]   Normal       4096 ->   131072
-[    0.000000]   HighMem    131072 ->   131072
-[    0.000000] Movable zone start PFN for each node
-[    0.000000] early_node_map[1] active PFN ranges
-[    0.000000]     0:        0 ->   131072
-[    0.000000] On node 0 totalpages: 131072
-[    0.000000]   DMA zone: 32 pages used for memmap
-[    0.000000]   DMA zone: 0 pages reserved
-[    0.000000]   DMA zone: 4064 pages, LIFO batch:0
-[    0.000000]   Normal zone: 992 pages used for memmap
-[    0.000000]   Normal zone: 125984 pages, LIFO batch:31
-[    0.000000]   HighMem zone: 0 pages used for memmap
-[    0.000000]   Movable zone: 0 pages used for memmap
-[    0.000000] DMI present.
-[    0.000000] ACPI: RSDP 000F6A30, 0024 (r2 PTLTD )
-[    0.000000] ACPI: XSDT 1FEF0780, 004C (r1 INTEL  440BX     6040000 VMW   1324272)
-[    0.000000] ACPI: FACP 1FEFEE98, 00F4 (r4 INTEL  440BX     6040000 PTL     F4240)
-[    0.000000] ACPI: DSDT 1FEF0938, E560 (r1 PTLTD  Custom    6040000 MSFT  3000001)
-[    0.000000] ACPI: FACS 1FEFFFC0, 0040
-[    0.000000] ACPI: BOOT 1FEF0910, 0028 (r1 PTLTD  $SBFTBL$  6040000  LTP        1)
-[    0.000000] ACPI: APIC 1FEF08C0, 0050 (r1 PTLTD  	 APIC    6040000  LTP        0)
-[    0.000000] ACPI: MCFG 1FEF0884, 003C (r1 PTLTD  $PCITBL$  6040000  LTP        1)
-[    0.000000] ACPI: SRAT 1FEF0804, 0080 (r2 VMWARE MEMPLUG   6040000 VMW         1)
-[    0.000000] ACPI: PM-Timer IO Port: 0x1008
-[    0.000000] ACPI: Local APIC address 0xfee00000
-[    0.000000] ACPI: LAPIC (acpi_id[0x00] lapic_id[0x00] enabled)
-[    0.000000] ACPI: LAPIC_NMI (acpi_id[0x00] high edge lint[0x1])
-[    0.000000] ACPI: IOAPIC (id[0x01] address[0xfec00000] gsi_base[0])
-[    0.000000] IOAPIC[0]: apic_id 1, version 17, address 0xfec00000, GSI 0-23
-[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 high edge)
-[    0.000000] ACPI: IRQ0 used by override.
-[    0.000000] ACPI: IRQ2 used by override.
-[    0.000000] ACPI: IRQ9 used by override.
-[    0.000000] Enabling APIC mode:  Flat.  Using 1 I/O APICs
-[    0.000000] Using ACPI (MADT) for SMP configuration information
-[    0.000000] Allocating PCI resources starting at 30000000 (gap: 20000000:c0000000)
-[    0.000000] PM: Registered nosave memory: 000000000009f000 - 00000000000a0000
-[    0.000000] PM: Registered nosave memory: 00000000000a0000 - 00000000000ca000
-[    0.000000] PM: Registered nosave memory: 00000000000ca000 - 00000000000cc000
-[    0.000000] PM: Registered nosave memory: 00000000000cc000 - 00000000000dc000
-[    0.000000] PM: Registered nosave memory: 00000000000dc000 - 00000000000e0000
-[    0.000000] PM: Registered nosave memory: 00000000000e0000 - 00000000000e4000
-[    0.000000] PM: Registered nosave memory: 00000000000e4000 - 0000000000100000
-[    0.000000] PM: Registered nosave memory: 000000001fef0000 - 000000001feff000
-[    0.000000] PM: Registered nosave memory: 000000001feff000 - 000000001ff00000
-[    0.000000] SMP: Allowing 1 CPUs, 0 hotplug CPUs
-[    0.000000] PERCPU: Allocating 37992 bytes of per cpu data
-[    0.000000] NR_CPUS: 8, nr_cpu_ids: 1
-[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 130048
-[    0.000000] Kernel command line: root=/dev/sda1 ro quiet
-[    0.000000] mapped APIC to ffffb000 (fee00000)
-[    0.000000] mapped IOAPIC to ffffa000 (fec00000)
-[    0.000000] Enabling fast FPU save and restore... done.
-[    0.000000] Enabling unmasked SIMD FPU exception support... done.
-[    0.000000] Initializing CPU#0
-[    0.000000] PID hash table entries: 2048 (order: 11, 8192 bytes)
-[    0.000000] Extended CMOS year: 2000
-[    0.000000] Detected 2133.123 MHz processor.
-[    0.004000] Console: colour VGA+ 80x25
-[    0.004000] console [tty0] enabled
-[    0.004000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
-[    0.004000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
-[    0.004000] Memory: 509764k/524288k available (1770k kernel code, 13832k reserved, 750k data, 244k init, 0k highmem)
-[    0.004000] virtual kernel memory layout:
-[    0.004000]     fixmap  : 0xfff4c000 - 0xfffff000   ( 716 kB)
-[    0.004000]     pkmap   : 0xff800000 - 0xffc00000   (4096 kB)
-[    0.004000]     vmalloc : 0xe0800000 - 0xff7fe000   ( 495 MB)
-[    0.004000]     lowmem  : 0xc0000000 - 0xe0000000   ( 512 MB)
-[    0.004000]       .init : 0xc037f000 - 0xc03bc000   ( 244 kB)
-[    0.004000]       .data : 0xc02baaa1 - 0xc0376620   ( 750 kB)
-[    0.004000]       .text : 0xc0100000 - 0xc02baaa1   (1770 kB)
-[    0.004000] Checking if this processor honours the WP bit even in supervisor mode...Ok.
-[    0.004000] CPA: page pool initialized 1 of 1 pages preallocated
-[    0.085099] Calibrating delay using timer specific routine.. 4287.59 BogoMIPS (lpj=8575183)
-[    0.085226] Security Framework initialized
-[    0.085244] SELinux:  Disabled at boot.
-[    0.085252] Capability LSM initialized
-[    0.085272] Mount-cache hash table entries: 512
-[    0.085782] Initializing cgroup subsys ns
-[    0.085800] Initializing cgroup subsys cpuacct
-[    0.085803] Initializing cgroup subsys devices
-[    0.085866] CPU: L1 I cache: 32K, L1 D cache: 32K
-[    0.085869] CPU: L2 cache: 6144K
-[    0.085882] Intel machine check architecture supported.
-[    0.085889] Intel machine check reporting enabled on CPU#0.
-[    0.085950] Checking 'hlt' instruction... OK.
-[    0.101148] SMP alternatives: switching to UP code
-[    0.141115] Freeing SMP alternatives: 16k freed
-[    0.141125] ACPI: Core revision 20080321
-[    0.145573] ENABLING IO-APIC IRQs
-[    0.145808] ..TIMER: vector=0x31 apic1=0 pin1=2 apic2=-1 pin2=-1
-[    0.185971] CPU0: Intel(R) Core(TM)2 Duo CPU     E8200  @ 2.66GHz stepping 08
-[    0.188011] Brought up 1 CPUs
-[    0.188011] Total of 1 processors activated (4287.59 BogoMIPS).
-[    0.188011] CPU0 attaching sched-domain:
-[    0.188011]  domain 0: span 0
-[    0.188011]   groups: 0
-[    0.188011] net_namespace: 660 bytes
-[    0.188011] Booting paravirtualized kernel on bare hardware
-[    0.188011] NET: Registered protocol family 16
-[    0.188011] ACPI: bus type pci registered
-[    0.188011] PCI: MCFG configuration 0: base e0000000 segment 0 buses 0 - 255
-[    0.188011] PCI: MCFG area at e0000000 reserved in E820
-[    0.188011] PCI: Using MMCONFIG for extended config space
-[    0.188011] PCI: Using configuration type 1 for base access
-[    0.188011] Setting up standard PCI resources
-[    0.188783] ACPI: EC: Look up EC in DSDT
-[    0.208163] ACPI: BIOS _OSI(Linux) query ignored
-[    0.208184] ACPI: Please send DMI info above to linux-acpi@vger.kernel.org
-[    0.208187] ACPI: If "acpi_osi=Linux" works better, please notify linux-acpi@vger.kernel.org
-[    0.208780] ACPI: Interpreter enabled
-[    0.208785] ACPI: (supports S0 S1 S4 S5)
-[    0.208795] ACPI: Using IOAPIC for interrupt routing
-[    0.225748] ACPI: PCI Root Bridge [PCI0] (0000:00)
-[    0.228108] pci 0000:00:07.3: quirk: region 1000-103f claimed by PIIX4 ACPI
-[    0.228128] pci 0000:00:07.3: quirk: region 1040-104f claimed by PIIX4 SMB
-[    0.248358] PCI: Transparent bridge - 0000:00:11.0
-[    0.267948] ACPI: PCI Interrupt Routing Table [\_SB_.PCI0._PRT]
-[    0.462966] ACPI: PCI Interrupt Link [LNKA] (IRQs 3 4 5 6 7 *9 10 11 14 15)
-[    0.463154] ACPI: PCI Interrupt Link [LNKB] (IRQs 3 4 5 6 7 9 10 *11 14 15)
-[    0.463319] ACPI: PCI Interrupt Link [LNKC] (IRQs 3 4 5 6 7 9 *10 11 14 15)
-[    0.463483] ACPI: PCI Interrupt Link [LNKD] (IRQs 3 4 5 6 7 9 10 11 14 15) *0, disabled.
-[    0.463807] Linux Plug and Play Support v0.97 (c) Adam Belay
-[    0.463890] pnp: PnP ACPI init
-[    0.463899] ACPI: bus type pnp registered
-[    0.485406] pnp: PnP ACPI: found 13 devices
-[    0.485410] ACPI: ACPI bus type pnp unregistered
-[    0.485416] PnPBIOS: Disabled by ACPI PNP
-[    0.485920] PCI: Using ACPI for IRQ routing
-[    0.487363] system 00:01: ioport range 0x1000-0x103f has been reserved
-[    0.487367] system 00:01: ioport range 0x1040-0x104f has been reserved
-[    0.487378] system 00:0c: ioport range 0x1060-0x107f has been reserved
-[    0.487383] system 00:0c: iomem range 0xe0000000-0xefffffff could not be reserved
-[    0.487387] system 00:0c: iomem range 0xdb400000-0xdb5fffff has been reserved
-[    0.518866] PCI: Bridge: 0000:00:01.0
-[    0.518869]   IO window: disabled.
-[    0.518907]   MEM window: disabled.
-[    0.518947]   PREFETCH window: disabled.
-[    0.518996] PCI: Bridge: 0000:00:11.0
-[    0.519012]   IO window: 2000-3fff
-[    0.519051]   MEM window: 0xd8900000-0xd92fffff
-[    0.519077]   PREFETCH window: 0x00000000db600000-0x00000000dbafffff
-[    0.519126] PCI: Bridge: 0000:00:15.0
-[    0.519142]   IO window: 4000-4fff
-[    0.519180]   MEM window: 0xd9300000-0xd93fffff
-[    0.519206]   PREFETCH window: 0x00000000dbb00000-0x00000000dbbfffff
-[    0.519291] PCI: Bridge: 0000:00:15.1
-[    0.519306]   IO window: 8000-8fff
-[    0.519344]   MEM window: 0xd9700000-0xd97fffff
-[    0.519371]   PREFETCH window: 0x00000000dbf00000-0x00000000dbffffff
-[    0.519439] PCI: Bridge: 0000:00:15.2
-[    0.519455]   IO window: c000-cfff
-[    0.519493]   MEM window: 0xd9b00000-0xd9bfffff
-[    0.519520]   PREFETCH window: 0x00000000dc300000-0x00000000dc3fffff
-[    0.519642] PCI: Bridge: 0000:00:15.3
-[    0.519645]   IO window: disabled.
-[    0.519685]   MEM window: 0xd9f00000-0xd9ffffff
-[    0.519712]   PREFETCH window: 0x00000000dc700000-0x00000000dc7fffff
-[    0.519774] PCI: Bridge: 0000:00:15.4
-[    0.519777]   IO window: disabled.
-[    0.519816]   MEM window: 0xda300000-0xda3fffff
-[    0.519842]   PREFETCH window: 0x00000000dcb00000-0x00000000dcbfffff
-[    0.519911] PCI: Bridge: 0000:00:15.5
-[    0.519914]   IO window: disabled.
-[    0.519952]   MEM window: 0xda700000-0xda7fffff
-[    0.519978]   PREFETCH window: 0x00000000dcf00000-0x00000000dcffffff
-[    0.520037] PCI: Bridge: 0000:00:15.6
-[    0.520040]   IO window: disabled.
-[    0.520079]   MEM window: 0xdab00000-0xdabfffff
-[    0.520105]   PREFETCH window: 0x00000000dd300000-0x00000000dd3fffff
-[    0.520167] PCI: Bridge: 0000:00:15.7
-[    0.520170]   IO window: disabled.
-[    0.520208]   MEM window: 0xdaf00000-0xdaffffff
-[    0.520235]   PREFETCH window: 0x00000000dd700000-0x00000000dd7fffff
-[    0.520296] PCI: Bridge: 0000:00:16.0
-[    0.520312]   IO window: 5000-5fff
-[    0.520350]   MEM window: 0xd9400000-0xd94fffff
-[    0.520390]   PREFETCH window: 0x00000000dbc00000-0x00000000dbcfffff
-[    0.520452] PCI: Bridge: 0000:00:16.1
-[    0.520467]   IO window: 9000-9fff
-[    0.520505]   MEM window: 0xd9800000-0xd98fffff
-[    0.520532]   PREFETCH window: 0x00000000dc000000-0x00000000dc0fffff
-[    0.520593] PCI: Bridge: 0000:00:16.2
-[    0.520609]   IO window: d000-dfff
-[    0.520646]   MEM window: 0xd9c00000-0xd9cfffff
-[    0.520673]   PREFETCH window: 0x00000000dc400000-0x00000000dc4fffff
-[    0.520734] PCI: Bridge: 0000:00:16.3
-[    0.520741]   IO window: disabled.
-[    0.520780]   MEM window: 0xda000000-0xda0fffff
-[    0.520806]   PREFETCH window: 0x00000000dc800000-0x00000000dc8fffff
-[    0.520874] PCI: Bridge: 0000:00:16.4
-[    0.520877]   IO window: disabled.
-[    0.520915]   MEM window: 0xda400000-0xda4fffff
-[    0.520941]   PREFETCH window: 0x00000000dcc00000-0x00000000dccfffff
-[    0.521002] PCI: Bridge: 0000:00:16.5
-[    0.521005]   IO window: disabled.
-[    0.521043]   MEM window: 0xda800000-0xda8fffff
-[    0.521070]   PREFETCH window: 0x00000000dd000000-0x00000000dd0fffff
-[    0.521131] PCI: Bridge: 0000:00:16.6
-[    0.521134]   IO window: disabled.
-[    0.521172]   MEM window: 0xdac00000-0xdacfffff
-[    0.521198]   PREFETCH window: 0x00000000dd400000-0x00000000dd4fffff
-[    0.521259] PCI: Bridge: 0000:00:16.7
-[    0.521262]   IO window: disabled.
-[    0.521300]   MEM window: 0xdb000000-0xdb0fffff
-[    0.521327]   PREFETCH window: 0x00000000dd800000-0x00000000dd8fffff
-[    0.521401] PCI: Bridge: 0000:00:17.0
-[    0.521417]   IO window: 6000-6fff
-[    0.521455]   MEM window: 0xd9500000-0xd95fffff
-[    0.521481]   PREFETCH window: 0x00000000dbd00000-0x00000000dbdfffff
-[    0.521542] PCI: Bridge: 0000:00:17.1
-[    0.521558]   IO window: a000-afff
-[    0.521596]   MEM window: 0xd9900000-0xd99fffff
-[    0.521622]   PREFETCH window: 0x00000000dc100000-0x00000000dc1fffff
-[    0.521683] PCI: Bridge: 0000:00:17.2
-[    0.521700]   IO window: e000-efff
-[    0.521738]   MEM window: 0xd9d00000-0xd9dfffff
-[    0.521765]   PREFETCH window: 0x00000000dc500000-0x00000000dc5fffff
-[    0.521826] PCI: Bridge: 0000:00:17.3
-[    0.521843]   IO window: disabled.
-[    0.521882]   MEM window: 0xda100000-0xda1fffff
-[    0.521908]   PREFETCH window: 0x00000000dc900000-0x00000000dc9fffff
-[    0.521970] PCI: Bridge: 0000:00:17.4
-[    0.521973]   IO window: disabled.
-[    0.522011]   MEM window: 0xda500000-0xda5fffff
-[    0.522037]   PREFETCH window: 0x00000000dcd00000-0x00000000dcdfffff
-[    0.522099] PCI: Bridge: 0000:00:17.5
-[    0.522102]   IO window: disabled.
-[    0.522140]   MEM window: 0xda900000-0xda9fffff
-[    0.522166]   PREFETCH window: 0x00000000dd100000-0x00000000dd1fffff
-[    0.522227] PCI: Bridge: 0000:00:17.6
-[    0.522230]   IO window: disabled.
-[    0.522268]   MEM window: 0xdad00000-0xdadfffff
-[    0.522294]   PREFETCH window: 0x00000000dd500000-0x00000000dd5fffff
-[    0.522369] PCI: Bridge: 0000:00:17.7
-[    0.522372]   IO window: disabled.
-[    0.522410]   MEM window: 0xdb100000-0xdb1fffff
-[    0.522436]   PREFETCH window: 0x00000000dd900000-0x00000000dd9fffff
-[    0.522506] PCI: Bridge: 0000:00:18.0
-[    0.522522]   IO window: 7000-7fff
-[    0.522560]   MEM window: 0xd9600000-0xd96fffff
-[    0.522587]   PREFETCH window: 0x00000000dbe00000-0x00000000dbefffff
-[    0.522649] PCI: Bridge: 0000:00:18.1
-[    0.522664]   IO window: b000-bfff
-[    0.522702]   MEM window: 0xd9a00000-0xd9afffff
-[    0.522729]   PREFETCH window: 0x00000000dc200000-0x00000000dc2fffff
-[    0.522791] PCI: Bridge: 0000:00:18.2
-[    0.522820]   IO window: f000-ffff
-[    0.522858]   MEM window: 0xd9e00000-0xd9efffff
-[    0.522885]   PREFETCH window: 0x00000000dc600000-0x00000000dc6fffff
-[    0.522946] PCI: Bridge: 0000:00:18.3
-[    0.522949]   IO window: disabled.
-[    0.522987]   MEM window: 0xda200000-0xda2fffff
-[    0.523014]   PREFETCH window: 0x00000000dca00000-0x00000000dcafffff
-[    0.523075] PCI: Bridge: 0000:00:18.4
-[    0.523078]   IO window: disabled.
-[    0.523116]   MEM window: 0xda600000-0xda6fffff
-[    0.523143]   PREFETCH window: 0x00000000dce00000-0x00000000dcefffff
-[    0.523204] PCI: Bridge: 0000:00:18.5
-[    0.523207]   IO window: disabled.
-[    0.523245]   MEM window: 0xdaa00000-0xdaafffff
-[    0.523271]   PREFETCH window: 0x00000000dd200000-0x00000000dd2fffff
-[    0.523346] PCI: Bridge: 0000:00:18.6
-[    0.523352]   IO window: disabled.
-[    0.523391]   MEM window: 0xdae00000-0xdaefffff
-[    0.523417]   PREFETCH window: 0x00000000dd600000-0x00000000dd6fffff
-[    0.523479] PCI: Bridge: 0000:00:18.7
-[    0.523482]   IO window: disabled.
-[    0.523520]   MEM window: 0xdb200000-0xdb2fffff
-[    0.523546]   PREFETCH window: 0x00000000dda00000-0x00000000ddafffff
-[    0.523694] PCI: Setting latency timer of device 0000:00:01.0 to 64
-[    0.523939] PCI: Setting latency timer of device 0000:00:15.0 to 64
-[    0.524101] PCI: Setting latency timer of device 0000:00:15.1 to 64
-[    0.524247] PCI: Setting latency timer of device 0000:00:15.2 to 64
-[    0.524405] PCI: Setting latency timer of device 0000:00:15.3 to 64
-[    0.524550] PCI: Setting latency timer of device 0000:00:15.4 to 64
-[    0.524695] PCI: Setting latency timer of device 0000:00:15.5 to 64
-[    0.524853] PCI: Setting latency timer of device 0000:00:15.6 to 64
-[    0.524998] PCI: Setting latency timer of device 0000:00:15.7 to 64
-[    0.525143] PCI: Setting latency timer of device 0000:00:16.0 to 64
-[    0.525295] PCI: Setting latency timer of device 0000:00:16.1 to 64
-[    0.525440] PCI: Setting latency timer of device 0000:00:16.2 to 64
-[    0.525585] PCI: Setting latency timer of device 0000:00:16.3 to 64
-[    0.525730] PCI: Setting latency timer of device 0000:00:16.4 to 64
-[    0.525889] PCI: Setting latency timer of device 0000:00:16.5 to 64
-[    0.526034] PCI: Setting latency timer of device 0000:00:16.6 to 64
-[    0.526178] PCI: Setting latency timer of device 0000:00:16.7 to 64
-[    0.526330] PCI: Setting latency timer of device 0000:00:17.0 to 64
-[    0.526475] PCI: Setting latency timer of device 0000:00:17.1 to 64
-[    0.526620] PCI: Setting latency timer of device 0000:00:17.2 to 64
-[    0.526771] PCI: Setting latency timer of device 0000:00:17.3 to 64
-[    0.526917] PCI: Setting latency timer of device 0000:00:17.4 to 64
-[    0.527062] PCI: Setting latency timer of device 0000:00:17.5 to 64
-[    0.527212] PCI: Setting latency timer of device 0000:00:17.6 to 64
-[    0.527358] PCI: Setting latency timer of device 0000:00:17.7 to 64
-[    0.527503] PCI: Setting latency timer of device 0000:00:18.0 to 64
-[    0.527743] PCI: Setting latency timer of device 0000:00:18.1 to 64
-[    0.527888] PCI: Setting latency timer of device 0000:00:18.2 to 64
-[    0.528038] PCI: Setting latency timer of device 0000:00:18.3 to 64
-[    0.528191] PCI: Setting latency timer of device 0000:00:18.4 to 64
-[    0.528336] PCI: Setting latency timer of device 0000:00:18.5 to 64
-[    0.528483] PCI: Setting latency timer of device 0000:00:18.6 to 64
-[    0.528629] PCI: Setting latency timer of device 0000:00:18.7 to 64
-[    0.528698] NET: Registered protocol family 2
-[    0.528878] IP route cache hash table entries: 16384 (order: 4, 65536 bytes)
-[    0.529069] TCP established hash table entries: 65536 (order: 7, 524288 bytes)
-[    0.531439] TCP bind hash table entries: 65536 (order: 7, 524288 bytes)
-[    0.533930] TCP: Hash tables configured (established 65536 bind 65536)
-[    0.533934] TCP reno registered
-[    0.534042] NET: Registered protocol family 1
-[    0.534209] checking if image is initramfs... it is
-[    0.872916] Freeing initrd memory: 6035k freed
-[    0.873234] Simple Boot Flag at 0x36 set to 0x1
-[    0.874681] audit: initializing netlink socket (disabled)
-[    0.874694] type=2000 audit(1259135020.871:1): initialized
-[    0.874960] Total HugeTLB memory allocated, 0
-[    0.875107] VFS: Disk quotas dquot_6.5.1
-[    0.875145] Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
-[    0.875210] msgmni has been set to 1007
-[    0.875432] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
-[    0.875437] io scheduler noop registered
-[    0.875440] io scheduler anticipatory registered
-[    0.875442] io scheduler deadline registered
-[    0.875450] io scheduler cfq registered (default)
-[    0.875463] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
-[    0.875491] pci 0000:00:0f.0: Boot video device
-[    0.875822] PCI: Setting latency timer of device 0000:00:15.0 to 64
-[    0.876454] assign_interrupt_mode Found MSI capability
-[    0.877050] Allocate Port Service[0000:00:15.0:pcie00]
-[    0.877182] Allocate Port Service[0000:00:15.0:pcie02]
-[    0.877953] PCI: Setting latency timer of device 0000:00:15.1 to 64
-[    0.878508] assign_interrupt_mode Found MSI capability
-[    0.879093] Allocate Port Service[0000:00:15.1:pcie00]
-[    0.879176] Allocate Port Service[0000:00:15.1:pcie02]
-[    0.880015] PCI: Setting latency timer of device 0000:00:15.2 to 64
-[    0.880570] assign_interrupt_mode Found MSI capability
-[    0.881142] Allocate Port Service[0000:00:15.2:pcie00]
-[    0.881227] Allocate Port Service[0000:00:15.2:pcie02]
-[    0.881977] PCI: Setting latency timer of device 0000:00:15.3 to 64
-[    0.882561] assign_interrupt_mode Found MSI capability
-[    0.883139] Allocate Port Service[0000:00:15.3:pcie00]
-[    0.883223] Allocate Port Service[0000:00:15.3:pcie02]
-[    0.883984] PCI: Setting latency timer of device 0000:00:15.4 to 64
-[    0.884554] assign_interrupt_mode Found MSI capability
-[    0.885128] Allocate Port Service[0000:00:15.4:pcie00]
-[    0.885292] Allocate Port Service[0000:00:15.4:pcie02]
-[    0.886078] PCI: Setting latency timer of device 0000:00:15.5 to 64
-[    0.886636] assign_interrupt_mode Found MSI capability
-[    0.887215] Allocate Port Service[0000:00:15.5:pcie00]
-[    0.887313] Allocate Port Service[0000:00:15.5:pcie02]
-[    0.888231] PCI: Setting latency timer of device 0000:00:15.6 to 64
-[    0.888791] assign_interrupt_mode Found MSI capability
-[    0.889362] Allocate Port Service[0000:00:15.6:pcie00]
-[    0.889475] Allocate Port Service[0000:00:15.6:pcie02]
-[    0.890197] PCI: Setting latency timer of device 0000:00:15.7 to 64
-[    0.890754] assign_interrupt_mode Found MSI capability
-[    0.891333] Allocate Port Service[0000:00:15.7:pcie00]
-[    0.891381] Allocate Port Service[0000:00:15.7:pcie02]
-[    0.892126] PCI: Setting latency timer of device 0000:00:16.0 to 64
-[    0.892683] assign_interrupt_mode Found MSI capability
-[    0.893262] Allocate Port Service[0000:00:16.0:pcie00]
-[    0.893311] Allocate Port Service[0000:00:16.0:pcie02]
-[    0.894033] PCI: Setting latency timer of device 0000:00:16.1 to 64
-[    0.894580] assign_interrupt_mode Found MSI capability
-[    0.895188] Allocate Port Service[0000:00:16.1:pcie00]
-[    0.895236] Allocate Port Service[0000:00:16.1:pcie02]
-[    0.896004] PCI: Setting latency timer of device 0000:00:16.2 to 64
-[    0.896556] assign_interrupt_mode Found MSI capability
-[    0.897128] Allocate Port Service[0000:00:16.2:pcie00]
-[    0.897177] Allocate Port Service[0000:00:16.2:pcie02]
-[    0.897928] PCI: Setting latency timer of device 0000:00:16.3 to 64
-[    0.898487] assign_interrupt_mode Found MSI capability
-[    0.899059] Allocate Port Service[0000:00:16.3:pcie00]
-[    0.899109] Allocate Port Service[0000:00:16.3:pcie02]
-[    0.899895] PCI: Setting latency timer of device 0000:00:16.4 to 64
-[    0.900468] assign_interrupt_mode Found MSI capability
-[    0.901040] Allocate Port Service[0000:00:16.4:pcie00]
-[    0.901089] Allocate Port Service[0000:00:16.4:pcie02]
-[    0.901815] PCI: Setting latency timer of device 0000:00:16.5 to 64
-[    0.902363] assign_interrupt_mode Found MSI capability
-[    0.902932] Allocate Port Service[0000:00:16.5:pcie00]
-[    0.902981] Allocate Port Service[0000:00:16.5:pcie02]
-[    0.903697] PCI: Setting latency timer of device 0000:00:16.6 to 64
-[    0.904276] assign_interrupt_mode Found MSI capability
-[    0.904851] Allocate Port Service[0000:00:16.6:pcie00]
-[    0.904900] Allocate Port Service[0000:00:16.6:pcie02]
-[    0.905619] PCI: Setting latency timer of device 0000:00:16.7 to 64
-[    0.906205] assign_interrupt_mode Found MSI capability
-[    0.906790] Allocate Port Service[0000:00:16.7:pcie00]
-[    0.906839] Allocate Port Service[0000:00:16.7:pcie02]
-[    0.907550] PCI: Setting latency timer of device 0000:00:17.0 to 64
-[    0.908189] assign_interrupt_mode Found MSI capability
-[    0.908770] Allocate Port Service[0000:00:17.0:pcie00]
-[    0.908819] Allocate Port Service[0000:00:17.0:pcie02]
-[    0.909538] PCI: Setting latency timer of device 0000:00:17.1 to 64
-[    0.910094] assign_interrupt_mode Found MSI capability
-[    0.910665] Allocate Port Service[0000:00:17.1:pcie00]
-[    0.910712] Allocate Port Service[0000:00:17.1:pcie02]
-[    0.911429] PCI: Setting latency timer of device 0000:00:17.2 to 64
-[    0.912028] assign_interrupt_mode Found MSI capability
-[    0.912609] Allocate Port Service[0000:00:17.2:pcie00]
-[    0.912657] Allocate Port Service[0000:00:17.2:pcie02]
-[    0.913380] PCI: Setting latency timer of device 0000:00:17.3 to 64
-[    0.913938] assign_interrupt_mode Found MSI capability
-[    0.914580] Allocate Port Service[0000:00:17.3:pcie00]
-[    0.914633] Allocate Port Service[0000:00:17.3:pcie02]
-[    0.915373] PCI: Setting latency timer of device 0000:00:17.4 to 64
-[    0.915966] assign_interrupt_mode Found MSI capability
-[    0.916562] Allocate Port Service[0000:00:17.4:pcie00]
-[    0.916629] Allocate Port Service[0000:00:17.4:pcie02]
-[    0.917374] PCI: Setting latency timer of device 0000:00:17.5 to 64
-[    0.917933] assign_interrupt_mode Found MSI capability
-[    0.918515] Allocate Port Service[0000:00:17.5:pcie00]
-[    0.918579] Allocate Port Service[0000:00:17.5:pcie02]
-[    0.919295] PCI: Setting latency timer of device 0000:00:17.6 to 64
-[    0.919898] assign_interrupt_mode Found MSI capability
-[    0.920496] Allocate Port Service[0000:00:17.6:pcie00]
-[    0.920547] Allocate Port Service[0000:00:17.6:pcie02]
-[    0.921264] PCI: Setting latency timer of device 0000:00:17.7 to 64
-[    0.921822] assign_interrupt_mode Found MSI capability
-[    0.922403] Allocate Port Service[0000:00:17.7:pcie00]
-[    0.922468] Allocate Port Service[0000:00:17.7:pcie02]
-[    0.923187] PCI: Setting latency timer of device 0000:00:18.0 to 64
-[    0.923889] assign_interrupt_mode Found MSI capability
-[    0.924602] Allocate Port Service[0000:00:18.0:pcie00]
-[    0.924670] Allocate Port Service[0000:00:18.0:pcie02]
-[    0.925406] PCI: Setting latency timer of device 0000:00:18.1 to 64
-[    0.925988] assign_interrupt_mode Found MSI capability
-[    0.926567] Allocate Port Service[0000:00:18.1:pcie00]
-[    0.926652] Allocate Port Service[0000:00:18.1:pcie02]
-[    0.927432] PCI: Setting latency timer of device 0000:00:18.2 to 64
-[    0.927989] assign_interrupt_mode Found MSI capability
-[    0.928576] Allocate Port Service[0000:00:18.2:pcie00]
-[    0.928627] Allocate Port Service[0000:00:18.2:pcie02]
-[    0.929339] PCI: Setting latency timer of device 0000:00:18.3 to 64
-[    0.929898] assign_interrupt_mode Found MSI capability
-[    0.930476] Allocate Port Service[0000:00:18.3:pcie00]
-[    0.930540] Allocate Port Service[0000:00:18.3:pcie02]
-[    0.931271] PCI: Setting latency timer of device 0000:00:18.4 to 64
-[    0.931831] assign_interrupt_mode Found MSI capability
-[    0.932427] Allocate Port Service[0000:00:18.4:pcie00]
-[    0.932493] Allocate Port Service[0000:00:18.4:pcie02]
-[    0.933233] PCI: Setting latency timer of device 0000:00:18.5 to 64
-[    0.933781] assign_interrupt_mode Found MSI capability
-[    0.934352] Allocate Port Service[0000:00:18.5:pcie00]
-[    0.934418] Allocate Port Service[0000:00:18.5:pcie02]
-[    0.935139] PCI: Setting latency timer of device 0000:00:18.6 to 64
-[    0.935700] assign_interrupt_mode Found MSI capability
-[    0.936278] Allocate Port Service[0000:00:18.6:pcie00]
-[    0.936327] Allocate Port Service[0000:00:18.6:pcie02]
-[    0.937068] PCI: Setting latency timer of device 0000:00:18.7 to 64
-[    0.937620] assign_interrupt_mode Found MSI capability
-[    0.938205] Allocate Port Service[0000:00:18.7:pcie00]
-[    0.938254] Allocate Port Service[0000:00:18.7:pcie02]
-[    0.939256] isapnp: Scanning for PnP cards...
-[    1.020018] Switched to high resolution mode on CPU 0
-[    1.299643] isapnp: No Plug & Play device found
-[    1.306018] Serial: 8250/16550 driver $Revision: 1.90 $ 4 ports, IRQ sharing enabled
-[    1.306674] serial8250: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
-[    1.307345] serial8250: ttyS1 at I/O 0x2f8 (irq = 3) is a 16550A
-[    1.308262] 00:09: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
-[    1.308994] 00:0a: ttyS1 at I/O 0x2f8 (irq = 3) is a 16550A
-[    1.313240] brd: module loaded
-[    1.313393] PNP: PS/2 Controller [PNP0303:KBC,PNP0f13:MOUS] at 0x60,0x64 irq 1,12
-[    1.850530] serio: i8042 KBD port at 0x60,0x64 irq 1
-[    1.850540] serio: i8042 AUX port at 0x60,0x64 irq 12
-[    1.850883] mice: PS/2 mouse device common for all mice
-[    1.851093] rtc_cmos 00:04: rtc core: registered rtc_cmos as rtc0
-[    1.851122] rtc0: alarms up to one month, y3k
-[    1.851175] cpuidle: using governor ladder
-[    1.851178] cpuidle: using governor menu
-[    1.851183] No iBFT detected.
-[    1.851374] TCP cubic registered
-[    1.851379] NET: Registered protocol family 17
-[    1.851385] Using IPI No-Shortcut mode
-[    1.851671] registered taskstats version 1
-[    1.872014] rtc_cmos 00:04: setting system clock to 2009-11-25 07:43:42 UTC (1259135022)
-[    1.872014] Freeing unused kernel memory: 244k freed
-[    1.873374] input: AT Translated Set 2 keyboard as /class/input/input0
-[    1.940682] ACPI: ACPI0007:00 is registered as cooling_device0
-[    1.940687] ACPI: Processor [CPU0] (supports 8 throttling states)
-[    2.336455] No dock devices found.
-[    2.341316] SCSI subsystem initialized
-[    2.363460] libata version 3.00 loaded.
-[    2.372685] Uniform Multi-Platform E-IDE driver
-[    2.372694] ide: Assuming 33MHz system bus speed for PIO modes; override with idebus=xx
-[    2.372928] PIIX4: IDE controller (0x8086:0x7111 rev 0x01) at  PCI slot 0000:00:07.1
-[    2.373032] PIIX4: not 100% native mode: will probe irqs later
-[    2.373050] PIIX4: IDE port disabled
-[    2.373095]     ide0: BM-DMA at 0x10c8-0x10cf
-[    2.373104] Probing IDE interface ide0...
-[    2.397727] Fusion MPT base driver 3.04.06
-[    2.397731] Copyright (c) 1999-2007 LSI Corporation
-[    2.398077] Fusion MPT SPI Host driver 3.04.06
-[    2.409332] pcnet32.c:v1.35 21.Apr.2008 tsbogend@alpha.franken.de
-[    2.528507] Floppy drive(s): fd0 is 1.44M
-[    2.545609] FDC 0 is a post-1991 82077
-[    3.444366] ide0 at 0x170-0x177,0x376 on irq 15
-[    3.444744] ACPI: PCI Interrupt 0000:00:10.0[A] -> GSI 17 (level, low) -> IRQ 17
-[    3.444938] mptbase: ioc0: Initiating bringup
-[    3.516354] ioc0: LSI53C1030 B0: Capabilities={Initiator}
-[    3.644835] scsi0 : ioc0: LSI53C1030 B0, FwRev=00000000h, Ports=1, MaxQ=128, IRQ=17
-[    3.757414] ACPI: PCI Interrupt 0000:02:00.0[A] -> GSI 18 (level, low) -> IRQ 18
-[    3.757592] pcnet32: PCnet/PCI II 79C970A at 0x2000, 00:0c:29:94:1e:81 assigned IRQ 18.
-[    3.758004] eth0: registered as PCnet/PCI II 79C970A
-[    3.758056] pcnet32: 1 cards_found.
-[    3.768708] hda: ATAPI 1X CD-ROM drive, 32kB Cache
-[    3.768714] Uniform CD-ROM driver Revision: 3.20
-[    3.784313] Driver 'sd' needs updating - please use bus_type methods
-[    3.784474] sd 0:0:0:0: [sda] 4194304 512-byte hardware sectors (2147 MB)
-[    3.784516] sd 0:0:0:0: [sda] Write Protect is off
-[    3.784519] sd 0:0:0:0: [sda] Mode Sense: 5d 00 00 00
-[    3.784598] sd 0:0:0:0: [sda] Cache data unavailable
-[    3.784601] sd 0:0:0:0: [sda] Assuming drive cache: write through
-[    3.784798] sd 0:0:0:0: [sda] 4194304 512-byte hardware sectors (2147 MB)
-[    3.784838] sd 0:0:0:0: [sda] Write Protect is off
-[    3.784842] sd 0:0:0:0: [sda] Mode Sense: 5d 00 00 00
-[    3.784898] sd 0:0:0:0: [sda] Cache data unavailable
-[    3.784902] sd 0:0:0:0: [sda] Assuming drive cache: write through
-[    3.785044]  sda: sda1 sda2 < sda5 >
-[    3.791551] sd 0:0:0:0: [sda] Attached SCSI disk
-[    3.934033] PM: Starting manual resume from disk
-[    3.945965] kjournald starting.  Commit interval 5 seconds
-[    3.945978] EXT3-fs: mounted filesystem with ordered data mode.
-[    4.276320] udevd version 125 started
-[    4.956253] Linux agpgart interface v0.103
-[    4.964251] agpgart: Detected an Intel 440BX Chipset.
-[    4.964600] agpgart: AGP aperture is 256M @ 0x0
-[    5.020304] pci_hotplug: PCI Hot Plug PCI Core version: 0.5
-[    5.024691] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
-[    5.060855] piix4_smbus 0000:00:07.3: Found 0000:00:07.3 device
-[    5.060893] piix4_smbus 0000:00:07.3: Host SMBus controller not enabled!
-[    5.072407] input: Power Button (FF) as /class/input/input1
-[    5.100341] ACPI: Power Button (FF) [PWRF]
-[    5.100393] input: Sleep Button (CM) as /class/input/input2
-[    5.128141] ACPI: Sleep Button (CM) [SLPB]
-[    5.128863] ACPI: AC Adapter [ACAD] (on-line)
-[    5.837219] input: ImPS/2 Generic Wheel Mouse as /class/input/input3
-[    5.872294] input: PC Speaker as /class/input/input4
-[    6.000628] Error: Driver 'pcspkr' is already registered, aborting...
-[    6.028407] parport_pc 00:08: reported by Plug and Play ACPI
-[    6.028480] parport0: PC-style at 0x378, irq 7 [PCSPP,TRISTATE]
-[    7.037810] Adding 152576k swap on /dev/sda5.  Priority:-1 extents:1 across:152576k
-[    7.082040] EXT3 FS on sda1, internal journal
-[    8.109933] loop: module loaded
-[    8.710026] NET: Registered protocol family 10
-[    8.710206] lo: Disabled Privacy Extensions
-[    9.019445] eth0: link up
-[   21.360050] eth0: no IPv6 routers present
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x414fd0b1]
+[    0.000000] Linux version 6.12.75+rpt-rpi-2712 (serge@raspberrypi.com) (aarch64-linux-gnu-gcc-14 (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44) #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11)
+[    0.000000] KASLR enabled
+[    0.000000] random: crng init done
+[    0.000000] Machine model: Raspberry Pi 5 Model B Rev 1.1
+[    0.000000] efi: UEFI not found.
+[    0.000000] Reserved memory: created CMA memory pool at 0x000000003a000000, size 64 MiB
+[    0.000000] OF: reserved mem: initialized node linux,cma, compatible id shared-dma-pool
+[    0.000000] OF: reserved mem: 0x000000003a000000..0x000000003dffffff (65536 KiB) map reusable linux,cma
+[    0.000000] OF: reserved mem: 0x0000000000000000..0x000000000007ffff (512 KiB) nomap non-reusable atf@0
+[    0.000000] OF: reserved mem: 0x000000003fd235c0..0x000000003fd235fd (0 KiB) nomap non-reusable nvram@0
+[    0.000000] NUMA: Faking a node at [mem 0x0000000000000000-0x00000003ffffffff]
+[    0.000000] Faking node 0 at [mem 0x0000000000000000-0x000000007fffffff] (2048MB)
+[    0.000000] Faking node 1 at [mem 0x0000000080000000-0x00000000ffffffff] (2048MB)
+[    0.000000] Faking node 2 at [mem 0x0000000100000000-0x000000017fffffff] (2048MB)
+[    0.000000] Faking node 3 at [mem 0x0000000180000000-0x00000001ffffffff] (2048MB)
+[    0.000000] Faking node 4 at [mem 0x0000000200000000-0x000000027fffffff] (2048MB)
+[    0.000000] Faking node 5 at [mem 0x0000000280000000-0x00000002ffffffff] (2048MB)
+[    0.000000] Faking node 6 at [mem 0x0000000300000000-0x000000037fffffff] (2048MB)
+[    0.000000] Faking node 7 at [mem 0x0000000380000000-0x00000003ffffffff] (2048MB)
+[    0.000000] NUMA: Initialized distance table, cnt=8
+[    0.000000] NODE_DATA(0) allocated [mem 0x7fffd200-0x7fffffff]
+[    0.000000] NODE_DATA(1) allocated [mem 0xffffd200-0xffffffff]
+[    0.000000] NODE_DATA(2) allocated [mem 0x17fffd200-0x17fffffff]
+[    0.000000] NODE_DATA(3) allocated [mem 0x1ffffd200-0x1ffffffff]
+[    0.000000] NODE_DATA(4) allocated [mem 0x27fffd200-0x27fffffff]
+[    0.000000] NODE_DATA(5) allocated [mem 0x2ffffd200-0x2ffffffff]
+[    0.000000] NODE_DATA(6) allocated [mem 0x37fffd200-0x37fffffff]
+[    0.000000] NODE_DATA(7) allocated [mem 0x3ff799200-0x3ff79bfff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000000000-0x00000000ffffffff]
+[    0.000000]   DMA32    empty
+[    0.000000]   Normal   [mem 0x0000000100000000-0x00000003ffffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000000007ffff]
+[    0.000000]   node   0: [mem 0x0000000000080000-0x000000003f7fffff]
+[    0.000000]   node   0: [mem 0x0000000040000000-0x000000007fffffff]
+[    0.000000]   node   1: [mem 0x0000000080000000-0x00000000ffffffff]
+[    0.000000]   node   2: [mem 0x0000000100000000-0x000000017fffffff]
+[    0.000000]   node   3: [mem 0x0000000180000000-0x00000001ffffffff]
+[    0.000000]   node   4: [mem 0x0000000200000000-0x000000027fffffff]
+[    0.000000]   node   5: [mem 0x0000000280000000-0x00000002ffffffff]
+[    0.000000]   node   6: [mem 0x0000000300000000-0x000000037fffffff]
+[    0.000000]   node   7: [mem 0x0000000380000000-0x00000003ffffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000007fffffff]
+[    0.000000] Initmem setup node 1 [mem 0x0000000080000000-0x00000000ffffffff]
+[    0.000000] Initmem setup node 2 [mem 0x0000000100000000-0x000000017fffffff]
+[    0.000000] Initmem setup node 3 [mem 0x0000000180000000-0x00000001ffffffff]
+[    0.000000] Initmem setup node 4 [mem 0x0000000200000000-0x000000027fffffff]
+[    0.000000] Initmem setup node 5 [mem 0x0000000280000000-0x00000002ffffffff]
+[    0.000000] Initmem setup node 6 [mem 0x0000000300000000-0x000000037fffffff]
+[    0.000000] Initmem setup node 7 [mem 0x0000000380000000-0x00000003ffffffff]
+[    0.000000] On node 0, zone DMA: 512 pages in unavailable ranges
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] psci: SMC Calling Convention v1.2
+[    0.000000] percpu: Embedded 15 pages/cpu s193560 r8192 d44008 u245760
+[    0.000000] pcpu-alloc: s193560 r8192 d44008 u245760 alloc=15*16384
+[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: Virtualization Host Extensions
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] CPU features: detected: Spectre-BHB
+[    0.000000] CPU features: kernel page table isolation forced ON by KASLR
+[    0.000000] CPU features: detected: Kernel page table isolation (KPTI)
+[    0.000000] CPU features: detected: SSBS not fully self-synchronizing
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Kernel command line: reboot=w coherent_pool=1M 8250.nr_uarts=1 pci=pcie_bus_safe cgroup_disable=memory numa_policy=interleave nvme.max_host_mem_size_mb=0  numa=fake=8 system_heap.max_order=0 iommu_dma_numa_policy=interleave smsc95xx.macaddr=88:A2:9E:1D:88:96 vc_mem.mem_base=0x3fc00000 vc_mem.mem_size=0x40000000  console=ttyAMA10,115200 console=tty1 root=PARTUUID=614afe45-02 rootfstype=ext4 fsck.repair=yes rootwait ds=nocloud;i=rpi-imager-1776274841741 cfg80211.ieee80211_regdom=US
+[    0.000000] cgroup: Disabling memory control group subsystem
+[    0.000000] mempolicy: NUMA default policy overridden to 'interleave:0-7'
+[    0.000000] DMA IOMMU NUMA default policy overridden to 'interleave:0-7'
+[    0.000000] Unknown kernel command line parameters "ds=nocloud;i=rpi-imager-1776274841741", will be passed to user space.
+[    0.000000] Fallback order for Node 0: 0 1 2 3 4 5 6 7 
+[    0.000000] Fallback order for Node 1: 1 2 3 4 5 6 7 0 
+[    0.000000] Fallback order for Node 2: 2 3 4 5 6 7 0 1 
+[    0.000000] Fallback order for Node 3: 3 4 5 6 7 0 1 2 
+[    0.000000] Fallback order for Node 4: 4 5 6 7 0 1 2 3 
+[    0.000000] Fallback order for Node 5: 5 6 7 0 1 2 3 4 
+[    0.000000] Fallback order for Node 6: 6 7 0 1 2 3 4 5 
+[    0.000000] Fallback order for Node 7: 7 0 1 2 3 4 5 6 
+[    0.000000] Built 8 zonelists, mobility grouping on.  Total pages: 1048064
+[    0.000000] Policy zone: Normal
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.000000] software IO TLB: area num 4.
+[    0.000000] software IO TLB: mapped [mem 0x00000000fbffc000-0x00000000ffffc000] (64MB)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=8
+[    0.000000] ftrace: allocating 45326 entries in 45 pages
+[    0.000000] ftrace: allocated 45 pages with 4 groups
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Rude variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] RCU Tasks: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] RCU Tasks Rude: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] RCU Tasks Trace: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] Root IRQ handler: gic_handle_irq
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 54.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
+[    0.000000] sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
+[    0.000091] Console: colour dummy device 80x25
+[    0.000096] printk: legacy console [tty1] enabled
+[    0.000311] Calibrating delay loop (skipped), value calculated using timer frequency.. 108.00 BogoMIPS (lpj=216000)
+[    0.000318] pid_max: default: 32768 minimum: 301
+[    0.000407] LSM: initializing lsm=capability
+[    0.003311] Dentry cache hash table entries: 2097152 (order: 10, 16777216 bytes, vmalloc)
+[    0.004768] Inode-cache hash table entries: 1048576 (order: 9, 8388608 bytes, vmalloc)
+[    0.004836] Mount-cache hash table entries: 32768 (order: 4, 262144 bytes, vmalloc)
+[    0.004876] Mountpoint-cache hash table entries: 32768 (order: 4, 262144 bytes, vmalloc)
+[    0.005603] rcu: Hierarchical SRCU implementation.
+[    0.005616] rcu: 	Max phase no-delay instances is 1000.
+[    0.005661] Timer migration: 1 hierarchy levels; 8 children per group; 0 crossnode level
+[    0.005999] EFI services will not be available.
+[    0.006071] smp: Bringing up secondary CPUs ...
+[    0.006283] Detected PIPT I-cache on CPU1
+[    0.006321] CPU1: Booted secondary processor 0x0000000100 [0x414fd0b1]
+[    0.006534] Detected PIPT I-cache on CPU2
+[    0.006565] CPU2: Booted secondary processor 0x0000000200 [0x414fd0b1]
+[    0.006751] Detected PIPT I-cache on CPU3
+[    0.006770] CPU3: Booted secondary processor 0x0000000300 [0x414fd0b1]
+[    0.006800] smp: Brought up 8 nodes, 4 CPUs
+[    0.006815] SMP: Total of 4 processors activated.
+[    0.006817] CPU: All CPU(s) started at EL2
+[    0.006821] CPU features: detected: 32-bit EL0 Support
+[    0.006824] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    0.006827] CPU features: detected: Common not Private translations
+[    0.006830] CPU features: detected: CRC32 instructions
+[    0.006834] CPU features: detected: RCpc load-acquire (LDAPR)
+[    0.006836] CPU features: detected: LSE atomic instructions
+[    0.006839] CPU features: detected: Privileged Access Never
+[    0.006841] CPU features: detected: RAS Extension Support
+[    0.006844] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    0.006866] alternatives: applying system-wide alternatives
+[    0.008328] CPU features: detected: Hardware dirty bit management on CPU0-3
+[    0.008514] Memory: 16471296K/16769024K available (14336K kernel code, 2432K rwdata, 4944K rodata, 2304K init, 647K bss, 182880K reserved, 65536K cma-reserved)
+[    0.008717] devtmpfs: initialized
+[    0.010571] Enabled cp15_barrier support
+[    0.010579] Enabled setend support
+[    0.010621] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.010628] futex hash table entries: 1024 (order: 2, 65536 bytes, vmalloc)
+[    0.010745] 2G module region forced by RANDOMIZE_MODULE_REGION_FULL
+[    0.010748] 0 pages in range for non-PLT usage
+[    0.010749] 129508 pages in range for PLT usage
+[    0.010835] pinctrl core: initialized pinctrl subsystem
+[    0.010960] DMI not present or invalid.
+[    0.013806] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.014161] DMA: preallocated 1024 KiB GFP_KERNEL pool for atomic allocations
+[    0.014190] DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.014221] DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    0.014237] audit: initializing netlink subsys (disabled)
+[    0.014278] audit: type=2000 audit(0.012:1): state=initialized audit_enabled=0 res=1
+[    0.014380] thermal_sys: Registered thermal governor 'step_wise'
+[    0.014388] cpuidle: using governor menu
+[    0.014446] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.014467] ASID allocator initialised with 32768 entries
+[    0.014684] Serial: AMBA PL011 UART driver
+[    0.015438] /soc@107c000000/interrupt-controller@7fff9000: Fixed dependency cycle(s) with /soc@107c000000/interrupt-controller@7fff9000
+[    0.015591] bcm2835-mbox 107c013880.mailbox: mailbox enabled
+[    0.015708] 107d001000.serial: ttyAMA10 at MMIO 0x107d001000 (irq = 16, base_baud = 0) is a PL011 AXI
+[    0.015720] printk: legacy console [ttyAMA10] enabled
+[    1.082473] raspberrypi-firmware soc@107c000000:firmware: Attached to firmware from 2025-12-08T19:29:54, variant start_cd
+[    1.097484] raspberrypi-firmware soc@107c000000:firmware: Firmware hash is 2226a85300000000000000000000000000000000
+[    1.120476] bcm2835-dma 1000010000.dma: DMA legacy API manager, dmachans=0x1
+[    1.127978] iommu: Default domain type: Translated
+[    1.132859] iommu: DMA domain TLB invalidation policy: strict mode
+[    1.146514] SCSI subsystem initialized
+[    1.150306] usbcore: registered new interface driver usbfs
+[    1.155818] usbcore: registered new interface driver hub
+[    1.161154] usbcore: registered new device driver usb
+[    1.166287] pps_core: LinuxPPS API ver. 1 registered
+[    1.171272] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    1.180443] PTP clock support registered
+[    1.184631] vgaarb: loaded
+[    1.187458] clocksource: Switched to clocksource arch_sys_counter
+[    1.193743] VFS: Disk quotas dquot_6.6.0
+[    1.203463] VFS: Dquot-cache hash table entries: 2048 (order 0, 16384 bytes)
+[    1.211782] NET: Registered PF_INET protocol family
+[    1.217025] IP idents hash table entries: 262144 (order: 7, 2097152 bytes, vmalloc)
+[    1.227807] tcp_listen_portaddr_hash hash table entries: 8192 (order: 3, 131072 bytes, vmalloc)
+[    1.236612] Table-perturb hash table entries: 65536 (order: 4, 262144 bytes, vmalloc)
+[    1.244482] TCP established hash table entries: 131072 (order: 6, 1048576 bytes, vmalloc)
+[    1.253049] TCP bind hash table entries: 65536 (order: 7, 2097152 bytes, vmalloc)
+[    1.261243] TCP: Hash tables configured (established 131072 bind 65536)
+[    1.268013] MPTCP token hash table entries: 16384 (order: 5, 393216 bytes, vmalloc)
+[    1.275789] UDP hash table entries: 8192 (order: 4, 262144 bytes, vmalloc)
+[    1.282812] UDP-Lite hash table entries: 8192 (order: 4, 262144 bytes, vmalloc)
+[    1.290310] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    1.296127] RPC: Registered named UNIX socket transport module.
+[    1.302660] RPC: Registered udp transport module.
+[    1.307385] RPC: Registered tcp transport module.
+[    1.312104] RPC: Registered tcp-with-tls transport module.
+[    1.317632] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    1.324105] PCI: CLS 0 bytes, default 64
+[    1.328111] Trying to unpack rootfs image as initramfs...
+[    1.334722] kvm [1]: nv: 554 coarse grained trap handlers
+[    1.340277] kvm [1]: IPA Size Limit: 40 bits
+[    1.344576] kvm [1]: GICV region size/alignment is unsafe, using trapping (reduced performance)
+[    1.353341] kvm [1]: vgic interrupt IRQ9
+[    1.357289] kvm [1]: VHE mode initialized successfully
+[    1.363075] Initialise system trusted keyrings
+[    1.367729] workingset: timestamp_bits=42 max_order=20 bucket_order=0
+[    1.374548] NFS: Registering the id_resolver key type
+[    1.379633] Key type id_resolver registered
+[    1.383829] Key type id_legacy registered
+[    1.387872] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    1.394604] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+[    1.402272] Key type asymmetric registered
+[    1.406396] Asymmetric key parser 'x509' registered
+[    1.411335] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+[    1.418836] io scheduler mq-deadline registered
+[    1.423387] io scheduler kyber registered
+[    1.427440] io scheduler bfq registered
+[    1.431692] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/interrupt-controller@7d510600, parent irq: 27)
+[    1.439957] Freeing initrd memory: 15648K
+[    1.441829] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/interrupt-controller@7c502000, parent irq: 28)
+[    1.455869] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d508380, parent irq: 29)
+[    1.464568] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d508400, parent irq: 30)
+[    1.473245] irq_brcmstb_l2: registered L2 intc (/soc@107c000000/intc@7d503000, parent irq: 31)
+[    1.482963] ledtrig-cpu: registered to indicate activity on CPUs
+[    1.489519] simple-framebuffer 3f800000.framebuffer: framebuffer at 0x3f800000, 0x3f4800 bytes
+[    1.498178] simple-framebuffer 3f800000.framebuffer: format=r5g6b5, mode=1920x1080x16, linelength=3840
+[    1.508598] Console: switching to colour frame buffer device 240x67
+[    1.515867] simple-framebuffer 3f800000.framebuffer: fb0: simplefb registered!
+[    1.552436] Serial: 8250/16550 driver, 1 ports, IRQ sharing enabled
+[    1.559034] 107d50c000.serial: ttyS0 at MMIO 0x107d50c000 (irq = 33, base_baud = 6000000) is a Broadcom BCM7271 UART
+[    1.569652] serial serial0: tty port ttyS0 registered
+[    1.574971] iproc-rng200 107d208000.rng: hwrng registered
+[    1.580425] vc-mem: phys_addr:0x00000000 mem_base=0x3fc00000 mem_size:0x40000000(1024 MiB)
+[    1.588918] bcm2712-iommu-cache 1000005b00.iommuc: bcm2712_iommu_cache_probe
+[    1.597309] brd: module loaded
+[    1.601255] loop: module loaded
+[    1.604498] bcm2835-power bcm2835-power: Broadcom BCM2835 power domains driver
+[    1.611855] Loading iSCSI transport class v2.0-870.
+[    1.617427] usbcore: registered new interface driver lan78xx
+[    1.623122] usbcore: registered new interface driver smsc95xx
+[    1.628938] dwc_otg: version 3.00a 10-AUG-2012 (platform bus)
+[    1.634723] dwc_otg: FIQ enabled
+[    1.634724] dwc_otg: NAK holdoff enabled
+[    1.634726] dwc_otg: FIQ split-transaction FSM enabled
+[    1.634727] Module dwc_common_port init
+[    1.634920] usbcore: registered new interface driver uas
+[    1.640266] usbcore: registered new interface driver usb-storage
+[    1.646360] mousedev: PS/2 mouse device common for all mice
+[    1.659433] rpi-rtc soc@107c000000:rpi_rtc: registered as rtc0
+[    1.666667] rpi-rtc soc@107c000000:rpi_rtc: setting system clock to 2026-04-22T21:05:40 UTC (1776891940)
+[    1.676506] bcm2835-wdt bcm2835-wdt: Poweroff handler already present!
+[    1.683067] bcm2835-wdt bcm2835-wdt: Broadcom BCM2835 watchdog timer
+[    1.691450] sdhci: Secure Digital Host Controller Interface driver
+[    1.697675] sdhci: Copyright(c) Pierre Ossman
+[    1.702088] sdhci-pltfm: SDHCI platform and OF driver helper
+[    1.707865] SMCCC: SOC_ID: ARCH_SOC_ID not implemented, skipping ....
+[    1.714358] hid: raw HID events driver (C) Jiri Kosina
+[    1.719559] usbcore: registered new interface driver usbhid
+[    1.725163] usbhid: USB HID core driver
+[    1.729290] hw perfevents: enabled with armv8_cortex_a76 PMU driver, 7 (0,8000003f) counters available
+[    1.738863] NET: Registered PF_PACKET protocol family
+[    1.743970] Key type dns_resolver registered
+[    1.751709] registered taskstats version 1
+[    1.755885] Loading compiled-in X.509 certificates
+[    1.762134] Demotion targets for Node 0: null
+[    1.766520] Demotion targets for Node 1: null
+[    1.771159] Demotion targets for Node 2: null
+[    1.775536] Demotion targets for Node 3: null
+[    1.780267] Demotion targets for Node 4: null
+[    1.784983] Demotion targets for Node 5: null
+[    1.789695] Demotion targets for Node 6: null
+[    1.794403] Demotion targets for Node 7: null
+[    1.799264] Key type .fscrypt registered
+[    1.803534] Key type fscrypt-provisioning registered
+[    1.809545] brcm-pcie 1000120000.pcie: host bridge /axi/pcie@1000120000 ranges:
+[    1.817237] brcm-pcie 1000120000.pcie:   No bus range found for /axi/pcie@1000120000, using [bus 00-ff]
+[    1.827019] brcm-pcie 1000120000.pcie:      MEM 0x1f00000000..0x1ffffffffb -> 0x0000000000
+[    1.835737] brcm-pcie 1000120000.pcie:      MEM 0x1c00000000..0x1effffffff -> 0x0400000000
+[    1.844381] brcm-pcie 1000120000.pcie:   IB MEM 0x1f00000000..0x1f003fffff -> 0x0000000000
+[    1.853010] brcm-pcie 1000120000.pcie:   IB MEM 0x0000000000..0x0fffffffff -> 0x1000000000
+[    1.861643] brcm-pcie 1000120000.pcie:   IB MEM 0x1000130000..0x1000130fff -> 0xfffffff000
+[    1.871611] brcm-pcie 1000120000.pcie: PCI host bridge to bus 0002:00
+[    1.878426] pci_bus 0002:00: root bus resource [bus 00-ff]
+[    1.884265] pci_bus 0002:00: root bus resource [mem 0x1f00000000-0x1ffffffffb] (bus address [0x00000000-0xfffffffb])
+[    1.895167] pci_bus 0002:00: root bus resource [mem 0x1c00000000-0x1effffffff pref] (bus address [0x400000000-0x6ffffffff])
+[    1.906694] pci 0002:00:00.0: [14e4:2712] type 01 class 0x060400 PCIe Root Port
+[    1.914375] pci 0002:00:00.0: PCI bridge to [bus 00]
+[    1.919702] pci 0002:00:00.0:   bridge window [mem 0x1f80000000-0x1fbfffffff]
+[    1.927239] pci 0002:00:00.0: PME# supported from D0 D3hot
+[    1.933648] pci 0002:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+[    2.043463] brcm-pcie 1000120000.pcie: clkreq-mode set to default
+[    2.049921] brcm-pcie 1000120000.pcie: link up, 5.0 GT/s PCIe x4 (!SSC)
+[    2.056909] pci 0002:01:00.0: [1de4:0001] type 00 class 0x020000 PCIe Endpoint
+[    2.064504] pci 0002:01:00.0: BAR 0 [mem 0xffffc000-0xffffffff]
+[    2.070780] pci 0002:01:00.0: BAR 1 [mem 0xffc00000-0xffffffff]
+[    2.077048] pci 0002:01:00.0: BAR 2 [mem 0xffff0000-0xffffffff]
+[    2.083366] pci 0002:01:00.0: supports D1
+[    2.087698] pci 0002:01:00.0: PME# supported from D0 D1 D3hot D3cold
+[    2.099467] pci_bus 0002:01: busn_res: [bus 01-ff] end is updated to 01
+[    2.106422] pci 0002:00:00.0: bridge window [mem 0x1f00000000-0x1f005fffff]: assigned
+[    2.114593] pci 0002:01:00.0: BAR 1 [mem 0x1f00000000-0x1f003fffff]: assigned
+[    2.122068] pci 0002:01:00.0: BAR 2 [mem 0x1f00400000-0x1f0040ffff]: assigned
+[    2.129542] pci 0002:01:00.0: BAR 0 [mem 0x1f00410000-0x1f00413fff]: assigned
+[    2.137006] pci 0002:00:00.0: PCI bridge to [bus 01]
+[    2.142289] pci 0002:00:00.0:   bridge window [mem 0x1f00000000-0x1f005fffff]
+[    2.149755] pci_bus 0002:00: resource 4 [mem 0x1f00000000-0x1ffffffffb]
+[    2.156700] pci_bus 0002:00: resource 5 [mem 0x1c00000000-0x1effffffff pref]
+[    2.164079] pci_bus 0002:01: resource 1 [mem 0x1f00000000-0x1f005fffff]
+[    2.171024] pci 0002:00:00.0: Max Payload Size set to  256/ 512 (was  128), Max Read Rq  512
+[    2.179833] pci 0002:01:00.0: Max Payload Size set to  256/ 256 (was  128), Max Read Rq  512
+[    2.188681] pcieport 0002:00:00.0: enabling device (0000 -> 0002)
+[    2.195133] pcieport 0002:00:00.0: PME: Signaling with IRQ 38
+[    2.201256] pcieport 0002:00:00.0: AER: enabled with IRQ 38
+[    2.207239] rp1 0002:01:00.0: bar0 len 0x4000, start 0x1f00410000, end 0x1f00413fff, flags, 0x40200
+[    2.216646] rp1 0002:01:00.0: bar1 len 0x400000, start 0x1f00000000, end 0x1f003fffff, flags, 0x40200
+[    2.226231] rp1 0002:01:00.0: enabling device (0000 -> 0002)
+[    2.232829] rp1 0002:01:00.0: chip_id 0x20001927
+[    2.242072] bcm2712-iommu 1000005100.iommu: IOVA aperture 0xa00000000..0xb00000000 including DMA offset 0x0
+[    2.252209] bcm2712-iommu 1000005100.iommu: bcm2712_iommu_init: DEBUG_INFO = 0x20804774
+[    2.260626] bcm2712-iommu 1000005200.iommu: IOVA aperture 0xa00000000..0xa80000000 including DMA offset 0x0
+[    2.270768] bcm2712-iommu 1000005200.iommu: bcm2712_iommu_init: DEBUG_INFO = 0x20804774
+[    2.279175] bcm2712-iommu 1000005280.iommu: IOVA aperture 0x1a00000000..0x1a80000000 including DMA offset 0x1000000000
+[    2.290263] bcm2712-iommu 1000005280.iommu: bcm2712_iommu_init: DEBUG_INFO = 0x20804774
+[    2.298939] genirq: irq_chip rp1_irq_chip did not update eff. affinity mask of irq 100
+[    2.307371] sdhci-brcmstb 1000fff000.mmc: Got CD GPIO
+[    2.308194] mmc1: CQHCI version 5.10
+[    2.313010] mmc0: CQHCI version 5.10
+[    2.327012] macb 1f00100000.ethernet eth0: Cadence GEM rev 0x00070109 at 0x1f00100000 irq 106 (88:a2:9e:1d:88:96)
+[    2.338428] dw_axi_dmac_platform 1f00188000.dma: DesignWare AXI DMA Controller, 8 channels
+[    2.347315] xhci-hcd xhci-hcd.0: xHCI Host Controller
+[    2.352757] xhci-hcd xhci-hcd.0: new USB bus registered, assigned bus number 1
+[    2.356004] mmc0: SDHCI controller on 1000fff000.mmc [1000fff000.mmc] using ADMA 64-bit
+[    2.360807] xhci-hcd xhci-hcd.0: hcc params 0x0240fe6d hci version 0x110 quirks 0x0000808000000810
+[    2.378177] xhci-hcd xhci-hcd.0: irq 131, io mem 0x1f00200000
+[    2.384378] xhci-hcd xhci-hcd.0: xHCI Host Controller
+[    2.389815] xhci-hcd xhci-hcd.0: new USB bus registered, assigned bus number 2
+[    2.397435] xhci-hcd xhci-hcd.0: Host supports USB 3.0 SuperSpeed
+[    2.403957] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[    2.412629] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    2.420249] usb usb1: Product: xHCI Host Controller
+[    2.425511] usb usb1: Manufacturer: Linux 6.12.75+rpt-rpi-2712 xhci-hcd
+[    2.432519] usb usb1: SerialNumber: xhci-hcd.0
+[    2.437455] hub 1-0:1.0: USB hub found
+[    2.441596] hub 1-0:1.0: 2 ports detected
+[    2.446088] usb usb2: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.12
+[    2.454759] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    2.462388] usb usb2: Product: xHCI Host Controller
+[    2.467698] usb usb2: Manufacturer: Linux 6.12.75+rpt-rpi-2712 xhci-hcd
+[    2.468958] mmc0: new ultra high speed SDR104 SDXC card at address 59b4
+[    2.474695] usb usb2: SerialNumber: xhci-hcd.0
+[    2.482197] mmcblk0: mmc0:59b4 ED2S5 119 GiB
+[    2.486713] hub 2-0:1.0: USB hub found
+[    2.488545]  mmcblk0: p1 p2
+[    2.491680] hub 2-0:1.0: 1 port detected
+[    2.492136] mmcblk0: mmc0:59b4 ED2S5 119 GiB
+[    2.492933] xhci-hcd xhci-hcd.1: xHCI Host Controller
+[    2.512616] mmc1: SDHCI controller on 1001100000.mmc [1001100000.mmc] using ADMA 64-bit
+[    2.513027] xhci-hcd xhci-hcd.1: new USB bus registered, assigned bus number 3
+[    2.544043] mmc1: new ultra high speed DDR50 SDIO card at address 0001
+[    2.549642] xhci-hcd xhci-hcd.1: hcc params 0x0240fe6d hci version 0x110 quirks 0x0000808000000810
+[    2.560359] xhci-hcd xhci-hcd.1: irq 136, io mem 0x1f00300000
+[    2.566558] xhci-hcd xhci-hcd.1: xHCI Host Controller
+[    2.571995] xhci-hcd xhci-hcd.1: new USB bus registered, assigned bus number 4
+[    2.579618] xhci-hcd xhci-hcd.1: Host supports USB 3.0 SuperSpeed
+[    2.586136] usb usb3: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[    2.594808] usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    2.602447] usb usb3: Product: xHCI Host Controller
+[    2.607709] usb usb3: Manufacturer: Linux 6.12.75+rpt-rpi-2712 xhci-hcd
+[    2.614719] usb usb3: SerialNumber: xhci-hcd.1
+[    2.619623] hub 3-0:1.0: USB hub found
+[    2.623760] hub 3-0:1.0: 2 ports detected
+[    2.628238] usb usb4: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.12
+[    2.636904] usb usb4: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    2.644517] usb usb4: Product: xHCI Host Controller
+[    2.649770] usb usb4: Manufacturer: Linux 6.12.75+rpt-rpi-2712 xhci-hcd
+[    2.656786] usb usb4: SerialNumber: xhci-hcd.1
+[    2.661666] hub 4-0:1.0: USB hub found
+[    2.665788] hub 4-0:1.0: 1 port detected
+[    2.670992] of_cfs_init
+[    2.673864] of_cfs_init: OK
+[    2.677071] clk: Disabling unused clocks
+[    2.689935] PM: genpd: Disabling unused power domains
+[    2.696473] Freeing unused kernel memory: 2304K
+[    2.701427] Run /init as init process
+[    2.705433]   with arguments:
+[    2.705434]     /init
+[    2.705435]   with environment:
+[    2.705436]     HOME=/
+[    2.705437]     TERM=linux
+[    2.705438]     ds=nocloud;i=rpi-imager-1776274841741
+[    2.808146] input: pwr_button as /devices/platform/pwr_button/input/input0
+[    2.815979] brcmstb-i2c 107d508200.i2c:  @97500hz registered in interrupt mode
+[    2.823826] brcmstb-i2c 107d508280.i2c:  @97500hz registered in interrupt mode
+[    2.879468] usb 3-1: new low-speed USB device number 2 using xhci-hcd
+[    3.054227] usb 3-1: New USB device found, idVendor=1a2c, idProduct=0e24, bcdDevice= 1.10
+[    3.062758] usb 3-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    3.070229] usb 3-1: Product: USB Keyboard
+[    3.074641] usb 3-1: Manufacturer: SEM
+[    3.114208] input: SEM USB Keyboard as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.0/0003:1A2C:0E24.0001/input/input1
+[    3.255534] hid-generic 0003:1A2C:0E24.0001: input,hidraw0: USB HID v1.10 Keyboard [SEM USB Keyboard] on usb-xhci-hcd.1-1/input0
+[    3.282167] input: SEM USB Keyboard Consumer Control as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.1/0003:1A2C:0E24.0002/input/input2
+[    3.351502] input: SEM USB Keyboard System Control as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.1/0003:1A2C:0E24.0002/input/input3
+[    3.366910] hid-generic 0003:1A2C:0E24.0002: input,hidraw1: USB HID v1.10 Device [SEM USB Keyboard] on usb-xhci-hcd.1-1/input1
+[    3.554921] EXT4-fs (mmcblk0p2): orphan cleanup on readonly fs
+[    3.561402] EXT4-fs (mmcblk0p2): mounted filesystem 687fa5d6-7e12-409f-8631-6b47ecc831af ro with ordered data mode. Quota mode: none.
+[    3.819918] NET: Registered PF_INET6 protocol family
+[    3.825599] Segment Routing with IPv6
+[    3.829639] In-situ OAM (IOAM) with IPv6
+[    3.862647] systemd[1]: systemd 257.9-1~deb13u1 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +IPE +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBCRYPTSETUP_PLUGINS +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD +BPF_FRAMEWORK +BTF -XKBCOMMON -UTMP +SYSVINIT +LIBARCHIVE)
+[    3.897877] systemd[1]: Detected architecture arm64.
+[    3.908916] systemd[1]: Hostname set to <raspberrypi>.
+[    3.987051] systemd[1]: bpf-restrict-fs: BPF LSM hook not enabled in the kernel, BPF LSM not supported.
+[    3.997026] systemd[1]: Using hardware watchdog 'Broadcom BCM2835 Watchdog timer', version 0, device /dev/watchdog0
+[    4.007924] systemd[1]: Watchdog running with a hardware timeout of 1min.
+[    4.089266] zram_generator::config[234]: zram0: system has too much memory (16214MB), limit is 0MB, ignoring.
+[    4.503381] systemd[1]: Queued start job for default target multi-user.target.
+[    4.552342] systemd[1]: Created slice system-getty.slice - Slice /system/getty.
+[    4.560974] systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+[    4.570058] systemd[1]: Created slice system-rpi\x2dsetup\x2dloop.slice - Slice /system/rpi-setup-loop.
+[    4.580641] systemd[1]: Created slice system-serial\x2dgetty.slice - Slice /system/serial-getty.
+[    4.590583] systemd[1]: Created slice system-systemd\x2dfsck.slice - Slice /system/systemd-fsck.
+[    4.600530] systemd[1]: Created slice system-systemd\x2dzram\x2dsetup.slice - Slice /system/systemd-zram-setup.
+[    4.611708] systemd[1]: Created slice user.slice - User and Session Slice.
+[    4.619624] systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+[    4.631742] systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+[    4.643377] systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+[    4.657016] systemd[1]: Expecting device dev-disk-by\x2dpartuuid-614afe45\x2d01.device - /dev/disk/by-partuuid/614afe45-01...
+[    4.669427] systemd[1]: Expecting device dev-ttyAMA10.device - /dev/ttyAMA10...
+[    4.677814] systemd[1]: Expecting device dev-zram0.device - /dev/zram0...
+[    4.685695] systemd[1]: Reached target paths.target - Path Units.
+[    4.692868] systemd[1]: Reached target remote-fs.target - Remote File Systems.
+[    4.701151] systemd[1]: Reached target slices.target - Slice Units.
+[    4.709537] systemd[1]: Listening on systemd-creds.socket - Credential Encryption/Decryption.
+[    4.719190] systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+[    4.729038] systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+[    4.739073] systemd[1]: Listening on systemd-journald.socket - Journal Sockets.
+[    4.747534] systemd[1]: systemd-pcrextend.socket - TPM PCR Measurements was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    4.761874] systemd[1]: systemd-pcrlock.socket - Make TPM PCR Policy was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    4.776012] systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+[    4.785248] systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+[    4.794368] systemd[1]: dev-hugepages.mount - Huge Pages File System was skipped because of an unmet condition check (ConditionPathExists=/sys/kernel/mm/hugepages).
+[    4.810926] systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+[    4.859918] systemd[1]: Mounting run-lock.mount - Legacy Locks Directory /run/lock...
+[    4.869772] systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+[    4.879676] systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+[    4.890099] systemd[1]: Starting keyboard-setup.service - Set the console keyboard layout...
+[    4.900855] systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+[    4.912170] systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+[    4.923337] systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+[    4.934163] systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+[    4.946451] systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+[    4.956242] systemd[1]: systemd-fsck-root.service - File System Check on Root Device was skipped because of an unmet condition check (ConditionPathExists=!/run/initramfs/fsck-root).
+[    4.973297] systemd[1]: systemd-hibernate-clear.service - Clear Stale Hibernate Storage Info was skipped because of an unmet condition check (ConditionPathExists=/sys/firmware/efi/efivars/HibernateLocation-8cf2644b-4b0b-428f-9387-6d876050dc67).
+[    4.974629] fuse: init (API version 7.41)
+[    5.001782] systemd[1]: Starting systemd-journald.service - Journal Service...
+[    5.012014] systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+[    5.021825] systemd[1]: systemd-pcrmachine.service - TPM PCR Machine ID Measurement was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    5.038229] systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+[    5.049055] zram: Added device: zram0
+[    5.053694] systemd[1]: systemd-tpm2-setup-early.service - Early TPM SRK Setup was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    5.069571] systemd[1]: Starting systemd-udev-load-credentials.service - Load udev Rules from Credentials...
+[    5.081813] systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+[    5.088730] systemd-journald[317]: Collecting audit messages is disabled.
+[    5.101338] systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+[    5.105967] EXT4-fs (mmcblk0p2): re-mounted 687fa5d6-7e12-409f-8631-6b47ecc831af r/w.
+[    5.119166] systemd[1]: Started systemd-journald.service - Journal Service.
+[    5.198676] systemd-journald[317]: Received client request to flush runtime journal.
+[    5.329113] loop0: detected capacity change from 0 to 4194304
+[    5.366302] zram: setup backing device /dev/disk/by-backingfile/var-swap
+[    5.367402] zram0: detected capacity change from 0 to 4194304
+[    5.457293] Adding 2097136k swap on /dev/zram0.  Priority:100 extents:1 across:2097136k SS
+[    5.474320] rpi-gpiomem 107d508500.gpiomem: window base 0x107d508500 size 0x00000040
+[    5.474414] rp1-firmware rp1_firmware: RP1 Firmware version 23fca1cd776798b50bd3e640ecb242215778e7f8
+[    5.475585] rpi-gpiomem 107d508500.gpiomem: initialised 1 regions as /dev/gpiomem1
+[    5.478871] rpi-gpiomem 107d517c00.gpiomem: window base 0x107d517c00 size 0x00000040
+[    5.491766] rpi-gpiomem 107d517c00.gpiomem: initialised 1 regions as /dev/gpiomem2
+[    5.491825] rpi-gpiomem 107d504100.gpiomem: window base 0x107d504100 size 0x00000020
+[    5.492550] rpi-gpiomem 107d504100.gpiomem: initialised 1 regions as /dev/gpiomem3
+[    5.492591] rpi-gpiomem 107d510700.gpiomem: window base 0x107d510700 size 0x00000020
+[    5.492769] rpi-gpiomem 107d510700.gpiomem: initialised 1 regions as /dev/gpiomem4
+[    5.492857] rpi-gpiomem 1f000d0000.gpiomem: window base 0x1f000d0000 size 0x00030000
+[    5.492953] rpi-gpiomem 1f000d0000.gpiomem: initialised 1 regions as /dev/gpiomem0
+[    5.509725] rp1-pio 1f00178000.pio: Created instance as pio0
+[    5.535807] mc: Linux media interface: v0.10
+[    5.592226] videodev: Linux video capture interface: v2.00
+[    5.602514] v3d 1002000000.v3d: [drm] Transparent Hugepage support is recommended for optimal performance on this platform!
+[    5.609092] [drm] Initialized v3d 1.0.0 for 1002000000.v3d on minor 0
+[    5.654659] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[    5.656916] pispbe 1000880000.pisp_be: bcm2712_iommu_of_xlate: MMU 1000005100.iommu
+[    5.656925] pispbe 1000880000.pisp_be: bcm2712_iommu_probe_device: MMU 1000005100.iommu
+[    5.656931] pispbe 1000880000.pisp_be: bcm2712_iommu_device_group: MMU 1000005100.iommu
+[    5.656935] pispbe 1000880000.pisp_be: Adding to iommu group 0
+[    5.656940] pispbe 1000880000.pisp_be: bcm2712_iommu_attach_dev: MMU 1000005100.iommu
+[    5.669791] Bluetooth: Core ver 2.22
+[    5.669823] NET: Registered PF_BLUETOOTH protocol family
+[    5.669826] Bluetooth: HCI device and connection manager initialized
+[    5.669834] Bluetooth: HCI socket layer initialized
+[    5.669837] Bluetooth: L2CAP socket layer initialized
+[    5.669842] Bluetooth: SCO socket layer initialized
+[    5.669894] rpi-hevc-dec 1000800000.codec: bcm2712_iommu_of_xlate: MMU 1000005100.iommu
+[    5.669901] rpi-hevc-dec 1000800000.codec: bcm2712_iommu_probe_device: MMU 1000005100.iommu
+[    5.670458] rpi-hevc-dec 1000800000.codec: bcm2712_iommu_device_group: MMU 1000005100.iommu
+[    5.670469] rpi-hevc-dec 1000800000.codec: Adding to iommu group 0
+[    5.670473] rpi-hevc-dec 1000800000.codec: bcm2712_iommu_attach_dev: MMU 1000005100.iommu
+[    5.671393] Loaded X.509 cert 'benh@debian.org: 577e021cb980e0e820821ba7b54b4961b8b4fadf'
+[    5.671621] Loaded X.509 cert 'romain.perier@gmail.com: 3abbc6ec146e09d1b6016ab9d6cf71dd233f0328'
+[    5.671817] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[    5.671999] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[    5.681041] Bluetooth: HCI UART driver ver 2.3
+[    5.681049] Bluetooth: HCI UART protocol H4 registered
+[    5.681073] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[    5.683107] hci_uart_bcm serial0-0: supply vbat not found, using dummy regulator
+[    5.683154] hci_uart_bcm serial0-0: supply vddio not found, using dummy regulator
+[    5.683623] Bluetooth: HCI UART protocol Broadcom registered
+[    5.686205] rpi-hevc-dec 1000800000.codec: Device registered as /dev/video19
+[    5.980194] brcmfmac: F1 signature read @0x18000000=0x15264345
+[    5.984785] brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac43455-sdio for chip BCM4345/6
+[    5.984977] usbcore: registered new interface driver brcmfmac
+[    5.985535] vc4_hvs 107c580000.hvs: bcm2712_iommu_of_xlate: MMU 1000005200.iommu
+[    5.985542] vc4_hvs 107c580000.hvs: bcm2712_iommu_probe_device: MMU 1000005200.iommu
+[    5.985550] vc4_hvs 107c580000.hvs: bcm2712_iommu_device_group: MMU 1000005200.iommu
+[    5.985555] vc4_hvs 107c580000.hvs: Adding to iommu group 1
+[    5.985560] vc4_hvs 107c580000.hvs: bcm2712_iommu_attach_dev: MMU 1000005200.iommu
+[    5.987307] vc4-drm axi:gpu: bcm2712_iommu_of_xlate: MMU 1000005200.iommu
+[    5.987314] vc4-drm axi:gpu: bcm2712_iommu_probe_device: MMU 1000005200.iommu
+[    5.988085] vc4-drm axi:gpu: bcm2712_iommu_device_group: MMU 1000005200.iommu
+[    5.988689] vc4-drm axi:gpu: Adding to iommu group 1
+[    5.988694] vc4-drm axi:gpu: bcm2712_iommu_attach_dev: MMU 1000005200.iommu
+[    5.989927] Console: switching to colour dummy device 80x25
+[    5.991930] vc4-drm axi:gpu: bound 107c580000.hvs (ops vc4_hvs_ops [vc4])
+[    5.993071] Registered IR keymap rc-cec
+[    5.993106] rc rc0: vc4-hdmi-0 as /devices/platform/soc@107c000000/107c701400.hdmi/rc/rc0
+[    5.993145] input: vc4-hdmi-0 as /devices/platform/soc@107c000000/107c701400.hdmi/rc/rc0/input4
+[    5.994217] input: vc4-hdmi-0 HDMI Jack as /devices/platform/soc@107c000000/107c701400.hdmi/sound/card0/input5
+[    5.995825] vc4-drm axi:gpu: bound 107c701400.hdmi (ops vc4_hdmi_ops [vc4])
+[    5.998763] Registered IR keymap rc-cec
+[    5.998806] rc rc1: vc4-hdmi-1 as /devices/platform/soc@107c000000/107c706400.hdmi/rc/rc1
+[    5.998849] input: vc4-hdmi-1 as /devices/platform/soc@107c000000/107c706400.hdmi/rc/rc1/input6
+[    6.000021] input: vc4-hdmi-1 HDMI Jack as /devices/platform/soc@107c000000/107c706400.hdmi/sound/card1/input7
+[    6.001722] vc4-drm axi:gpu: bound 107c706400.hdmi (ops vc4_hdmi_ops [vc4])
+[    6.001901] vc4-drm axi:gpu: bound 107c500000.mop (ops vc4_txp_ops [vc4])
+[    6.001994] vc4-drm axi:gpu: bound 107c501000.moplet (ops vc4_txp_ops [vc4])
+[    6.002059] vc4-drm axi:gpu: bound 107c410000.pixelvalve (ops vc4_crtc_ops [vc4])
+[    6.002133] vc4-drm axi:gpu: bound 107c411000.pixelvalve (ops vc4_crtc_ops [vc4])
+[    6.035882] Bluetooth: hci0: BCM: chip id 107
+[    6.036106] Bluetooth: hci0: BCM: features 0x2f
+[    6.037169] Bluetooth: hci0: BCM4345C0
+[    6.037175] Bluetooth: hci0: BCM4345C0 (003.001.025) build 0000
+[    6.038328] Bluetooth: hci0: BCM4345C0 'brcm/BCM4345C0.raspberrypi,5-model-b.hcd' Patch
+[    6.054239] [drm] Initialized vc4 0.0.0 for axi:gpu on minor 1
+[    6.135179] Console: switching to colour frame buffer device 240x67
+[    6.149573] brcmfmac: brcmf_c_process_txcap_blob: no txcap_blob available (err=-2)
+[    6.149803] brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM4345/6 wl0: Aug 29 2023 01:47:08 version 7.45.265 (28bca26 CY) FWID 01-b677b91b
+[    6.152794] vc4-drm axi:gpu: [drm] fb0: vc4drmfb frame buffer device
+[    6.736107] Bluetooth: hci0: BCM: features 0x2f
+[    6.737455] Bluetooth: hci0: BCM43455 37.4MHz Raspberry Pi 3+-0190
+[    6.737458] Bluetooth: hci0: BCM4345C0 (003.001.025) build 0382
+[    6.737738] Bluetooth: hci0: BCM: Using default device address (43:45:c0:00:1f:ac)
+[    7.297573] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[    7.297580] Bluetooth: BNEP filters: protocol multicast
+[    7.297586] Bluetooth: BNEP socket layer initialized
+[    7.299263] Bluetooth: MGMT ver 1.23
+[    7.303221] NET: Registered PF_ALG protocol family
+[    7.334730] Bluetooth: RFCOMM TTY layer initialized
+[    7.334744] Bluetooth: RFCOMM socket layer initialized
+[    7.334751] Bluetooth: RFCOMM ver 1.11
+[    8.163389] macb 1f00100000.ethernet eth0: PHY [1f00100000.ethernet-ffffffff:01] driver [Broadcom BCM54213PE] (irq=POLL)
+[    8.163396] macb 1f00100000.ethernet eth0: configuring for phy/rgmii-id link mode
+[    8.166267] macb 1f00100000.ethernet: gem-ptp-timer ptp clock registered.
+[    8.193569] brcmfmac: brcmf_cfg80211_set_power_mgmt: power save enabled
+[    9.364576] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.364582] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.364584] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.383292] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.383652] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.384312] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.387740] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.392099] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.395099] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.395101] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.395105] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.395107] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.395108] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.395110] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.395111] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.514493] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.514615] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.514616] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.514618] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.514619] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.514621] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.514623] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.514624] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.517788] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.517789] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586151] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586773] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586774] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586776] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586780] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586781] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586783] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586784] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586786] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.586787] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589755] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589756] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589760] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589762] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589764] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589765] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589767] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589769] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.589770] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.592478] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.592479] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.592483] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.596160] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.596162] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.596165] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.599322] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.624420] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.638127] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.641875] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.641877] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.641881] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.641882] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.641884] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.641885] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.641887] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.641888] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.644790] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.644792] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.644793] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.644797] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.644798] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.648224] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.648226] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.709224] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.709275] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.709276] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.712203] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.712205] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.712208] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.816492] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.816652] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.816654] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.816655] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.816659] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.816660] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.816662] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.817852] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.818322] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.821919] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.821921] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.821925] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.821926] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.821928] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.821929] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.824415] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.824417] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.824420] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.824422] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.824423] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[    9.826258] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.012261] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.012432] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.012434] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.012435] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.012439] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.012440] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.012442] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.015449] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.015451] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.027225] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.031139] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.031141] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.031145] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.235963] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.236146] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.236147] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.236149] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.236153] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.236154] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.236156] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.236157] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.238978] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.238979] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.238981] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.238984] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.242424] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.242425] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.242427] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.242431] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.306828] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.307356] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.307358] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.307359] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.307363] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.307365] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.307366] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.307368] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.307369] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.310389] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.310391] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.310395] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.310396] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.310398] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.313423] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.313425] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.313429] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.313431] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.313432] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.313434] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.313435] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.316830] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.338206] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.342225] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.342226] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.342228] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.342232] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.342233] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.342235] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.342236] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.367556] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.368852] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.371791] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.371793] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.371797] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.371798] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.371800] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.372858] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.373682] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.374223] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.388230] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.392524] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.392525] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.392527] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.392531] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.392532] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.392534] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.392535] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.392537] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.407773] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.410747] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.410749] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.410751] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.410754] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.410756] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.410757] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.410759] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.410760] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.414673] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.414675] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.414676] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.414680] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.414682] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.414683] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.414685] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.452824] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.453006] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.453008] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.453012] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.453013] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.453015] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.453017] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.453018] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.471547] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.475472] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.475473] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.475475] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.475479] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.475480] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.475482] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.475484] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.476311] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.476710] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.477258] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.477750] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.478359] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.481383] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.481385] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.481386] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.482118] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.483417] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.484048] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.484496] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.491572] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.495193] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.495195] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.495196] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.498248] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.498250] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.498254] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.498255] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.498257] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.501685] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.501687] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.501690] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.501692] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.501694] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.501695] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.505684] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.505686] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[   10.505690] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.794751] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.794758] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.794765] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.794768] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.794771] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.794773] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.794776] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798022] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798029] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798032] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798034] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798036] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798039] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798041] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798043] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.798046] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.800655] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.800662] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.800664] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.800667] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.800669] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.800671] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.803827] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.816193] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.819228] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.819235] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.819237] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.819239] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.819242] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.819244] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.819246] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860673] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860966] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860973] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860976] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860978] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860980] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860983] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860985] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.860987] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.864512] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.864518] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.864521] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.864523] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.867198] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.867205] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.867207] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.867210] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.867212] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.870499] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.870506] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.870508] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.870511] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.870513] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.870516] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.873814] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.873821] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.873823] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.873826] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.876859] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.876866] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.877488] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.895833] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.913290] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.916371] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.916377] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.916380] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.916382] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.916384] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.916387] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.916389] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.916392] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919443] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919450] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919453] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919455] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919457] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919460] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919462] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919465] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919467] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919469] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.919472] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.922428] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.922435] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.922437] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.922440] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.922442] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.922444] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.923391] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.926417] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.926424] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.926426] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.926429] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.926431] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.926433] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.926436] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.950979] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.955504] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.955510] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.955512] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.955515] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.955517] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.955519] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47640.955522] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.156860] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.157196] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.157203] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.157205] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.157208] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.157210] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.157213] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.157215] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.157218] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.160311] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.160318] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.160320] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.160323] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.163725] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.163732] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.163735] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.163737] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.163740] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.164358] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.165064] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.168640] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.168647] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.168649] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.168652] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.278032] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.279134] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.279141] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.279144] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.279146] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.279148] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.279151] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.279153] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.279156] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281914] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281921] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281924] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281926] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281928] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281931] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281933] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281935] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281938] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.281940] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.285732] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.285739] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.285742] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.285744] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.285747] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.285749] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289408] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289415] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289417] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289420] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289422] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289424] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289427] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289429] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.289431] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.356580] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.357780] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.357787] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.357789] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.437156] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.437361] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.437368] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.437370] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.437373] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.437375] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.437377] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.437380] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.440919] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.440926] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.440928] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.440930] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.440933] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.440935] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.443669] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.443676] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.443678] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.443681] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.443683] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.443685] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.443688] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.443690] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.447040] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.447047] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.607167] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.608209] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.608216] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.608218] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.608221] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.608223] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.608225] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.608228] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.608230] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.611682] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.611688] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.611691] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.613378] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.613862] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.615521] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.616013] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.619368] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.622771] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.704261] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.704674] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.704681] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.704684] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.704686] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.704689] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.704691] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.704693] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.707515] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.707522] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.707524] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.707527] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.707529] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.707532] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.711246] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.711253] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.711256] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790063] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790800] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790807] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790809] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790812] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790814] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790817] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790819] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790821] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.790824] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.793912] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.793919] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.793921] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.796771] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.796778] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.796780] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.796783] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.886573] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.886628] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.886954] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.890064] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.890071] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.890073] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.890075] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.890078] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.894039] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.894046] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.894049] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.894051] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.988773] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.990002] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.990009] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.990011] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.990014] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.990016] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.992176] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.996901] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47641.998801] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.001567] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.001574] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.001577] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.005191] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.005198] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.007497] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.007504] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.010691] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.049040] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.049945] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.049952] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.049954] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.049956] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.049959] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.049961] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.049964] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.052746] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.052753] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.052755] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.052757] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.052760] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.052762] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.053462] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.053931] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.100361] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101241] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101248] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101250] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101252] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101255] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101257] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101260] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101262] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101264] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101267] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101269] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.101271] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.104106] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.104113] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.104115] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.104117] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.104120] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.104122] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.104124] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.107516] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.107523] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.107525] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.107528] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.107530] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.107532] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.107535] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.107537] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.125127] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.128244] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.128250] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.128252] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.128255] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.128257] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.128259] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.128261] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[47642.133360] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[63192.463725] usb 3-1: USB disconnect, device number 2
+[63402.936471] usb 3-1: new low-speed USB device number 3 using xhci-hcd
+[63403.106782] usb 3-1: New USB device found, idVendor=1a2c, idProduct=0e24, bcdDevice= 1.10
+[63403.106791] usb 3-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[63403.106794] usb 3-1: Product: USB Keyboard
+[63403.106797] usb 3-1: Manufacturer: SEM
+[63403.148788] input: SEM USB Keyboard as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.0/0003:1A2C:0E24.0003/input/input8
+[63403.276571] hid-generic 0003:1A2C:0E24.0003: input,hidraw0: USB HID v1.10 Keyboard [SEM USB Keyboard] on usb-xhci-hcd.1-1/input0
+[63403.292759] input: SEM USB Keyboard Consumer Control as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.1/0003:1A2C:0E24.0004/input/input9
+[63403.348548] input: SEM USB Keyboard System Control as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.1/0003:1A2C:0E24.0004/input/input10
+[63403.348611] hid-generic 0003:1A2C:0E24.0004: input,hidraw1: USB HID v1.10 Device [SEM USB Keyboard] on usb-xhci-hcd.1-1/input1
+[64085.530679] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.592442] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.592480] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.608015] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.608362] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.611181] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.611189] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.611191] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.611194] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.655013] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.655148] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.655155] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.655158] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.655160] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.736856] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.737668] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.737672] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.737674] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.737677] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.737679] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.743575] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.744023] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.744586] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.745453] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.745985] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.747037] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.748720] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.751530] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.850391] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.851242] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.851248] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.851250] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.851253] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.851255] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64085.851257] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.068607] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.068737] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.068751] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.068768] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.068771] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.068773] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.068776] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.068778] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.071486] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.071493] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.071496] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.071498] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.071508] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.071510] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.071513] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.074848] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.074855] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.074857] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.074860] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.074862] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.074864] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.074867] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.077926] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.081322] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.092254] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.096019] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.096026] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.096029] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.096031] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.096034] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64086.096036] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.410552] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.410558] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.410561] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.410563] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.655394] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.656391] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.656400] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.656402] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64088.656405] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64092.648952] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64092.648960] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64092.648963] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.594234] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.594244] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.706411] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.707342] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.707349] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.728797] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.732795] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.732803] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.732805] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.732808] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.732810] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.732813] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64104.732815] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.520097] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.528916] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.532657] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.532664] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.532667] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.532669] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.532672] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.532674] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.575523] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.580324] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.580978] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.592463] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.597090] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.598482] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.601438] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.601444] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.601446] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.601449] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.602457] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.606731] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.610572] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.614531] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.614537] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.614539] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.614542] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.614544] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.621801] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.625865] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.625872] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.625874] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.625876] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.625879] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.625881] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.625883] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.733784] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.733860] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.843710] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.867203] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.870067] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.870072] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.870074] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.870077] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64114.870079] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64128.793759] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64128.796856] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.102255] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.102263] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.102266] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.122419] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.123214] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.126363] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.126368] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.126371] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.126373] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.126376] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.126378] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.126381] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.202889] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.205353] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.205358] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.205360] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.205363] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.205366] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.205368] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.205370] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.205373] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.208871] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.208875] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.208878] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.208880] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.208883] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.208885] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.208888] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.211043] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.321262] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.321462] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.321465] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.321468] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.321470] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.321473] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.321475] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.321477] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.539483] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.539563] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.539576] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.539589] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.539596] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.562693] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.565310] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.565314] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.565316] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.565318] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64144.565321] ieee80211 phy0: brcmf_cfg80211_escan_handler: Buffer is too small: ignoring
+[64656.572625] usb 3-1: USB disconnect, device number 3
+[64670.534733] usb 3-1: new low-speed USB device number 4 using xhci-hcd
+[64670.701128] usb 3-1: New USB device found, idVendor=1a2c, idProduct=0e24, bcdDevice= 1.10
+[64670.701135] usb 3-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[64670.701139] usb 3-1: Product: USB Keyboard
+[64670.701142] usb 3-1: Manufacturer: SEM
+[64670.742142] input: SEM USB Keyboard as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.0/0003:1A2C:0E24.0005/input/input11
+[64670.858898] hid-generic 0003:1A2C:0E24.0005: input,hidraw0: USB HID v1.10 Keyboard [SEM USB Keyboard] on usb-xhci-hcd.1-1/input0
+[64670.878176] input: SEM USB Keyboard Consumer Control as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.1/0003:1A2C:0E24.0006/input/input12
+[64670.930814] input: SEM USB Keyboard System Control as /devices/platform/axi/1000120000.pcie/1f00300000.usb/xhci-hcd.1/usb3/3-1/3-1:1.1/0003:1A2C:0E24.0006/input/input13
+[64670.930992] hid-generic 0003:1A2C:0E24.0006: input,hidraw1: USB HID v1.10 Device [SEM USB Keyboard] on usb-xhci-hcd.1-1/input1
+[64778.871190] usb 3-1: USB disconnect, device number 4

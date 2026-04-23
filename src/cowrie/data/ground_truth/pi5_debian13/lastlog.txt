@@ -1,0 +1,2 @@
+--: line 10: lastlog: command not found
+lastlog_exit:127

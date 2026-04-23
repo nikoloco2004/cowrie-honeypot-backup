@@ -1,0 +1,12 @@
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                            
+udp   UNCONN 0      0            0.0.0.0:50129      0.0.0.0:*                                      
+udp   UNCONN 0      0            0.0.0.0:5353       0.0.0.0:*                                      
+udp   UNCONN 0      0                  *:41479            *:*                                      
+udp   UNCONN 0      0                  *:5353             *:*                                      
+tcp   LISTEN 0      50           0.0.0.0:2222       0.0.0.0:*    users:(("twistd",pid=36677,fd=13))
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*                                      
+tcp   LISTEN 0      511        127.0.0.1:45851      0.0.0.0:*    users:(("node",pid=6247,fd=18))   
+tcp   LISTEN 0      128        127.0.0.1:6011       0.0.0.0:*                                      
+tcp   LISTEN 0      511        127.0.0.1:38847      0.0.0.0:*    users:(("node",pid=6282,fd=18))   
+tcp   LISTEN 0      128             [::]:22            [::]:*                                      
+tcp   LISTEN 0      128            [::1]:6011          [::]:*                                      

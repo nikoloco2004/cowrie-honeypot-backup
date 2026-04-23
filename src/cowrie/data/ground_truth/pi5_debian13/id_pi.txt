@@ -1,0 +1,1 @@
+uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),29(audio),44(video),46(plugdev),60(games),100(users),996(input),992(render),102(netdev),989(spi),988(i2c),986(gpio)

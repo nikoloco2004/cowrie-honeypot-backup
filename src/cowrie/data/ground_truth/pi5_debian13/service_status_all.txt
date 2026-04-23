@@ -1,0 +1,15 @@
+ [ + ]  alsa-utils
+ [ - ]  apparmor
+ [ + ]  bluetooth
+ [ + ]  cloud-config
+ [ + ]  cloud-final
+ [ + ]  cloud-init-local
+ [ - ]  cloud-init-main
+ [ - ]  console-setup.sh
+ [ + ]  cron
+ [ + ]  dbus
+ [ - ]  keyboard-setup.sh
+ [ + ]  procps
+ [ - ]  rsync
+ [ + ]  ssh
+ [ - ]  sudo

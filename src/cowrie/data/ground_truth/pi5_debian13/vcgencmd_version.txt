@@ -1,0 +1,2 @@
+Can't open device file: /dev/vcio
+Try creating a device file with: sudo mknod /dev/vcio c 100 0

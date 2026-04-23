@@ -20,6 +20,7 @@ from twisted.web.iweb import UNKNOWN_LENGTH
 
 from cowrie.core.artifact import Artifact
 from cowrie.core.config import CowrieConfig
+from cowrie.core.ground_truth import ground_truth_enabled, load_ground_line
 from cowrie.core.network import communication_allowed
 from cowrie.core.rate_limiter import RateLimiter
 from cowrie.shell.command import HoneyPotCommand
@@ -145,6 +146,14 @@ class Command_wget(HoneyPotCommand):
     @inlineCallbacks
     def start(self):
         url: str
+        if ground_truth_enabled() and any(
+            x == "--totally-fake-flag" for x in self.args
+        ):
+            t = load_ground_line("wget_bad_flag.txt")
+            for line in t.splitlines():
+                self.errorWrite(line + "\n")
+            self.exit()
+            return
         try:
             optlist, args = getopt.getopt(
                 self.args,

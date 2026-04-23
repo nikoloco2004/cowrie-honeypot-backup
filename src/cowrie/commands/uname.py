@@ -35,6 +35,18 @@ def operating_system() -> str:
     return CowrieConfig.get("shell", "operating_system", fallback="GNU/Linux")
 
 
+def uname_hw_platform() -> str:
+    """
+    Shown for uname -i. On many Debian/ARM systems this is "unknown" while
+    -m is aarch64.
+    """
+    return CowrieConfig.get("shell", "uname_hw_platform", fallback="unknown")
+
+
+def uname_processor() -> str:
+    return CowrieConfig.get("shell", "uname_processor", fallback=hardware_platform())
+
+
 def uname_help() -> str:
     return """Usage: uname [OPTION]...
 Print certain system information.  With no OPTION, same as -s.
@@ -87,6 +99,8 @@ class Command_uname(HoneyPotCommand):
             "os": False,
             "node": False,
             "machine": False,
+            "processor": False,
+            "ihw": False,
         }
 
         flags = [
@@ -96,7 +110,9 @@ class Command_uname(HoneyPotCommand):
             (["v", "kernel-version"], "version"),
             (["o", "operating-system"], "os"),
             (["n", "nodename"], "node"),
-            (["m", "machine", "p", "processor", "i", "hardware-platform"], "machine"),
+            (["m", "machine"], "machine"),
+            (["p", "processor"], "processor"),
+            (["i", "hardware-platform", "platform"], "ihw"),
         ]
 
         if not self.args:
@@ -144,7 +160,14 @@ class Command_uname(HoneyPotCommand):
 
                     # Set all opts for -a/--all, single opt otherwise:
                     if target_opt == "__ALL__":
-                        for key in opts:
+                        for key in (
+                            "name",
+                            "node",
+                            "release",
+                            "version",
+                            "machine",
+                            "os",
+                        ):
                             opts[key] = True
                     else:
                         opts[target_opt] = True
@@ -170,6 +193,10 @@ class Command_uname(HoneyPotCommand):
             output.append(kernel_build_string())
         if opts["machine"]:
             output.append(hardware_platform())
+        if opts["processor"]:
+            output.append(uname_processor())
+        if opts["ihw"]:
+            output.append(uname_hw_platform())
         if opts["os"]:
             output.append(operating_system())
 

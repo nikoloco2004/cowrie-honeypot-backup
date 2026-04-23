@@ -1,0 +1,211 @@
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.0  25312 14784 ?        Ss   Apr22   0:03 /sbin/init
+root           2  0.0  0.0      0     0 ?        S    Apr22   0:00 [kthreadd]
+root           3  0.0  0.0      0     0 ?        S    Apr22   0:00 [pool_workqueue_release]
+root           4  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-kvfree_rcu_reclaim]
+root           5  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-rcu_gp]
+root           6  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-sync_wq]
+root           7  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-slub_flushwq]
+root           8  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-netns]
+root          12  0.0  0.0      0     0 ?        I    Apr22   0:00 [kworker/u16:0-ipv6_addrconf]
+root          13  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-mm_percpu_wq]
+root          14  0.0  0.0      0     0 ?        I    Apr22   0:00 [rcu_tasks_kthread]
+root          15  0.0  0.0      0     0 ?        I    Apr22   0:00 [rcu_tasks_rude_kthread]
+root          16  0.0  0.0      0     0 ?        I    Apr22   0:00 [rcu_tasks_trace_kthread]
+root          17  0.0  0.0      0     0 ?        S    Apr22   0:00 [ksoftirqd/0]
+root          18  0.0  0.0      0     0 ?        I    Apr22   0:00 [rcu_preempt]
+root          19  0.0  0.0      0     0 ?        S    Apr22   0:00 [rcu_exp_par_gp_kthread_worker/0]
+root          20  0.0  0.0      0     0 ?        S    Apr22   0:00 [rcu_exp_gp_kthread_worker]
+root          21  0.0  0.0      0     0 ?        S    Apr22   0:00 [migration/0]
+root          22  0.0  0.0      0     0 ?        S    Apr22   0:00 [cpuhp/0]
+root          23  0.0  0.0      0     0 ?        S    Apr22   0:00 [cpuhp/1]
+root          24  0.0  0.0      0     0 ?        S    Apr22   0:00 [migration/1]
+root          25  0.0  0.0      0     0 ?        S    Apr22   0:00 [ksoftirqd/1]
+root          28  0.0  0.0      0     0 ?        S    Apr22   0:00 [cpuhp/2]
+root          29  0.0  0.0      0     0 ?        S    Apr22   0:00 [migration/2]
+root          30  0.0  0.0      0     0 ?        S    Apr22   0:00 [ksoftirqd/2]
+root          33  0.0  0.0      0     0 ?        S    Apr22   0:00 [cpuhp/3]
+root          34  0.0  0.0      0     0 ?        S    Apr22   0:00 [migration/3]
+root          35  0.0  0.0      0     0 ?        S    Apr22   0:00 [ksoftirqd/3]
+root          42  0.0  0.0      0     0 ?        S    Apr22   0:00 [kdevtmpfs]
+root          43  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-inet_frag_wq]
+root          44  0.0  0.0      0     0 ?        S    Apr22   0:00 [kauditd]
+root          45  0.0  0.0      0     0 ?        S    Apr22   0:00 [khungtaskd]
+root          46  0.0  0.0      0     0 ?        S    Apr22   0:00 [oom_reaper]
+root          48  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-writeback]
+root          49  0.0  0.0      0     0 ?        S    Apr22   0:00 [kcompactd0]
+root          50  0.0  0.0      0     0 ?        S    Apr22   0:00 [kcompactd1]
+root          51  0.0  0.0      0     0 ?        S    Apr22   0:00 [kcompactd2]
+root          52  0.0  0.0      0     0 ?        S    Apr22   0:00 [kcompactd3]
+root          53  0.0  0.0      0     0 ?        S    Apr22   0:00 [kcompactd4]
+root          54  0.0  0.0      0     0 ?        S    Apr22   0:00 [kcompactd5]
+root          55  0.0  0.0      0     0 ?        S    Apr22   0:00 [kcompactd6]
+root          56  0.0  0.0      0     0 ?        S    Apr22   0:00 [kcompactd7]
+root          57  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-kintegrityd]
+root          58  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-kblockd]
+root          59  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-blkcg_punt_bio]
+root          62  0.0  0.0      0     0 ?        S    Apr22   0:00 [watchdogd]
+root          64  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-quota_events_unbound]
+root          65  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/0:1H-mmc_complete]
+root          66  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-rpciod]
+root          67  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-xprtiod]
+root          70  0.0  0.0      0     0 ?        S    Apr22   0:00 [kswapd0]
+root          71  0.0  0.0      0     0 ?        S    Apr22   0:00 [kswapd1]
+root          72  0.0  0.0      0     0 ?        S    Apr22   0:00 [kswapd2]
+root          73  0.0  0.0      0     0 ?        S    Apr22   0:00 [kswapd3]
+root          74  0.0  0.0      0     0 ?        S    Apr22   0:00 [kswapd4]
+root          75  0.0  0.0      0     0 ?        S    Apr22   0:00 [kswapd5]
+root          76  0.0  0.0      0     0 ?        S    Apr22   0:00 [kswapd6]
+root          77  0.0  0.0      0     0 ?        S    Apr22   0:00 [kswapd7]
+root          78  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-nfsiod]
+root          79  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-kthrotld]
+root          86  0.0  0.0      0     0 ?        S    Apr22   0:00 [hwrng]
+root          87  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-iscsi_conn_cleanup]
+root          88  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-nvme-wq]
+root          89  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-nvme-reset-wq]
+root          90  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-nvme-delete-wq]
+root          91  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-DWC Notification WorkQ]
+root          92  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-uas]
+root          95  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/2:1H-kblockd]
+root          96  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/u21:0-hci0]
+root          97  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/u22:0]
+root          98  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/u23:0]
+root          99  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/u24:0]
+root         100  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/u25:0]
+root         104  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/38-aerdrv]
+root         109  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-sdhci]
+root         110  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/162-mmc1]
+root         112  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-sdhci]
+root         113  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/161-mmc0]
+root         116  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-mmc_complete]
+root         161  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/3:1H-kblockd]
+root         162  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/1:1H-kblockd]
+root         173  0.0  0.0      0     0 ?        S    Apr22   0:00 [spi10]
+root         193  0.0  0.0      0     0 ?        S    Apr22   0:00 [jbd2/mmcblk0p2-8]
+root         194  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-ext4-rsv-conversion]
+root         211  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-mld]
+root         212  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-ipv6_addrconf]
+root         213  0.0  0.0      0     0 ?        I    Apr22   0:00 [kworker/u16:1-ipv6_addrconf]
+root         317  0.0  0.0  26992 10976 ?        Ss   Apr22   0:00 /usr/lib/systemd/systemd-journald
+root         328  0.0  0.0      0     0 ?        I    Apr22   0:00 [kworker/u20:2-events_unbound]
+systemd+     361  0.0  0.0  92560  8080 ?        Ssl  Apr22   0:00 /usr/lib/systemd/systemd-timesyncd
+root         387  0.0  0.0  34928 10384 ?        Ss   Apr22   0:00 /usr/lib/systemd/systemd-udevd
+root         535  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-v3d_bin]
+root         536  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-v3d_render]
+root         537  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-v3d_tfu]
+root         538  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-v3d_csd]
+root         540  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-v3d_cache_clean]
+root         541  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-v3d_cpu]
+root         553  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/170-1000800000.codec]
+root         555  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-cfg80211]
+root         579  0.0  0.0      0     0 ?        I<   Apr22   0:00 [kworker/R-brcmf_wq/mmc1:0001:1]
+root         581  0.0  0.0      0     0 ?        S    Apr22   0:00 [brcmf_wdog/mmc1:0001:1]
+root         582  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/174-vc4 hdmi hpd connected]
+root         583  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/175-vc4 hdmi hpd disconnected]
+root         584  0.0  0.0      0     0 ?        S    Apr22   0:00 [cec-vc4-hdmi-0]
+root         585  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/176-vc4 hdmi cec rx]
+root         586  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/177-vc4 hdmi cec tx]
+root         588  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/178-vc4 hdmi hpd connected]
+root         589  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/179-vc4 hdmi hpd disconnected]
+root         590  0.0  0.0      0     0 ?        S    Apr22   0:00 [cec-vc4-hdmi-1]
+root         592  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/180-vc4 hdmi cec rx]
+root         593  0.0  0.0      0     0 ?        S    Apr22   0:00 [irq/181-vc4 hdmi cec tx]
+root         595  0.0  0.0      0     0 ?        S    Apr22   0:00 [card1-crtc0]
+root         596  0.0  0.0      0     0 ?        S    Apr22   0:00 [card1-crtc1]
+root         597  0.0  0.0      0     0 ?        S    Apr22   0:00 [card1-crtc2]
+root         598  0.0  0.0      0     0 ?        S    Apr22   0:00 [card1-crtc3]
+root         608  0.0  0.0      0     0 ?        I<   Apr22   0:07 [kworker/u21:3-brcmf_wq/mmc1:0001:1]
+avahi        647  0.0  0.0   6032  3536 ?        Ss   Apr22   0:00 avahi-daemon: running [raspberrypi.local]
+root         648  0.0  0.0  13152  6432 ?        Ss   Apr22   0:00 /usr/libexec/bluetooth/bluetoothd
+root         649  0.0  0.0   7152  2928 ?        Ss   Apr22   0:00 /usr/sbin/cron -f
+message+     651  0.0  0.0   9120  5424 ?        Ss   Apr22   0:04 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root         655  0.0  0.0  19360  9056 ?        Ss   Apr22   0:00 /usr/lib/systemd/systemd-logind
+avahi        671  0.0  0.0   5856  1872 ?        S    Apr22   0:00 avahi-daemon: chroot helper
+root         702  0.0  0.1 345392 25680 ?        Ssl  Apr22   0:10 /usr/sbin/NetworkManager --no-daemon
+root         703  0.0  0.0  19344 12752 ?        Ss   Apr22   0:03 /usr/sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev
+root         719  0.0  0.0      0     0 ?        S<   Apr22   0:00 [krfcommd]
+root         836  0.0  0.0   7456  2768 ?        Ss+  Apr22   0:00 /sbin/agetty -o -- \u --noreset --noclear --keep-baud 115200,57600,38400,9600 - vt220
+root         842  0.0  0.0  11520  7696 ?        Ss   Apr22   0:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+root        1262  0.0  0.0      0     0 ?        I    Apr22   0:00 [kworker/u18:0-events_unbound]
+root        1465  0.0  0.0      0     0 ?        I    01:37   0:00 [kworker/u17:0-kvfree_rcu_reclaim]
+root        1663  0.0  0.0      0     0 ?        I    05:14   0:00 [kworker/u20:1-flush-179:0]
+root        2030  0.0  0.0      0     0 ?        I    09:35   0:00 [kworker/u17:2-kvfree_rcu_reclaim]
+root        2058  0.0  0.0      0     0 ?        I    10:09   0:00 [kworker/u18:2-flush-179:0]
+root        2067  0.0  0.0  21808 11664 ?        Ss   10:11   0:00 sshd-session: cowrie [priv]
+cowrie      2069  0.0  0.0  23136 12608 ?        Ss   10:11   0:00 /usr/lib/systemd/systemd --user
+cowrie      2071  0.0  0.0  24400  4640 ?        S    10:11   0:00 (sd-pam)
+cowrie      2090  0.0  0.0   7328  3536 ?        Ss   10:11   0:00 /usr/bin/mpris-proxy
+cowrie      2091  0.0  0.0   8160  4208 ?        Ss   10:11   0:00 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+cowrie      2105  0.0  0.0  22176  8096 ?        S    10:11   0:00 sshd-session: cowrie@notty
+cowrie      2106  0.0  0.0   2560  2048 ?        Ss   10:11   0:00 /usr/lib/openssh/sftp-server
+root        2151  0.0  0.0      0     0 ?        I    10:11   0:00 [kworker/u19:2-kvfree_rcu_reclaim]
+cowrie      6146  0.0  0.0   7360  3664 ?        Ss   10:20   0:00 bash
+cowrie      6247  0.0  0.2 726544 47968 ?        Sl   10:20   0:00 /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/node /home/cowrie/.cursor-server/bin/multiplex-server/3ce73d09cffc8f33c6d911e972bd0f6dabbe3e26e810844be8060e6b10987db8.js 0fa41b13-91c8-40ef-99fe-efe48ab6931a 0
+cowrie      6273  0.0  0.0   2512  1632 ?        S    10:20   0:00 sh /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/bin/cursor-server --start-server --host=127.0.0.1 --port 0 --connection-token-file /run/user/1001/cursor-remote-code.token.6bb3fe8155898361a78547e58f8cab87 --telemetry-level off --enable-remote-auto-shutdown --accept-server-license-terms
+cowrie      6282  0.2  0.5 5244736 92432 ?       Sl   10:20   0:10 /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/node /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/out/server-main.js --start-server --host=127.0.0.1 --port 0 --connection-token-file /run/user/1001/cursor-remote-code.token.6bb3fe8155898361a78547e58f8cab87 --telemetry-level off --enable-remote-auto-shutdown --accept-server-license-terms
+cowrie      6363  0.0  0.3 5119952 65392 ?       Sl   10:20   0:02 /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/node /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/out/bootstrap-fork --type=ptyHost --logsPath /home/cowrie/.cursor-server/data/logs/20260423T102006
+cowrie      6808  0.0  0.0   7344  3584 ?        Ss   10:20   0:00 bash
+cowrie      6937  3.2  2.4 35904896 401520 ?     Sl   10:20   2:50 /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/node --dns-result-order=ipv4first /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/out/bootstrap-fork --type=extensionHost --transformURIs --useHostProxy=false
+cowrie      6948  0.0  0.3 5235856 54624 ?       Sl   10:20   0:01 /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/node /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/out/bootstrap-fork --type=fileWatcher
+cowrie      9102  0.0  0.0   9152  5888 pts/1    Ss+  10:23   0:00 /bin/bash --init-file /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-bash.sh
+root       14081  0.0  0.0  22112 13216 ?        Ss   10:30   0:00 sshd-session: cowrie [priv]
+cowrie     14173  0.0  0.0  22176  8208 ?        S    10:30   0:00 sshd-session: cowrie@pts/2
+cowrie     14174  0.0  0.0   9008  5808 pts/2    Ss   10:30   0:00 -bash
+root       16141  0.0  0.0  22112 13216 ?        Ss   10:34   0:00 sshd-session: cowrie [priv]
+cowrie     16204  0.0  0.0  22176  8208 ?        S    10:34   0:00 sshd-session: cowrie@pts/3
+cowrie     16205  0.0  0.0   9008  5840 pts/3    Ss+  10:34   0:00 -bash
+root       16726  0.0  0.0      0     0 ?        I<   10:35   0:00 [kworker/3:0H]
+root       17049  0.0  0.0      0     0 ?        I<   10:35   0:00 [kworker/1:2H]
+root       17318  0.0  0.0      0     0 ?        I<   10:35   0:00 [kworker/2:0H]
+cowrie     17943  0.0  0.2  50640 39264 pts/2    S+   10:37   0:00 /home/cowrie/cowrie/cowrie-env/bin/python /home/cowrie/cowrie/cowrie-env/bin/fsctl /home/cowrie/cowrie/src/cowrie/data/fs.pickle
+root       18013  0.0  0.0      0     0 ?        I    10:37   0:00 [kworker/u20:0-flush-179:0]
+polkitd    22740  0.0  0.0 382656  9248 ?        Ssl  10:44   0:00 /usr/lib/polkit-1/polkitd --no-debug --log-level=notice
+root       25015  0.0  0.0      0     0 ?        I    10:48   0:00 [kworker/1:1-events]
+root       25924  0.0  0.0   7856  2608 tty6     Ss+  10:50   0:00 /sbin/agetty -o -- \u --noreset --noclear - linux
+root       25926  0.0  0.0      0     0 ?        I    10:50   0:00 [kworker/u17:3-kvfree_rcu_reclaim]
+root       29294  0.0  0.0  21808 11728 ?        Ss   10:58   0:00 sshd-session: cowrie [priv]
+cowrie     29328  0.0  0.0  22768  8768 ?        S    10:58   0:00 sshd-session: cowrie@notty
+cowrie     29329  0.0  0.0   7344  3568 ?        Ss   10:58   0:00 bash
+cowrie     29462  0.0  0.3 731360 50832 ?        Sl   10:58   0:00 /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/node /home/cowrie/.cursor-server/bin/linux-arm64/c6285feaba0ad62603f7c22e72f0a170dc8415a0/extensions/json-language-features/server/dist/node/jsonServerMain --node-ipc --clientProcessId=6937
+root       30859  0.0  0.0      0     0 ?        I    11:04   0:00 [kworker/u19:1-kvfree_rcu_reclaim]
+root       30887  0.0  0.0   9536  4752 ?        Ss   11:04   0:00 login -- cowrie
+cowrie     30922  0.0  0.0   9008  5824 tty1     Ss+  11:04   0:00 -bash
+root       30955  0.0  0.0      0     0 ?        I    11:04   0:00 [kworker/u19:3-kvfree_rcu_reclaim]
+root       31401  0.0  0.0  21968 12944 ?        Ss   11:07   0:00 sshd-session: cowrie [priv]
+root       31427  0.0  0.0  21808 11744 ?        Ss   11:07   0:00 sshd-session: cowrie [priv]
+cowrie     31433  0.0  0.0  22432  9088 ?        S    11:07   0:01 sshd-session: cowrie@pts/5
+cowrie     31442  0.0  0.0  22176  8144 ?        S    11:07   0:00 sshd-session: cowrie@notty
+cowrie     31443  0.0  0.0   2560  2144 ?        Ss   11:07   0:00 /usr/lib/openssh/sftp-server
+cowrie     31451  0.0  0.0   9008  5840 pts/5    Ss+  11:07   0:00 -bash
+root       34782  0.0  0.0      0     0 ?        I    11:13   0:00 [kworker/u18:3]
+root       35216  0.0  0.0      0     0 ?        I    11:15   0:00 [kworker/0:2-events]
+cowrie     36677  0.0  0.4 105568 81280 ?        S    11:19   0:00 /home/cowrie/cowrie/cowrie-env/bin/python /home/cowrie/cowrie/cowrie-env/bin/twistd --umask=0022 --pidfile /home/cowrie/cowrie/var/run/cowrie.pid --logger cowrie.python.logfile.logger cowrie
+root       37062  0.0  0.0      0     0 ?        I    11:20   0:00 [kworker/3:1-events_freezable]
+root       37084  0.0  0.0      0     0 ?        I<   11:20   0:00 [kworker/0:0H]
+cowrie     38104  0.1  0.0   7056  3232 ?        Ss   11:26   0:01 bash -c while true; do sleep 1;head -v -n 8 /proc/meminfo; head -v -n 2 /proc/stat /proc/version /proc/uptime /proc/loadavg /proc/sys/fs/file-nr /proc/sys/kernel/hostname; tail -v -n 32 /proc/net/dev;echo '==> /proc/df <==';df -l;echo '==> /proc/who <==';who;echo '==> /proc/end <==';echo '##Moba##'; done
+root       38595  0.0  0.0      0     0 ?        I    11:27   0:00 [kworker/1:2-mm_percpu_wq]
+root       40487  0.0  0.0      0     0 ?        I    11:30   0:00 [kworker/2:2-events_freezable]
+root       40671  0.0  0.0  22112 13200 ?        Ss   11:30   0:00 sshd-session: cowrie [priv]
+cowrie     40710  0.0  0.0  22176  8208 ?        S    11:30   0:00 sshd-session: cowrie@pts/0
+cowrie     40711  0.0  0.0   9008  5856 pts/0    Ss+  11:30   0:00 -bash
+root       44313  0.0  0.0      0     0 ?        I    11:37   0:00 [kworker/3:0-events_power_efficient]
+root       44789  0.0  0.0      0     0 ?        I    11:38   0:00 [kworker/1:0-events]
+root       46270  0.0  0.0      0     0 ?        I    11:40   0:00 [kworker/2:0-events]
+root       46404  0.0  0.0      0     0 ?        I    11:40   0:00 [kworker/0:0-events]
+root       47280  0.0  0.0      0     0 ?        D    11:42   0:00 [kworker/3:2+events]
+root       47498  0.0  0.0      0     0 ?        I    11:42   0:00 [kworker/1:3-events]
+root       49130  0.0  0.0  21968 12928 ?        Ss   11:45   0:00 sshd-session: cowrie [priv]
+root       49171  0.0  0.0      0     0 ?        I    11:45   0:00 [kworker/2:1-events_power_efficient]
+cowrie     49185  0.0  0.0  22176  8208 ?        S    11:45   0:00 sshd-session: cowrie@pts/4
+cowrie     49186  0.0  0.0   9008  5840 pts/4    Ss   11:45   0:00 -bash
+root       49311  0.0  0.0      0     0 ?        I    11:46   0:00 [kworker/0:1]
+cowrie     49512  0.2  0.2  49824 38480 pts/4    S+   11:46   0:00 /home/cowrie/cowrie/cowrie-env/bin/python /home/cowrie/cowrie/cowrie-env/bin/fsctl /home/cowrie/cowrie/src/cowrie/data/fs.pickle
+root       49565  0.0  0.0      0     0 ?        I    11:46   0:00 [kworker/2:3]
+cowrie     50227  0.0  0.0   5424  1904 ?        S    11:47   0:00 sleep 10
+root       50273  0.5  0.0  18608  7984 ?        Ss   11:47   0:00 /usr/lib/systemd/systemd-hostnamed
+cowrie     50305  0.0  0.0   5424  1920 ?        S    11:47   0:00 sleep 10
+cowrie     50306  0.0  0.0   5424  1920 ?        S    11:47   0:00 sleep 10
+cowrie     50357  0.0  0.0   5424  1936 ?        S    11:47   0:00 sleep 1
+cowrie     50358 20.0  0.0   9888  6176 ?        Ss   11:47   0:00 /bin/bash -O extglob -c snap=$(command cat <&3) && builtin shopt -s extglob && builtin eval -- "$snap" && { builtin set +u 2>/dev/null || true; builtin eval "${__CURSOR_SANDBOX_ENV_RESTORE:-}" 2>/dev/null; builtin export PWD="$(builtin pwd)"; builtin shopt -s expand_aliases 2>/dev/null; builtin eval "$1"; }; COMMAND_EXIT_CODE=$?; dump_bash_state >&4; builtin exit $COMMAND_EXIT_CODE -- OUT=/home/cowrie/cowrie/src/cowrie/data/ground_truth/pi5_debian13 cat /proc/cpuinfo > "$OUT/proc_cpuinfo.txt" 2>&1 cat /proc/meminfo > "$OUT/proc_meminfo.txt" 2>&1 cat /proc/version > "$OUT/proc_version.txt" 2>&1 lscpu > "$OUT/lscpu.txt" 2>&1 ip addr show > "$OUT/ip_addr_show.txt" 2>&1 ip link show > "$OUT/ip_link_show.txt" 2>&1 ip route show > "$OUT/ip_route_show.txt" 2>&1 ifconfig -a > "$OUT/ifconfig_a.txt" 2>&1 cat /proc/net/dev > "$OUT/proc_net_dev.txt" 2>&1 ss -tulnp > "$OUT/ss_tulnp.txt" 2>&1 netstat -rn > "$OUT/netstat_rn.txt" 2>&1 ps aux > "$OUT/ps_aux.txt" 2>&1 ps -ef > "$OUT/ps_ef.txt" 2>&1 top -bn1 > "$OUT/top_bn1.txt" 2>&1 systemctl list-units --type=service --state=running > "$OUT/systemctl_running.txt" 2>&1 service --status-all > "$OUT/service_status_all.txt" 2>&1 cat /etc/passwd > "$OUT/passwd.txt" 2>&1 cat /etc/group > "$OUT/group.txt" 2>&1 sudo -u pi id 2>/dev/null > "$OUT/id_as_pi.txt" || id > "$OUT/id_cowrie.txt" 2>&1 ls -la /home/pi/.ssh/authorized_keys 2>&1 | head -2 for f in lsb_release_a hostnamectl vcgencmd; do test -f "$OUT/${f}.txt" && echo OK $f; done ls -la "$OUT" | head -25
+root       50384  0.0  0.0  34944  6352 ?        S    11:47   0:00 (udev-worker)
+cowrie     50387  0.0  0.0   9312  4096 ?        R    11:47   0:00 ps aux

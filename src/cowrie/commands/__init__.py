@@ -59,4 +59,5 @@ __all__ = [
     "wget",
     "which",
     "yum",
+    "rpi_ground",
 ]

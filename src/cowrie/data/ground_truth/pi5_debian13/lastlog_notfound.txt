@@ -1,0 +1,1 @@
+bash: lastlog: command not found

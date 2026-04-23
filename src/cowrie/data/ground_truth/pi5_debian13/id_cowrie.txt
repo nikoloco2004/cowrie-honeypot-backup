@@ -1,0 +1,1 @@
+uid=1001(cowrie) gid=1001(cowrie) groups=1001(cowrie),100(users)
