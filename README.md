@@ -5,7 +5,7 @@ This repository is a **git clone of [Cowrie](https://github.com/cowrie/cowrie)**
 - **Upstream:** [`cowrie/cowrie`](https://github.com/cowrie/cowrie) — `git remote` name: `origin`
 - **This backup fork:** `git remote` name: `backup` → your GitHub copy (private), used to snapshot configuration and custom code
 - **Baseline tag:** `v0.0.0` — clean snapshot before the Pi-5–specific work
-- **This document’s release:** `v0.4.0` — session-built **`ps aux`** + proc-table coherence; see [Tags](#version-tags) and **`RELEASE_NOTES_v0.4.0.md`**
+- **This document’s release:** `v0.4.1` — **repository filesystem map** since **`v0.0.0`**; see [Tags](#version-tags) and **`RELEASE_NOTES_v0.4.1.md`**
 
 Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.org/)
 
@@ -87,12 +87,17 @@ Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.
 | **v0.2.0** | Ground-truth `ps` streams in chunks (SSH stability), real `honeyfs/etc/os-releases` (no broken symlink), aligned `/etc` and `/proc` honeyfs, `home` / `opt` / `root` lab overlays, updated `fs.pickle`. |
 | **v0.3.0** | Emulated host **anchor**: `fake_uptime_base` + `display_timezone`, dynamic `/proc/uptime`, session-cached **load average** (`uptime` matches `w`), Debian-style **`w`** + decoy rows, synthetic **`last`** tied to the same boot time when ground truth + fake uptime are enabled. **`ps -ef`** / **`top -bn1`** are built from **`ps_aux`** so **PIDs match**. |
 | **v0.4.0** | **`ps aux`** is **synthesized** from parsed `ps_aux` rows plus session **`-bash`** / **`ps`** lines (emulated PIDs, real argv); **`ps -ef`** / **`top`** use the **same** session table; optional **`ps_aux_tail_noise_max`**; **`format_ps_aux_line`** fix for **`%MEM`** vs **7-digit VSZ** collision. Details: **`RELEASE_NOTES_v0.4.0.md`**. |
+| **v0.4.1** | **Documentation:** categorized map of **fork-specific paths** vs **`v0.0.0`** (config, **`rpi_ground`**, **`ps_coherence`**, honeyfs, ground-truth corpus, docs). **`RELEASE_NOTES_v0.4.1.md`**. |
 
-Restore a tree: `git checkout v0.4.0` (or `v0.3.0`, `v0.2.0`, `v0.1.0`, `v0.0.0`).
+Restore a tree: `git checkout v0.4.1` (or `v0.4.0`, `v0.3.0`, `v0.2.0`, `v0.1.0`, `v0.0.0`).
 
 ---
 
 ## Changelog (summary)
+
+### v0.4.1
+
+- **Docs only:** **`RELEASE_NOTES_v0.4.1.md`** — tables of **documentation**, **`etc/`**, **`src/cowrie/core`**, **`commands`** overrides, **`ground_truth/pi5_debian13/`**, **`honeyfs/`**, **`fs.pickle`**, **`txtcmds`**, and a **tag → theme** summary from **`v0.0.0`** through **`v0.4.0`**.
 
 ### v0.4.0
 
@@ -121,7 +126,7 @@ Restore a tree: `git checkout v0.4.0` (or `v0.3.0`, `v0.2.0`, `v0.1.0`, `v0.0.0`
 - **Honeyfs / data:** Trixie-like `/etc` and `/proc` overlays; full `dmesg` text capture.
 - **Docs:** this `README` and a detailed narrative in **`PERSONAL_CHANGELOG_2026-04-23.md`**.
 
-For the full “what and why” story, read **`PERSONAL_CHANGELOG_2026-04-23.md`**.
+For the full “what and why” story, read **`PERSONAL_CHANGELOG_2026-04-23.md`**. For a **path-by-path map** of fork additions since **`v0.0.0`**, read **`RELEASE_NOTES_v0.4.1.md`**.
 
 ---
 

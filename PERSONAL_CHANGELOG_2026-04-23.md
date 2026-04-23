@@ -91,6 +91,7 @@ This file is a **narrative record** of what was done to this tree and **why**, f
 | Emulated dmesg | `src/cowrie/data/txtcmds/bin/dmesg` |
 | Login/issue overlay | `honeyfs/etc/*`, `honeyfs/proc/`, `honeyfs/sys/.../model` |
 | Command registry order | `src/cowrie/commands/__init__.py` (loads `rpi_ground` last) |
+| Fork layout since `v0.0.0` | **`RELEASE_NOTES_v0.4.1.md`** (categorized map) |
 
 ---
 
@@ -154,6 +155,19 @@ This split makes merges from upstream a bit easier, except where you must resolv
 5. **Docs / agent context** — **`RELEASE_NOTES_v0.4.0.md`** (release-only delta), **`README.md`** tag + changelog, **`.cursor/rules/scalpel-hackathon.mdc`** (SCALPEL scoring, baseline comparison, Cowrie-only rule).
 
 **Git:** Commit on `main`, annotated tag **`v0.4.0`**, push **`backup`**. Paste **`RELEASE_NOTES_v0.4.0.md`** into the GitHub Release body for v0.4.0 if desired.
+
+---
+
+## Postscript (v0.4.1 publish)
+
+**Why:** Presentations and new teammates need one place that answers “**what did we add since the clean baseline tag, and where does it live?**” without rereading every postscript.
+
+**What we did**
+
+- Added **`RELEASE_NOTES_v0.4.1.md`** — sections for docs/meta, **`etc/`**, core Python (**`ground_truth`**, **`ps_coherence`**, **`utils`**), **`protocol.py`**, command overrides (**`rpi_ground`**, **`uname`**, **`wget`**, **`base`**, **`uptime`**), the **`pi5_debian13/`** capture groups, **`honeyfs/`**, **`fs.pickle`**, **`txtcmds/bin/dmesg`**, and a **v0.0.0 → v0.4.0** tag summary table. Explicitly excludes upstream bulk and runtime **`var/`** noise.
+- Updated **`README.md`** (current release pointer, version table, changelog) and this file’s quick index.
+
+**Git:** Commit on `main`, annotated tag **`v0.4.1`**, push **`backup`**. Optional GitHub Release with body from **`RELEASE_NOTES_v0.4.1.md`**.
 
 ---
 
