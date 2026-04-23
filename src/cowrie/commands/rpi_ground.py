@@ -12,7 +12,7 @@ import time
 from twisted.internet import reactor
 
 import cowrie.commands.last as _lastm
-from cowrie.commands.base import Command_id, Command_ps, Command_w
+from cowrie.commands.base import Command_id, Command_ps, Command_w, Command_who
 from cowrie.commands.cat import Command_cat
 from cowrie.commands.ifconfig import Command_ifconfig
 from cowrie.commands.netstat import Command_netstat
@@ -222,7 +222,13 @@ class Command_id_gt(Command_id):
     def call(self) -> None:
         if not _gt():
             return super().call()
-        if self.protocol.user.username == "pi":
+        # Optional: show captured ``pi`` id(1) line even when SSH authenticated as
+        # root, so probes match a real Pi workstation (prompt may still say root).
+        as_pi = CowrieConfig.getboolean(
+            "shell", "ground_truth_id_as_pi", fallback=True
+        )
+        u = self.protocol.user.username
+        if u == "pi" or (as_pi and u == "root"):
             self.write(_w(load_ground_line("id_pi.txt")))
             return
         return super().call()
@@ -489,6 +495,55 @@ class Command_lastlog_notfound(HoneyPotCommand):
         self.errorWrite(load_ground_line("lastlog_notfound.txt"))
 
 
+def _who_time_wall(ts: float) -> str:
+    tt = utils.shell_clock_tuple_for(ts)
+    return time.strftime("%b", tt) + f" {tt.tm_mday} " + time.strftime("%H:%M", tt)
+
+
+class Command_who_gt(Command_who):
+    """
+    procps ``who(1)`` on a busy Pi: several lines (sshd, multiple pts, seat0, tty1),
+    ``Mon DD HH:MM`` timestamps — not a single ISO-dated row.
+    """
+
+    def call(self) -> None:
+        if not _gt():
+            return super().call()
+        u = utils.shell_visible_username(self.protocol)
+        client = self.protocol.clientIP
+        login_ts = self.protocol.logintime
+        net_prefix = client.rsplit(".", 1)[0] if client.count(".") == 3 else "10.4.27"
+
+        lines: list[str] = []
+        w_line = 17
+
+        def row(term: str, ts: float, host: str | None) -> None:
+            ts_s = _who_time_wall(ts)
+            if host:
+                lines.append(f"{u:<8}{term:<{w_line}}{ts_s} ({host})\n")
+            else:
+                lines.append(f"{u:<8}{term:<{w_line}}{ts_s}\n")
+
+        row("sshd", login_ts, client)
+        row("sshd pts/0", login_ts, client)
+
+        h0 = hash(client) & 0xFFFF
+        for i, pt in enumerate(("pts/1", "pts/2", "pts/3"), start=1):
+            last = 30 + ((h0 + i * 37) % 45)
+            ip = f"{net_prefix}.{last}"
+            if ip == client:
+                last = (last + 11) % 254 or 40
+                ip = f"{net_prefix}.{last}"
+            ts = login_ts - (i * 2100 + (h0 % 300))
+            row(f"sshd {pt}", ts, ip)
+
+        bootish = login_ts - 7 * 3600 + 1200
+        row("seat0", bootish, None)
+        row("tty1", bootish + 180, None)
+
+        self.write("".join(lines))
+
+
 class Command_w_gt(Command_w):
     """
     Debian/procps-style header and column spacing; decoy sessions from ground truth.
@@ -503,7 +558,7 @@ class Command_w_gt(Command_w):
         self.write(
             "USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU  WHAT\n"
         )
-        u = self.protocol.user.username
+        u = utils.shell_visible_username(self.protocol)
         tty = "pts/0"
         frm = self.protocol.clientIP[:15].ljust(17)
         login = time.strftime(
@@ -582,3 +637,7 @@ commands["lastlog"] = Command_lastlog_notfound
 commands["/usr/bin/w"] = Command_w_gt
 commands["/bin/w"] = Command_w_gt
 commands["w"] = Command_w_gt
+
+commands["who"] = Command_who_gt
+commands["/usr/bin/who"] = Command_who_gt
+commands["/bin/who"] = Command_who_gt

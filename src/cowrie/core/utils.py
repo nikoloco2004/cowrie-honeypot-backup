@@ -7,7 +7,7 @@ from __future__ import annotations
 import hashlib
 import ipaddress
 import time
-from typing import TYPE_CHECKING, BinaryIO
+from typing import TYPE_CHECKING, Any, BinaryIO
 
 from twisted.application import internet
 from twisted.internet import endpoints
@@ -143,6 +143,33 @@ def shell_clock_tuple_for(ts: float | None = None) -> time.struct_time:
 def shell_clock_tuple() -> time.struct_time:
     """Wall clock 'now' for uptime/w; uses [shell] display_timezone when set."""
     return shell_clock_tuple_for(None)
+
+
+def shell_prompt_identity(protocol: Any) -> tuple[str, bool]:
+    """
+    Return ``(username_for_prompt_and_basic_tools, use_hash_suffix)``.
+
+    When ``[shell] ground_truth_id_as_pi`` is true, ground truth is enabled, and
+    the session authenticated as **root**, the visible identity is **pi** with a
+    ``$`` prompt—matching ``id`` and a typical Raspberry Pi SSH session.
+    """
+    from cowrie.core.config import CowrieConfig
+    from cowrie.core.ground_truth import ground_truth_enabled
+
+    u = protocol.user.username
+    uid = protocol.user.uid
+    if (
+        ground_truth_enabled()
+        and CowrieConfig.getboolean("shell", "ground_truth_id_as_pi", fallback=True)
+        and u == "root"
+    ):
+        return "pi", False
+    return u, uid == 0
+
+
+def shell_visible_username(protocol: Any) -> str:
+    """Username shown in ``w``, ``who``, ``whoami``, and ``ps`` session rows."""
+    return shell_prompt_identity(protocol)[0]
 
 
 def shell_loadavg_for_bucket(bucket: int) -> str:

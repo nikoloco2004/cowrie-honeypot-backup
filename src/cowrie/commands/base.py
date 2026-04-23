@@ -27,7 +27,7 @@ commands: dict[str, Callable] = {}
 
 class Command_whoami(HoneyPotCommand):
     def call(self) -> None:
-        self.write(f"{self.protocol.user.username}\n")
+        self.write(f"{utils.shell_visible_username(self.protocol)}\n")
 
 
 commands["/usr/bin/whoami"] = Command_whoami
@@ -100,7 +100,7 @@ class Command_w(HoneyPotCommand):
             "USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT\n"
         )
         self.write(
-            f"{self.protocol.user.username:8s} pts/0    {self.protocol.clientIP[:17].ljust(17)} {time.strftime('%H:%M', utils.shell_clock_tuple_for(self.protocol.logintime))}    0.00s  0.00s  0.00s w\n"
+            f"{utils.shell_visible_username(self.protocol):8s} pts/0    {self.protocol.clientIP[:17].ljust(17)} {time.strftime('%H:%M', utils.shell_clock_tuple_for(self.protocol.logintime))}    0.00s  0.00s  0.00s w\n"
         )
 
 
@@ -111,8 +111,12 @@ commands["w"] = Command_w
 
 class Command_who(HoneyPotCommand):
     def call(self) -> None:
+        tt = utils.shell_clock_tuple_for(self.protocol.logintime)
+        t_wall = (
+            time.strftime("%b", tt) + f" {tt.tm_mday} " + time.strftime("%H:%M", tt)
+        )
         self.write(
-            f"{self.protocol.user.username:8s} pts/0        {time.strftime('%Y-%m-%d', utils.shell_clock_tuple_for(self.protocol.logintime))} {time.strftime('%H:%M', utils.shell_clock_tuple_for(self.protocol.logintime))} ({self.protocol.clientIP})\n"
+            f"{utils.shell_visible_username(self.protocol):<8} pts/0        {t_wall} ({self.protocol.clientIP})\n"
         )
 
 

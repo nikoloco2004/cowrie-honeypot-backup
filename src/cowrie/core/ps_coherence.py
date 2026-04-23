@@ -10,6 +10,7 @@ from dataclasses import dataclass
 
 from cowrie.core.config import CowrieConfig
 from cowrie.core.ground_truth import load_ground_line
+from cowrie.core import utils as cowrie_utils
 
 _PS_AUX_DATA_RE = re.compile(
     r"^(\S+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(.*)$"
@@ -138,7 +139,7 @@ def _make_session_shell_row(protocol, utils_mod) -> PsRow:
     rss = tpl.rss if tpl else 5840
     stat = tpl.stat if tpl else "Ss+"
     tty = protocol.get_ps_display_tty()
-    user = protocol.user.username
+    user = cowrie_utils.shell_visible_username(protocol)
     shell_pid = protocol.get_emulated_shell_pid()
     start = time.strftime("%H:%M", utils_mod.shell_clock_tuple_for(protocol.logintime))
     return PsRow(
@@ -159,7 +160,7 @@ def _make_session_shell_row(protocol, utils_mod) -> PsRow:
 def _make_synthetic_ps_row(protocol, cmd: str, utils_mod) -> PsRow:
     pid = protocol.next_emulated_ps_pid()
     tty = protocol.get_ps_display_tty()
-    user = protocol.user.username
+    user = cowrie_utils.shell_visible_username(protocol)
     start = time.strftime("%H:%M", utils_mod.shell_clock_tuple())
     tpl = next((r for r in get_ps_aux_rows() if r.cmd.strip() == "ps aux"), None)
     vsz = tpl.vsz if tpl else 9312

@@ -14,6 +14,7 @@ from twisted.internet import error
 from twisted.python import failure, log
 from twisted.python.compat import iterbytes
 
+from cowrie.core import utils
 from cowrie.core.config import CowrieConfig
 from cowrie.shell import fs
 from cowrie.shell.parser import CommandParser
@@ -551,11 +552,12 @@ class HoneyPotShell:
 
             # Example: [root@svr03 ~]#   (More of a "CentOS" feel)
             # Example: root@svr03:~#     (More of a "Debian" feel)
-            prompt = f"{self.protocol.user.username}@{self.protocol.hostname}:{cwd}"
-            if not self.protocol.user.uid:
-                prompt += "# "  # "Root" user
+            p_user, root_hash = utils.shell_prompt_identity(self.protocol)
+            prompt = f"{p_user}@{self.protocol.hostname}:{cwd}"
+            if root_hash:
+                prompt += "# "  # root / superuser-style
             else:
-                prompt += "$ "  # "Non-Root" user
+                prompt += "$ "  # normal user (incl. cosmetic pi when root+GT)
 
         self.protocol.terminal.write(prompt.encode("ascii"))
         self.protocol.ps = (prompt.encode("ascii"), b"> ")
