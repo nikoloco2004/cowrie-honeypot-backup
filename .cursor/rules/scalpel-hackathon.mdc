@@ -1,28 +1,37 @@
 ---
-description: Project SCALPEL hackathon — edge Cowrie deception goals, Red Team probes, scoring
+description: Project SCALPEL hackathon goals, scoring, and constraints for this Cowrie fork
 alwaysApply: true
 ---
 
 # Project SCALPEL (Hybrid Deception Challenge)
 
-Use this context when changing the honeypot, ground-truth captures, escalation, or docs.
+Use this context when changing the honeypot, ground truth, edge/cloud split, or documentation.
 
-## Platform
+## What this is
 
-- **Edge:** Cowrie SSH/SFTP on **Raspberry Pi 5** (organizer image: **64-bit headless Raspberry Pi OS**). Local intelligence should handle most interactions; **minimize cloud** use and **hide latency** on escalations.
-- **Cloud (Tier 2):** AWS (e.g. Bedrock, OpenSearch RAG). Escalate only when local fidelity is insufficient; design policy so escalations are not obvious from timing.
-- **Rules:** Cowrie required; **do not reimage** Pis; Red Team compares honeypot to a **clean baseline Pi** with the same probe suite.
+- **Edge:** Cowrie on Raspberry Pi 5 — primary SSH/SFTP contact for Red Team. Must handle most interactions **locally** with realistic, **consistent** behavior.
+- **Cloud (AWS):** Tier-2 (e.g. Bedrock) when local logic cannot; **escalation rate and latency shape** are scored — avoid detectable cloud round-trips.
+- **Baseline:** Organizers provide a **clean headless Raspberry Pi OS** image on a reference Pi; Red Team compares honeypot vs that **ground truth** under the same probes.
 
-## Red Team evaluation (what to optimize against)
+## Scoring (high level)
 
-- **Interaction realism (40%):** Stability, consistency, accuracy of Linux-like responses. **Demerits** per confirmed difference vs baseline; **crash = major penalty**.
-- **Edge efficiency (40%):** Penalize **escalation rate** (cloud calls); probes should stay local when possible.
-- **Presentation (20%):** Design rationale, tradeoffs, cost/latency strategy.
+- **Interaction realism (~40%):** Probes (easy → complex). **Demerits** per confirmed inconsistency vs baseline; crashes cost heavily.
+- **Edge efficiency (~40%):** Penalize **escalations** that show up in interaction patterns (e.g. latency).
+- **Presentation (~20%):** Design rationale, escalation policy, cost/latency tradeoffs.
 
-Probe dimensions include **pre-auth fingerprinting**, **behavioral accuracy** (standard Linux commands), **filesystem integrity**, and **latency analysis**.
+Tie-break: edge efficiency, then realism, then presentation.
 
-## Engineering implications for this repo
+## Probe dimensions (design for all)
 
-- Prefer **deterministic, session-coherent** outputs (clock, load, process tables) so probes cannot cross-check inconsistencies.
-- Ground-truth captures should match **what the baseline Pi can show**; avoid obvious static “tape replay” (e.g. identical attacker session lines across runs when behavior should vary).
-- Document **non-obvious** deception fixes in release notes, not only in code.
+Pre-auth fingerprinting · behavioral accuracy/consistency · filesystem integrity · latency.
+
+## Rules that matter for code
+
+- **Cowrie is mandatory** for the honeypot framework.
+- **Do not assume a “lifestyle” capture matches headless OS** unless the team’s **reference Pi** really looks that way — Red Team compares to **their** baseline Pi.
+- Prefer **deterministic local** answers (ground truth tables, session state, shared clocks) over cloud for standard Linux commands.
+- **Cross-command consistency** is a demerit magnet: same PIDs, same load/uptime story, same TTY/user for the session across `ps`, `ps aux`, `w`, etc.
+
+## Repo-specific reminder
+
+This fork uses **`ground_truth = pi5_debian13`** captures plus **`rpi_ground`** overrides. When editing `ps_coherence`, `rpi_ground`, or shell protocol session helpers, preserve alignment with the **packaged baseline captures** and the **emulated session** (SSH_TTY, fake uptime, loadavg bucket).

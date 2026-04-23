@@ -1,77 +1,75 @@
-# Release v0.4.0 — Synthetic `ps aux`, session process rows, formatter fix
+# Release v0.4.0 — Session-synthesized `ps aux` and proc-table coherence
 
-This note documents **only what is new since v0.3.0**. It does not repeat the anchored clock, session load average, synthetic `last`, or other items already described in `README.md` and `PERSONAL_CHANGELOG_2026-04-23.md` for earlier tags.
-
----
-
-## 1. Problem
-
-### 1.1 Static `ps aux` as a verbatim file
-
-In v0.3.0, **`ps -ef`** and **`top -bn1`** were derived from parsed **`ps_aux.txt`** so PIDs matched a single canonical table, but **`ps aux` itself** still **printed the capture file literally**. That caused several issues under Project SCALPEL–style evaluation (honeypot vs baseline Pi, behavioral probes):
-
-1. **Session fingerprint:** The capture’s last lines typically include someone else’s **TTY**, **shell PID**, and **`ps aux` PID** from the moment of capture. An attacker (or automated probe) comparing **plain `ps`** (session-aware PIDs introduced in development) with **`ps aux`** could see **inconsistent** session metadata: same SSH session but different shell PIDs or TTY in the long listing vs the short listing.
-
-2. **Tape replay:** Running **`ps aux` twice** produced **byte-identical** output (aside from transport). Real systems show a **new PID** for the **`ps`** process each run and update **START/TIME** fields for interactive rows in line with the current clock. A perfect static dump is an easy **“canned output”** signal.
-
-3. **Coherence gap:** The **synthetic `ps -ef` / `top`** body could not reflect the **same** injected session rows as `ps aux`, because `ps aux` never went through the shared builder—only the static file did.
-
-### 1.2 Column corruption when reformatting rows (`%MEM` + `VSZ`)
-
-To drop the verbatim file, each `PsRow` must be **serialized** back to a procps-like line. The first implementation concatenated **`%MEM`** (4-character field) and **`VSZ`** (7-character right-aligned field) with **no separator**.
-
-When **`VSZ` is exactly seven digits**, the `>7` format produces **no leading spaces**. If **`%MEM` ends with a digit** (e.g. `0.5`) and **`VSZ` begins with a digit** (e.g. `5248640`), the two columns **visually merge** into one token (e.g. `0.55248640`). That is **wrong vs real `ps`**, breaks parsers that split on whitespace boundaries, and is a **high-confidence demerit** under behavioral accuracy checks.
+These notes cover **only what is new in v0.4.0** relative to prior documented releases (v0.3.0 and earlier). They do not repeat anchor clock, `w`/`last`, or chunked `ps` I/O, which are already described in `README.md` and `PERSONAL_CHANGELOG_2026-04-23.md`.
 
 ---
 
-## 2. Solution (v0.4.0)
+## 1. Problem: verbatim `ps_aux.txt` could not match the live session
 
-### 2.1 Single session-aware table for `ps aux`, `ps -ef`, and `top`
+**Symptom.** With ground truth enabled, `ps aux` returned the **`ps_aux.txt` file literally** — byte-for-byte the same on every run. That created several realism and consistency failures under Red Team–style comparison:
 
-All three paths now consume **`build_session_ps_rows()`** in `src/cowrie/core/ps_coherence.py`:
+1. **Static artifact.** The capture ends with a **`ps aux` process line** (fixed PID, TTY, user, START time). A second run still showed that same line instead of reflecting a new `ps` PID or wall clock.
+2. **Session mismatch.** Plain `ps` (no flags) had already been taught to show **`get_emulated_shell_pid()`** and **`next_emulated_ps_pid()`** with TTY from **`SSH_TTY`**. The full `ps aux` listing still contained the **captured** interactive shell and **`ps aux`** row for **whoever ran the capture** (e.g. `pi` on `pts/1`), which need not match the current attacker (`root` on `pts/0`).
+3. **Fingerprint.** Identical megabyte-class process listing every time, including the trailing probe line, is easy to classify as a **canned dump** rather than live procps output.
 
-1. **Base rows:** Parsed from **`ps_aux.txt`** via **`get_ps_aux_rows()`**, then filtered:
-   - Drop **captured `ps` listings** (`ps … aux`, `ps … -ef`, `-e`/`-f` combinations) so the stale “photographer’s” `ps` line is gone.
-   - Drop **interactive shell rows** on the **current session TTY** (`SSH_TTY` → strip `/dev/` prefix, else `pts/0`) so we do not duplicate `-bash`/`bash` for the attacker’s pty.
-
-2. **Injected rows (appended):**
-   - **`-bash`:** **`get_emulated_shell_pid()`**, session username, **`get_ps_display_tty()`**, **START** from **`shell_clock_tuple_for(logintime)`**, VSZ/RSS/STAT cloned from a reference **pts** `-bash` in the capture when possible.
-   - **`ps` command:** **`next_emulated_ps_pid()`**, **`R+`**, START from **`shell_clock_tuple()`**, **`CMD`** = actual argv (e.g. `ps aux`, `ps -ef`, `ps -a -u x`). The **`ps` row is stored on the protocol** as **`_gt_synthetic_ps_row`** so **`top`** can include the **last** listing process without re-advancing the PID sequence.
-
-3. **Optional tail noise:** **`[shell] ps_aux_tail_noise_max`** (default `0`). If &gt; 0, each **`ps aux`** run may append **0…N** extra **`[kworker/…]`**-style lines with **new PIDs** and current **`HH:MM`**, so the listing is not always the same length. Noise is **not** added for **`ps -ef`** or **`top`** to avoid unnecessary task-count drift there.
-
-4. **Emit:** **`format_ps_aux_output()`** = header + **`format_ps_aux_line()`** per row; **`Command_ps_gt`** still uses chunked writes for large output.
-
-### 2.2 `%MEM` / `VSZ` boundary fix
-
-**`format_ps_aux_line()`** now inserts an **explicit space** between **`%MEM`** and **`VSZ`** when the formatted VSZ string does **not** already start with a space (i.e. full 7-digit VSZ). Shorter VSZ values keep the original **abutted** layout so lines still match the reference capture for typical padded columns.
-
-### 2.3 Protocol helpers (session PIDs / TTY)
-
-**`HoneyPotBaseProtocol`** (`src/cowrie/shell/protocol.py`) now exposes:
-
-- **`get_emulated_shell_pid()`** — stable per session (lazy random once).
-- **`next_emulated_ps_pid()`** — advances with plausible gaps for each **`ps`** / **`ps aux`** / **`ps -ef`** synthetic process row.
-- **`get_ps_display_tty()`** — from **`SSH_TTY`** or **`pts/0`**.
-
-**`Command_ps_gt._call_ps_plain_gt()`** uses these for procps-style plain **`ps`** (no flags): **`bash`** + **`ps`**, matching the intended “real Pi” short listing behavior.
+**Requirement.** Keep the **bulk** of the process table aligned with the real Pi capture (PIDs, kernel threads, daemons) while **rewriting** the rows that must reflect **this** SSH session: login shell and the `ps` listing process, with optional small variation at the tail.
 
 ---
 
-## 3. Files touched (v0.4.0)
+## 2. Fix: build `ps aux` from parsed rows + session overrides
 
-| Path | Role |
-|------|------|
-| `src/cowrie/core/ps_coherence.py` | Session table builder, `format_ps_aux_*`, tail noise, `format_top_bn1` uses session rows |
-| `src/cowrie/commands/rpi_ground.py` | `ps aux` / `ps -ef` use builder + formatters; plain `ps` ground path |
-| `src/cowrie/shell/protocol.py` | Emulated shell/`ps` PIDs and display TTY |
-| `etc/cowrie.cfg` | `ps_aux_tail_noise_max` |
-| `.cursor/rules/scalpel-hackathon.mdc` | Persistent hackathon context for agents |
-| `RELEASE_NOTES_v0.4.0.md` | This document |
+**Approach.** `ps_aux.txt` remains the **canonical source**, but only after **parsing** into `PsRow` objects (`get_ps_aux_rows()`). Output is **formatted** with `format_ps_aux_line()` instead of dumping the file.
+
+**Pipeline (`build_session_ps_rows` in `src/cowrie/core/ps_coherence.py`):**
+
+1. **Filter out** rows that must not appear verbatim:
+   - Any **captured `ps` listing** (`ps … aux`, `ps … -ef`, `-e`/`-f` combinations) so the old trailing `ps aux` line is gone.
+   - Any **interactive shell** on the **session TTY** (`-bash` / `bash` heuristics matching `protocol.get_ps_display_tty()`), so we do not duplicate the real pty’s shell from the snapshot when the honeypot replaces it.
+2. **Append** a synthetic **`PsRow`** for **`-bash`** using **`get_emulated_shell_pid()`**, session username, TTY from **`get_ps_display_tty()`**, START from **`shell_clock_tuple_for(logintime)`**, VSZ/RSS/STAT cloned from a reference **pts/** `-bash` in the capture when possible.
+3. **Append** a synthetic **`PsRow`** for the **`ps`** invocation using **`next_emulated_ps_pid()`**, **`shell_clock_tuple()`** for START, `R+`, and **COMMAND** = `ps <actual argv>` (e.g. `ps aux`). Store this row on **`protocol._gt_synthetic_ps_row`** for reuse by **`top`** (see below).
+4. **Optional noise (aux only).** If `[shell] ps_aux_tail_noise_max` &gt; 0, append 0…N extra **`[kworker/…]`**-style lines with **new PIDs** and current **`HH:MM`**, so the tail is not bitwise static. Not applied to `ps -ef` / `top` so task counts stay stable unless you run `ps aux`.
+
+**Emitter.** `Command_ps_gt.start()` (aux branch) calls **`format_ps_aux_output(rows)`** and still uses **`_ps_emit_lines`** chunking for SSH stability.
 
 ---
 
-## 4. Operational notes
+## 3. Problem: `ps -ef` / `top` drifted from the `ps aux` story
 
-- Regenerate **`ps_aux.txt`** on the reference Pi when the static part of the process tree should change; session rows are always **synthesized** from protocol state.
-- For SCALPEL, align captures with the **headless baseline** story where possible; unrelated desktop tooling in captures is a separate narrative choice.
+**Symptom.** After v0.3.0, **`ps -ef`** and **`top -bn1`** were built from **`get_ps_aux_rows()`** (raw parse of the file), while **`ps aux`** was still the **verbatim file**. That meant the **synthetic session rows** (shell + `ps`) and **filtered** capture lines in `ps aux` did not exist in the table used for **`ps -ef`** / **`top`**, so PIDs and row counts could **disagree** across tools.
+
+**Fix.** Both **`ps -ef`** and **`format_top_bn1()`** now call **`build_session_ps_rows(..., purpose="ef"|"top")`**:
+
+- **`ef`:** Same filtered base + session **`-bash`** + new synthetic **`ps`** row with COMMAND reflecting **`ps <args>`**; **`next_emulated_ps_pid()`** runs per `ps -ef` invocation; snapshot updated.
+- **`top`:** Same filtered base + session **`-bash`** + **last** stored synthetic **`ps`** row from the most recent **`ps aux` / `ps -ef`** (if any), **no** automatic noise lines.
+
+**Result.** Kernel/daemon PIDs stay capture-faithful; session lines are **shared** across viewers where intended.
+
+---
+
+## 4. Problem: `%MEM` and `VSZ` columns fused on wide VSZ values
+
+**Symptom.** Formatter concatenated **`%MEM`** and **`VSZ`** (e.g. `{pmem:>4}{vsz:>7}`) without a guaranteed column gap when VSZ had no printf padding. For **seven-digit VSZ**, procps-style width leaves **no leading spaces** in the VSZ field. If `%MEM` ends with a digit (e.g. `0.5`), the next field `5248640` **abuts** it and renders like **`0.55248640`** — wrong columns and an obvious parse/fingerprint failure.
+
+**Fix.** After formatting VSZ with **`>7`**, if the string does **not** start with a space, insert **one** space between **`%MEM`** and **VSZ**; otherwise keep the original tight join so shorter VSZ values still match the reference alignment.
+
+---
+
+## 5. Configuration
+
+| Key | Section | Purpose |
+|-----|---------|---------|
+| `ps_aux_tail_noise_max` | `[shell]` | Max extra synthetic kworker lines per **`ps aux`** (0 = off); actual count uniform in **0…max**. |
+
+---
+
+## 6. Files touched (implementation)
+
+- `src/cowrie/core/ps_coherence.py` — `format_ps_aux_line`, `format_ps_aux_output`, `build_session_ps_rows`, tail noise, **`format_top_bn1`** row source, VSZ/MEM gap fix.
+- `src/cowrie/commands/rpi_ground.py` — **`Command_ps_gt`** aux/`ps -ef` branches use builder + formatter.
+- `etc/cowrie.cfg` — documents **`ps_aux_tail_noise_max`**.
+
+---
+
+## 7. Operational note for SCALPEL
+
+Red Team compares to a **headless** reference Pi. A capture rich in **desktop/dev** paths (e.g. editor remote agents) may still be **internally consistent** but **semantically** distant from the organizer image — that is a **content** choice separate from this release’s mechanics. This release fixes **session coherence** and **column integrity**; refreshing **`ps_aux.txt`** (and dependents) against **your** official baseline Pi remains the right way to align **story** with **probe environment**.

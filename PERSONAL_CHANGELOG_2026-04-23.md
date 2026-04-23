@@ -141,24 +141,31 @@ This split makes merges from upstream a bit easier, except where you must resolv
 
 ---
 
+## Postscript (v0.4.0 publish)
+
+**Why (Project SCALPEL context).** Red Team runs the **same probes** against the honeypot and a **clean headless baseline Pi**. Demerits hit **behavioral inconsistency**: e.g. plain `ps` showing one shell PID and `ps aux` still containing the **capture’s** shell and **`ps aux`** line on another TTY/PID, or **`ps aux`** returning the **identical** megabyte capture every time including a stale trailing **`ps`** row. Separately, after v0.3.0, **`ps -ef`** / **`top`** used **parsed** rows while **`ps aux`** was still the **raw file**, so the **process table could disagree** across commands.
+
+**What we did (code, summarized — full technical narrative in `RELEASE_NOTES_v0.4.0.md`):**
+
+1. **`build_session_ps_rows(protocol, purpose=…)`** in **`ps_coherence.py`** — Start from **`get_ps_aux_rows()`**, drop captured **`ps` listing** rows and **session-TTY** interactive **`bash`** rows, append synthetic **`-bash`** (`get_emulated_shell_pid`) and **`ps`** (`next_emulated_ps_pid`, argv-matching **COMMAND**), store the latter on **`protocol._gt_synthetic_ps_row`** for **`top`**. Optional **`ps_aux_tail_noise_max`** adds 0…N cloned **`kworker`** lines with new PIDs (**`ps aux`** only).
+2. **`format_ps_aux_line` / `format_ps_aux_output`** — Emit procps-shaped lines from **`PsRow`** instead of **`load_ground_line("ps_aux.txt")`** for the aux path. **`Command_ps_gt`** still chunks output for SSH.
+3. **`ps -ef` / `top`** — Both call **`build_session_ps_rows`** (`ef` vs `top`) so the **same** filtered base + session rows back **`format_ps_ef`** and **`format_top_bn1`**.
+4. **Column bugfix** — When **VSZ** fills seven digits, **`>7`** leaves no leading space; **`%MEM`** ending in a digit (e.g. `0.5`) **concatenated** to **`5248640`** produced **`0.55248640`**. We insert **one** space between **`%MEM`** and **VSZ** only when the formatted VSZ does **not** already start with a space.
+5. **Docs / agent context** — **`RELEASE_NOTES_v0.4.0.md`** (release-only delta), **`README.md`** tag + changelog, **`.cursor/rules/scalpel-hackathon.mdc`** (SCALPEL scoring, baseline comparison, Cowrie-only rule).
+
+**Git:** Commit on `main`, annotated tag **`v0.4.0`**, push **`backup`**. Paste **`RELEASE_NOTES_v0.4.0.md`** into the GitHub Release body for v0.4.0 if desired.
+
+---
+
 ## PID consistency (`ps`, `ps aux`, `ps -ef`, `top -bn1`)
 
 **Why:** Ground-truth **`ps_aux.txt`**, **`ps_ef.txt`**, and **`top_bn1.txt`** came from different captures, so PIDs for the same logical processes (e.g. `sshd`) did not match — an easy honeypot fingerprint.
 
-**What we did (v0.3.0 → v0.4.0)**
+**What we did**
 
-- **`src/cowrie/core/ps_coherence.py`:** parse **`ps_aux.txt`** as the single canonical table; **infer PPID** for `ps -ef`; **format `ps -ef`** and **`top -bn1`** from the same rows. **v0.4.0:** **`ps aux`** is also built from **`build_session_ps_rows()`** + **`format_ps_aux_output()`** (not a verbatim file dump); session **`-bash` / `ps`** rows and optional tail noise; **`format_ps_aux_line()`** fixes **`%MEM`** vs 7-digit **`VSZ`** fusion; **`format_top_bn1`** uses the same session table. Full technical narrative: **`RELEASE_NOTES_v0.4.0.md`**.
-- **`Command_ps_gt`:** **`ps -ef` / `ps -e -f`** → **`format_ps_ef`**; **`ps aux`** → session builder + aux formatter; **plain `ps`** → procps-style **`bash`** + **`ps`** with **`get_emulated_shell_pid`** / **`next_emulated_ps_pid`** / **`get_ps_display_tty`** (`protocol.py`).
-- **`Command_top_cmd`:** **`format_top_bn1()`** — dynamic header, **Tasks** from session row list, static **%Cpu/Mem/Swap** tail from **`top_bn1.txt`** capture.
-
----
-
-## Postscript (v0.4.0 publish)
-
-**Why:** Verbatim **`ps aux`** duplicated capture-time session lines, disagreed with plain **`ps`**, and replayed identically every run; reformatted rows could corrupt **`%MEM`/`VSZ`** when VSZ filled seven digits.
-
-**What we did:** See **`RELEASE_NOTES_v0.4.0.md`** (deep dive). **Cursor** agents: **`.cursor/rules/scalpel-hackathon.mdc`** (Project SCALPEL constraints).
-
-**Git:** Commit **`5c23e652`** on **`main`**, annotated tag **`v0.4.0`**, pushed **`backup`**. GitHub Release: [v0.4.0](https://github.com/nikoloco2004/cowrie-honeypot-backup/releases/tag/v0.4.0) (notes from **`RELEASE_NOTES_v0.4.0.md`**).
+- Added **`src/cowrie/core/ps_coherence.py`**: parse **`ps_aux.txt`** as the single canonical table; **infer PPID** for `ps -ef` with heuristics (kernel threads, sshd listener/priv/sessions, login/getty/bash, systemd user slice, etc.); **format `ps -ef`** and **`top -bn1`** body from the same rows so every PID aligns with **`ps aux`**.
+- **`Command_ps_gt`**: *v0.3.0:* **`ps aux`** was still the verbatim capture file; **`ps -ef` / `ps -e -f`** used synthetic **`format_ps_ef`**. *v0.4.0:* **`ps aux`** is **formatted from `PsRow` list** after session filters/injection; **`ps -ef`** uses **`build_session_ps_rows`** too — see **Postscript (v0.4.0)**.
+- **`Command_top_cmd`**: batch **`top -b …`** uses **`format_top_bn1()`** — dynamic first line (clock/uptime/load/users), computed **Tasks** line, static **%Cpu/Mem/Swap** lines from the old **`top_bn1.txt`** capture; *v0.4.0:* process table rows from **`build_session_ps_rows(..., purpose="top")`** (includes last synthetic **`ps`** row when set).
+- **Plain `ps` (no flags):** Stock Cowrie re-randomized **both** shell and `ps` PIDs when `server.process` was set. With **`ground_truth = pi5_debian13`**, **`Command_ps_gt`** now prints procps-style **`bash`** + **`ps`** rows: **one stable shell PID per session** (`get_emulated_shell_pid`), **only `ps` PID advances** per invocation (`next_emulated_ps_pid`), TTY from **`SSH_TTY`** when set else **`pts/0`**.
 
 *End of personal log. For day-to-day operation and where to change things, see `README.md` in this repository.*
