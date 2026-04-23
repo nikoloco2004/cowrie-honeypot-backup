@@ -94,13 +94,13 @@ commands["help"] = Command_help
 class Command_w(HoneyPotCommand):
     def call(self) -> None:
         self.write(
-            f" {time.strftime('%H:%M:%S')} up {utils.uptime(self.protocol.uptime())},  1 user,  load average: 0.00, 0.00, 0.00\n"
+            f" {time.strftime('%H:%M:%S', utils.shell_clock_tuple())} up {utils.uptime(self.protocol.uptime())},  {utils.shell_uptime_user_summary()},  load average: {self.protocol.get_shell_loadavg()}\n"
         )
         self.write(
             "USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT\n"
         )
         self.write(
-            f"{self.protocol.user.username:8s} pts/0    {self.protocol.clientIP[:17].ljust(17)} {time.strftime('%H:%M', time.localtime(self.protocol.logintime))}    0.00s  0.00s  0.00s w\n"
+            f"{self.protocol.user.username:8s} pts/0    {self.protocol.clientIP[:17].ljust(17)} {time.strftime('%H:%M', utils.shell_clock_tuple_for(self.protocol.logintime))}    0.00s  0.00s  0.00s w\n"
         )
 
 
@@ -111,7 +111,7 @@ commands["w"] = Command_w
 class Command_who(HoneyPotCommand):
     def call(self) -> None:
         self.write(
-            f"{self.protocol.user.username:8s} pts/0        {time.strftime('%Y-%m-%d', time.localtime(self.protocol.logintime))} {time.strftime('%H:%M', time.localtime(self.protocol.logintime))} ({self.protocol.clientIP})\n"
+            f"{self.protocol.user.username:8s} pts/0        {time.strftime('%Y-%m-%d', utils.shell_clock_tuple_for(self.protocol.logintime))} {time.strftime('%H:%M', utils.shell_clock_tuple_for(self.protocol.logintime))} ({self.protocol.clientIP})\n"
         )
 
 
@@ -953,8 +953,22 @@ commands["history"] = Command_history
 
 class Command_date(HoneyPotCommand):
     def call(self) -> None:
-        time = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
-        self.write(f"{time.strftime('%a %b %d %H:%M:%S UTC %Y')}\n")
+        from zoneinfo import ZoneInfo
+
+        from cowrie.core.config import CowrieConfig
+
+        tz_name = CowrieConfig.get("shell", "display_timezone", fallback="").strip()
+        if tz_name:
+            try:
+                dt = datetime.datetime.now(ZoneInfo(tz_name))
+                self.write(
+                    f"{dt.strftime('%a')} {dt.day} {dt.strftime('%b %H:%M:%S')} {dt.tzname()} {dt.year}\n"
+                )
+                return
+            except Exception:
+                pass
+        t = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+        self.write(f"{t.strftime('%a %b %d %H:%M:%S UTC %Y')}\n")
 
 
 commands["/bin/date"] = Command_date

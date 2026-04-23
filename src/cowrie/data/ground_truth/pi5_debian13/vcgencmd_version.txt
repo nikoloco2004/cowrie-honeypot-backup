@@ -1,2 +1,3 @@
-Can't open device file: /dev/vcio
-Try creating a device file with: sudo mknod /dev/vcio c 100 0
+2025/12/08 19:29:54
+Copyright (c) 2012 Broadcom
+version 2226a853 (release) (embedded)

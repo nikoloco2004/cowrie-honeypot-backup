@@ -214,8 +214,11 @@ class HoneyPotBaseProtocol(insults.TerminalProtocol, TimeoutMixin):
         Uptime
         """
         pt = self.getProtoTransport()
-        r = time.time() - pt.factory.starttime
-        return r
+        fac = pt.factory
+        fake_boot = getattr(fac, "fake_boot_epoch", None)
+        if fake_boot is not None:
+            return time.time() - fake_boot
+        return time.time() - fac.starttime
 
     def eofReceived(self) -> None:
         # Shell received EOF, nicely exit

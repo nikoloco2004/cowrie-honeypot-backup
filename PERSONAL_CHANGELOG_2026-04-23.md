@@ -123,4 +123,20 @@ This split makes merges from upstream a bit easier, except where you must resolv
 - **Git:** Release commit **`c49f9155`** on `main`, tag **`v0.2.0`**, push to **`backup`** with `git push backup main && git push backup v0.2.0`. GitHub tag: [v0.2.0](https://github.com/nikoloco2004/cowrie-honeypot-backup/releases/tag/v0.2.0) (create a Release from the tag if you want release notes in the UI).
 - **Docs:** `README.md` version table and changelog section updated for v0.2.0.
 
+---
+
+## Postscript (v0.3.0 publish)
+
+**Why:** Probes compare `date`, `uptime`, `cat /proc/uptime`, `w`, and `last`. Without a single emulated **boot anchor** and **one load snapshot per time bucket**, outputs disagree (e.g. different load on `uptime` vs `w`, or `last` missing), which weakens deception.
+
+**What we did**
+
+1. **Session-cached load average** — `HoneyPotBaseProtocol.get_shell_loadavg()` stores the triplet for the current `loadavg_period_seconds` wall bucket so every command in that SSH session reports the **same** load until the bucket advances (`src/cowrie/shell/protocol.py`). `utils.shell_loadavg_for_bucket()` centralizes the hash (`src/cowrie/core/utils.py`).
+2. **`uptime` / `w`** — Call `protocol.get_shell_loadavg()` instead of `shell_loadavg_or_static()` (`uptime.py`, `base.py`, `rpi_ground.Command_w_gt`).
+3. **`shell_format_datetime()`** — strftime in `display_timezone` for shared formatting (`utils.py`); used by synthetic `last`.
+4. **`Command_last_gt`** — When `ground_truth = pi5_debian13` and `fake_boot_epoch` is set (`[shell] fake_uptime_base`), `last` prints **reboot** at the synthetic boot time, several **still logged in** rows (current user + decoy `pi` sessions with login times between boot and now), and **`wtmp begins`** at boot. If ground truth is off or fake boot is unset, behavior falls back to stock `last` (`src/cowrie/commands/rpi_ground.py`).
+5. **Docs** — This postscript; **`README.md`** tag table and changelog for **v0.3.0**.
+
+**Git:** Commit on `main`, annotated tag **`v0.3.0`**, push **`backup`** (`git push backup main && git push backup v0.3.0`). Create a GitHub Release from the tag if you want UI release notes.
+
 *End of personal log. For day-to-day operation and where to change things, see `README.md` in this repository.*

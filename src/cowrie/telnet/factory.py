@@ -16,6 +16,7 @@ from twisted.internet import protocol
 from twisted.python import log
 
 from cowrie import data
+from cowrie.core import utils
 from cowrie.core.config import CowrieConfig
 from cowrie.telnet.transport import CowrieTelnetTransport
 from cowrie.telnet.userauth import HoneyPotTelnetAuthProtocol
@@ -72,6 +73,7 @@ class HoneyPotTelnetFactory(protocol.ServerFactory):
 
         # For use by the uptime command
         self.starttime = time.time()
+        utils.init_factory_uptime_fakery(self)
 
         # hook protocol
         if self.backend == "proxy":

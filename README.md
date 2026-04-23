@@ -5,7 +5,7 @@ This repository is a **git clone of [Cowrie](https://github.com/cowrie/cowrie)**
 - **Upstream:** [`cowrie/cowrie`](https://github.com/cowrie/cowrie) — `git remote` name: `origin`
 - **This backup fork:** `git remote` name: `backup` → your GitHub copy (private), used to snapshot configuration and custom code
 - **Baseline tag:** `v0.0.0` — clean snapshot before the Pi-5–specific work
-- **This document’s release:** `v0.2.0` — ground-truth `ps` stability, honeyfs sync, lab overlays, docs (see [Tags](#version-tags))
+- **This document’s release:** `v0.3.0` — anchored shell clock (`date` / `uptime` / `w` / `last` / loadavg), see [Tags](#version-tags)
 
 Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.org/)
 
@@ -85,12 +85,19 @@ Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.
 | **v0.0.0** | Initial copy pushed to your GitHub backup; baseline before Pi 5 high-fidelity work. |
 | **v0.1.0** | Adds ground-truth system, `rpi_ground`, `README.md` (this file), and `PERSONAL_CHANGELOG_2026-04-23.md`. |
 | **v0.2.0** | Ground-truth `ps` streams in chunks (SSH stability), real `honeyfs/etc/os-releases` (no broken symlink), aligned `/etc` and `/proc` honeyfs, `home` / `opt` / `root` lab overlays, updated `fs.pickle`. |
+| **v0.3.0** | Emulated host **anchor**: `fake_uptime_base` + `display_timezone`, dynamic `/proc/uptime`, session-cached **load average** (`uptime` matches `w`), Debian-style **`w`** + decoy rows, synthetic **`last`** tied to the same boot time when ground truth + fake uptime are enabled. |
 
-Restore a tree: `git checkout v0.2.0` (or `v0.1.0`, `v0.0.0`).
+Restore a tree: `git checkout v0.3.0` (or `v0.2.0`, `v0.1.0`, `v0.0.0`).
 
 ---
 
 ## Changelog (summary)
+
+### v0.3.0
+
+- **Anchor clock:** `[shell]` options `display_timezone`, `fake_uptime_base`, `fake_proc_idle_*`, `fake_w_user_count`, `loadavg_period_seconds` keep `date`, `uptime`, and `cat /proc/uptime` coherent; **`get_shell_loadavg()`** on the session caches load for the current period so **`uptime` and `w` agree**.
+- **`last`:** With `ground_truth = pi5_debian13` and fake uptime, **`last`** prints plausible `reboot` / `still logged in` / `wtmp begins` lines derived from **`fake_boot_epoch`** instead of a static “not found” error.
+- **Docs:** **`PERSONAL_CHANGELOG_2026-04-23.md`** v0.3.0 postscript.
 
 ### v0.2.0
 

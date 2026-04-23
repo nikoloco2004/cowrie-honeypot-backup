@@ -69,6 +69,8 @@ class HoneyPotBaseProtocol(insults.TerminalProtocol, TimeoutMixin):
         self.data = None
         self.password_input = False
         self.cmdstack = []
+        self._shell_loadavg_bucket: int | None = None
+        self._shell_loadavg_str: str | None = None
 
     def getProtoTransport(self):
         """
@@ -300,8 +302,30 @@ class HoneyPotBaseProtocol(insults.TerminalProtocol, TimeoutMixin):
         Uptime
         """
         pt = self.getProtoTransport()
-        r = time.time() - pt.factory.starttime
-        return r
+        fac = pt.factory
+        fake_boot = getattr(fac, "fake_boot_epoch", None)
+        if fake_boot is not None:
+            return time.time() - fake_boot
+        return time.time() - fac.starttime
+
+    def get_shell_loadavg(self) -> str:
+        """
+        Load average triplet cached per SSH/telnet session for the current
+        loadavg_period_seconds bucket so uptime, w, etc. match for the same instant.
+        """
+        from cowrie.core import utils
+        from cowrie.core.config import CowrieConfig
+
+        if not CowrieConfig.get("shell", "fake_uptime_base", fallback="").strip():
+            return "0.00, 0.00, 0.00"
+        period = int(CowrieConfig.get("shell", "loadavg_period_seconds", fallback="45"))
+        period = max(15, period)
+        bucket = int(time.time() // period)
+        if self._shell_loadavg_bucket != bucket:
+            self._shell_loadavg_bucket = bucket
+            self._shell_loadavg_str = utils.shell_loadavg_for_bucket(bucket)
+        assert self._shell_loadavg_str is not None
+        return self._shell_loadavg_str
 
     def eofReceived(self) -> None:
         # Shell received EOF, nicely exit

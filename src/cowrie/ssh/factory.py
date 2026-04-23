@@ -15,6 +15,7 @@ from twisted.conch.openssh_compat import primes
 from twisted.conch.ssh import factory, keys, transport
 from twisted.python import log
 
+from cowrie.core import utils
 from cowrie.core.config import CowrieConfig
 from cowrie.ssh import connection
 from cowrie.ssh import keys as cowriekeys
@@ -68,6 +69,7 @@ class CowrieSSHFactory(factory.SSHFactory):
     def startFactory(self) -> None:
         # For use by the uptime command
         self.starttime = time.time()
+        utils.init_factory_uptime_fakery(self)
 
         # Load/create keys
         try:

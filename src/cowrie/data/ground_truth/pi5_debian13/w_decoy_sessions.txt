@@ -1,0 +1,6 @@
+pi                10.4.27.61       14:36           0.00s  0.03s sshd-session: pi [priv]
+pi       pts/1    10.4.27.61       14:36    0.00s  0.03s   ?    w
+pi                10.4.27.61       14:35           0.00s  0.04s sshd-session: pi [priv]
+pi       pts/0    10.4.27.68       11:30    6:24   0.05s  0.05s -bash
+pi                10.4.27.61       11:06           0.00s  0.03s sshd-session: pi [priv]
+pi       tty1     -                10:39    3:17m  0.03s  0.03s -bash

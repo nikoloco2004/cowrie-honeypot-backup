@@ -1,7 +1,7 @@
  Static hostname: raspberrypi
        Icon name: computer
-      Machine ID: f1866aaa434940ee877cc6a87796c718
-         Boot ID: b704b2eb2e544abba6d90bcfb3d85530
+      Machine ID: c8adcbfe00fc40aa891e45994cb1c28b
+         Boot ID: 86b2f7f1b56a4de18501e4627605b72c
 Operating System: Debian GNU/Linux 13 (trixie)
           Kernel: Linux 6.12.75+rpt-rpi-2712
     Architecture: arm64

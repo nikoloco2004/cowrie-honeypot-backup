@@ -35,5 +35,5 @@ CPU part	: 0xd0b
 CPU revision	: 1
 
 Revision	: e04171
-Serial		: e30301e5272fae98
+Serial		: 6c0ab3b431db8485
 Model		: Raspberry Pi 5 Model B Rev 1.1
