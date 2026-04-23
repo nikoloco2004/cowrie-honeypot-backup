@@ -39,6 +39,7 @@ def _w(s: str) -> str:
 
 # Absolute paths -> ground_truth file basename (full file read; not honeyfs/pickle)
 _CAT_GT: dict[str, str] = {
+    "/etc/os-release": "os-release.txt",
     "/proc/net/dev": "proc_net_dev.txt",
     "/sys/firmware/devicetree/base/model": "devicetree_model.txt",
 }
@@ -250,7 +251,6 @@ class Command_lsb_release(HoneyPotCommand):
         if not _gt():
             # Match real "command not found" — verify exact format on ground truth
             self.errorWrite("bash: lsb_release: command not found\n")
-            self.exit(127)
             return
         
         # Emit stderr FIRST (matches real lsb_release ordering), then stdout
@@ -261,8 +261,6 @@ class Command_lsb_release(HoneyPotCommand):
             self.errorWrite(_w(stderr_output))
         if stdout_output:
             self.write(_w(stdout_output))
-        
-        self.exit(0)
 
 
 class Command_hostnamectl(HoneyPotCommand):
@@ -342,7 +340,13 @@ class Command_top_cmd(HoneyPotCommand):
             self.errorWrite("bash: top: command not found\n")
             return
         a = " ".join(self.args)
-        if "-b" in a and ("-n" in a or re.search(r"-n[0-9]+", a) or "n1" in a):
+        batch = "-b" in a and (
+            re.search(r"(^|\s)-n\s+\d+(\s|$)", a) is not None
+            or re.search(r"(^|\s)-n\d+(\s|$)", a) is not None
+            or re.search(r"-\w*n\d+", a) is not None
+            or ("-n" in self.args and any(x.isdigit() for x in self.args))
+        )
+        if batch:
             self.write(_w(ps_coherence.format_top_bn1(self.protocol)))
         else:
             self.write("top - running interactively (batch mode: top -b)\n")
@@ -576,4 +580,5 @@ commands["/usr/bin/lastlog"] = Command_lastlog_notfound
 commands["lastlog"] = Command_lastlog_notfound
 
 commands["/usr/bin/w"] = Command_w_gt
+commands["/bin/w"] = Command_w_gt
 commands["w"] = Command_w_gt

@@ -31,6 +31,7 @@ class HoneyPotCommand:
         self.input_data: None | (
             bytes
         ) = None  # used to store STDIN data passed via PIPE
+        self.exit_code: int = 0
         pp: Any = getattr(self.protocol, "pp", None)
         self.writefn: Callable[[bytes], None]
         self.errorWritefn: Callable[[bytes], None]
@@ -87,6 +88,9 @@ class HoneyPotCommand:
         """
         Sometimes client is disconnected and command exits after. So cmdstack is gone
         """
+        if self.protocol:
+            self.protocol.last_cmd_exit = self.exit_code
+
         if (
             self.protocol
             and self.protocol.terminal
@@ -96,7 +100,7 @@ class HoneyPotCommand:
             for real_path, virtual_path in self.protocol.pp.redirect_real_files:
                 self.protocol.terminal.redirFiles.add((real_path, virtual_path))
 
-        if len(self.protocol.cmdstack):
+        if len(self.protocol.cmdstack) and self in self.protocol.cmdstack:
             self.protocol.cmdstack.remove(self)
 
             if len(self.protocol.cmdstack):
@@ -118,7 +122,9 @@ class HoneyPotCommand:
         log.msg(f"QUEUED INPUT: {line}")
         # FIXME: naive command parsing, see lineReceived below
         # line = "".join(line)
-        self.protocol.cmdstack[0].cmdpending.append(shlex.split(line, posix=True))
+        self.protocol.cmdstack[0].cmdpending.append(
+            {"chain": None, "tokens": shlex.split(line, posix=True)}
+        )
 
     def resume(self) -> None:
         pass

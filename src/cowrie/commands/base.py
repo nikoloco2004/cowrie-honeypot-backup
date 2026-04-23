@@ -105,6 +105,7 @@ class Command_w(HoneyPotCommand):
 
 
 commands["/usr/bin/w"] = Command_w
+commands["/bin/w"] = Command_w
 commands["w"] = Command_w
 
 
@@ -165,6 +166,24 @@ class Command_echo(HoneyPotCommand):
 
 commands["/bin/echo"] = Command_echo
 commands["echo"] = Command_echo
+
+
+class Command_true(HoneyPotCommand):
+    def call(self) -> None:
+        self.exit_code = 0
+
+
+class Command_false(HoneyPotCommand):
+    def call(self) -> None:
+        self.exit_code = 1
+
+
+commands["true"] = Command_true
+commands["/bin/true"] = Command_true
+commands["/usr/bin/true"] = Command_true
+commands["false"] = Command_false
+commands["/bin/false"] = Command_false
+commands["/usr/bin/false"] = Command_false
 
 
 class Command_printf(HoneyPotCommand):

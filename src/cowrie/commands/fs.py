@@ -25,6 +25,20 @@ if TYPE_CHECKING:
 commands: dict[str, Callable] = {}
 
 
+def _expand_head_tail_numeric_flags(args: list[str]) -> list[str]:
+    """
+    GNU head/tail accept `-3` as a line count. Python getopt treats the `3`
+    as an option letter; normalize to ``-n`` + count.
+    """
+    out: list[str] = []
+    for a in args:
+        if len(a) > 1 and a.startswith("-") and a != "--" and a[1:].isdigit():
+            out.extend(["-n", a[1:]])
+        else:
+            out.append(a)
+    return out
+
+
 class Command_grep(HoneyPotCommand):
     """
     grep command
@@ -149,20 +163,23 @@ class Command_tail(HoneyPotCommand):
     def start(self) -> None:
         if not self.args or self.args[0] == ">":
             return
-        else:
-            try:
-                optlist, args = getopt.getopt(self.args, "n:")
-            except getopt.GetoptError as err:
-                self.errorWrite(f"tail: invalid option -- '{err.opt}'\n")
-                self.exit()
-                return
+        self.args = _expand_head_tail_numeric_flags(self.args)
+        try:
+            optlist, args = getopt.getopt(self.args, "n:")
+        except getopt.GetoptError as err:
+            self.errorWrite(f"tail: invalid option -- '{err.opt}'\n")
+            self.exit_code = 1
+            self.exit()
+            return
 
-            for opt in optlist:
-                if opt[0] == "-n":
-                    if not opt[1].isdigit():
-                        self.errorWrite(f"tail: illegal offset -- {opt[1]}\n")
-                    else:
-                        self.n = int(opt[1])
+        for opt in optlist:
+            if opt[0] == "-n":
+                if not opt[1].isdigit():
+                    self.errorWrite(f"tail: illegal offset -- {opt[1]}\n")
+                    self.exit_code = 1
+                    self.exit()
+                    return
+                self.n = int(opt[1])
         if not self.input_data:
             files = self.check_arguments("tail", args)
             for pname in files:
@@ -219,27 +236,32 @@ class Command_head(HoneyPotCommand):
         self.bytecount: int = 0
         if not self.args or self.args[0] == ">":
             return
-        else:
-            try:
-                optlist, args = getopt.getopt(self.args, "c:n:")
-            except getopt.GetoptError as err:
-                self.errorWrite(f"head: invalid option -- '{err.opt}'\n")
-                self.exit()
-                return
+        self.args = _expand_head_tail_numeric_flags(self.args)
+        try:
+            optlist, args = getopt.getopt(self.args, "c:n:")
+        except getopt.GetoptError as err:
+            self.errorWrite(f"head: invalid option -- '{err.opt}'\n")
+            self.exit_code = 1
+            self.exit()
+            return
 
-            for opt in optlist:
-                if opt[0] == "-n":
-                    if not opt[1].isdigit():
-                        self.errorWrite(f"head: invalid number of lines: `{opt[1]}`\n")
-                    else:
-                        self.linecount = int(opt[1])
-                        self.bytecount = 0
-                elif opt[0] == "-c":
-                    if not opt[1].isdigit():
-                        self.errorWrite(f"head: invalid number of bytes: `{opt[1]}`\n")
-                    else:
-                        self.bytecount = int(opt[1])
-                        self.linecount = 0
+        for opt in optlist:
+            if opt[0] == "-n":
+                if not opt[1].isdigit():
+                    self.errorWrite(f"head: invalid number of lines: `{opt[1]}`\n")
+                    self.exit_code = 1
+                    self.exit()
+                    return
+                self.linecount = int(opt[1])
+                self.bytecount = 0
+            elif opt[0] == "-c":
+                if not opt[1].isdigit():
+                    self.errorWrite(f"head: invalid number of bytes: `{opt[1]}`\n")
+                    self.exit_code = 1
+                    self.exit()
+                    return
+                self.bytecount = int(opt[1])
+                self.linecount = 0
 
         if not self.input_data:
             files = self.check_arguments("head", args)

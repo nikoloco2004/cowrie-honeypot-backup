@@ -31,7 +31,7 @@ class HoneyPotShell:
         self.protocol = protocol
         self.interactive: bool = interactive
         self.redirect: bool = redirect  # to support output redirection
-        self.cmdpending: list[list[str]] = []
+        self.cmdpending: list[dict[str, Any] | list[str]] = []
         self.environ: dict[str, str] = copy.copy(protocol.environ)
         if hasattr(protocol.user, "windowSize"):
             self.environ["COLUMNS"] = str(protocol.user.windowSize[1])
@@ -44,11 +44,15 @@ class HoneyPotShell:
 
     def lineReceived(self, line: str) -> None:
         log.msg(eventid="cowrie.command.input", input=line, format="CMD: %(input)s")
+        self.protocol.last_cmd_exit = 0
         self.lexer = shlex.shlex(instream=line, punctuation_chars=True, posix=True)
         # Add these special characters that are not in the default lexer
         self.lexer.wordchars += "@%{}=$:+^,()`"
 
         tokens: list[str] = []
+        segments: list[tuple[str | None, list[str]]] = []
+        segment_chain: str | None = None
+        parse_error = False
 
         while True:
             try:
@@ -57,26 +61,22 @@ class HoneyPotShell:
 
                 if tokkie is None:  # self.lexer.eof put None for mypy
                     if tokens:
-                        self.cmdpending.append(tokens)
+                        segments.append((segment_chain, tokens))
                     break
                 else:
                     tok: str = tokkie
 
-                # For now, treat && and || same as ;, just execute without checking return code
-                if tok == "&&" or tok == "||":
+                if tok in ("&&", "||", ";"):
                     if tokens:
-                        self.cmdpending.append(tokens)
+                        segments.append((segment_chain, tokens))
                         tokens = []
-                        continue
-                    else:
+                    elif tok in ("&&", "||"):
                         self.protocol.terminal.write(
                             f"-bash: syntax error near unexpected token `{tok}'\n".encode()
                         )
+                        parse_error = True
                         break
-                elif tok == ";":
-                    if tokens:
-                        self.cmdpending.append(tokens)
-                        tokens = []
+                    segment_chain = tok
                     continue
                 elif tok == "$?":
                     tok = "0"
@@ -85,7 +85,7 @@ class HoneyPotShell:
                     if tokens:
                         # Parentheses in the middle of a command line is a syntax error
                         self.protocol.terminal.write(
-                            f"-bash: syntax error near unexpected token `{tok}'\\n".encode()
+                            f"-bash: syntax error near unexpected token `{tok}'\n".encode()
                         )
                         break
                     if tok == "(":
@@ -123,16 +123,22 @@ class HoneyPotShell:
                 self.showPrompt()
                 return
 
+        if parse_error:
+            self.cmdpending = []
+            self.showPrompt()
+            return
+
+        self.cmdpending = []
+        for chain, seg_tokens in segments:
+            if not seg_tokens:
+                continue
+            merged = self.parser.merge_redirection_tokens(seg_tokens)
+            if merged:
+                self.cmdpending.append({"chain": chain, "tokens": merged})
+
         if self.cmdpending:
-            # Coalesce fd redirection tokens so we don't treat `2` as a command
-            self.cmdpending = [
-                self.parser.merge_redirection_tokens(tokens)
-                for tokens in self.cmdpending
-            ]
-            # if we have a complete command, go and run it
             self.runCommand()
         else:
-            # if there's no command, display a prompt again
             self.showPrompt()
 
     def do_subshell_execution_from_lexer(self) -> None:
@@ -359,7 +365,20 @@ class HoneyPotShell:
                 pass  # command with pipes
             return
 
-        cmdAndArgs = self.cmdpending.pop(0)
+        raw_entry = self.cmdpending.pop(0)
+        if isinstance(raw_entry, dict):
+            chain_op: str | None = raw_entry.get("chain")
+            cmdAndArgs = raw_entry["tokens"]
+        else:
+            chain_op = None
+            cmdAndArgs = raw_entry
+
+        if chain_op == "&&" and getattr(self.protocol, "last_cmd_exit", 0) != 0:
+            self.runCommand()
+            return
+        if chain_op == "||" and getattr(self.protocol, "last_cmd_exit", 0) == 0:
+            self.runCommand()
+            return
 
         # Probably no reason to be this comprehensive for just PATH...
         environ = copy.copy(self.environ)
@@ -483,6 +502,8 @@ class HoneyPotShell:
                         self.protocol.terminal.redirFiles.add((real_path, virtual_path))
                 else:
                     self.protocol.terminal.write(message)
+
+                self.protocol.last_cmd_exit = 127
 
                 # Import here to avoid circular dependency with protocol module
                 from cowrie.shell import protocol

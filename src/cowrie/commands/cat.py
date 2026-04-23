@@ -69,12 +69,13 @@ class Command_cat(HoneyPotCommand):
             self.exit()
 
     def output(self, inb: bytes | None) -> None:
-        """
-        This is the cat output, with optional line numbering
-        """
         if inb is None:
             return
-
+    
+        null_pos = inb.find(b"\x00")
+        if null_pos != -1:
+            inb = inb[:null_pos]
+    
         lines = inb.split(b"\n")
         if lines[-1] == b"":
             lines.pop()
@@ -82,7 +83,9 @@ class Command_cat(HoneyPotCommand):
             if self.number:
                 self.write(f"{self.linenumber:>6}  ")
                 self.linenumber = self.linenumber + 1
-            self.writeBytes(line + b"\n")
+            else:
+                self.writeBytes(line + b"\n")
+
 
     def lineReceived(self, line: str) -> None:
         """

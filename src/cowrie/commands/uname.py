@@ -44,7 +44,7 @@ def uname_hw_platform() -> str:
 
 
 def uname_processor() -> str:
-    return CowrieConfig.get("shell", "uname_processor", fallback=hardware_platform())
+    return CowrieConfig.get("shell", "uname_processor", fallback="unknown")
 
 
 def uname_help() -> str:

@@ -72,6 +72,7 @@ class HoneyPotBaseProtocol(insults.TerminalProtocol, TimeoutMixin):
         self.cmdstack = []
         self._shell_loadavg_bucket: int | None = None
         self._shell_loadavg_str: str | None = None
+        self.last_cmd_exit: int = 0
 
     def getProtoTransport(self):
         """

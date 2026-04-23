@@ -34,10 +34,12 @@ class Command_dd(HoneyPotCommand):
             if arg.find("=") == -1:
                 self.write(f"unknown operand: {arg}")
                 HoneyPotCommand.exit(self)
+                return
             operand, value = arg.split("=")
             if operand not in ("if", "bs", "of", "count"):
                 self.write(f"unknown operand: {operand}")
                 self.exit(success=False)
+                return
             self.ddargs[operand] = value
 
         if self.input_data:
