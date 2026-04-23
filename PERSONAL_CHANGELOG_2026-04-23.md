@@ -159,6 +159,6 @@ This split makes merges from upstream a bit easier, except where you must resolv
 
 **What we did:** See **`RELEASE_NOTES_v0.4.0.md`** (deep dive). **Cursor** agents: **`.cursor/rules/scalpel-hackathon.mdc`** (Project SCALPEL constraints).
 
-**Git:** Tag **`v0.4.0`** on **`main`**, push **`backup`** (`git push backup main && git push backup v0.4.0`). Optional GitHub Release body can paste or link **`RELEASE_NOTES_v0.4.0.md`**.
+**Git:** Commit **`5c23e652`** on **`main`**, annotated tag **`v0.4.0`**, pushed **`backup`**. GitHub Release: [v0.4.0](https://github.com/nikoloco2004/cowrie-honeypot-backup/releases/tag/v0.4.0) (notes from **`RELEASE_NOTES_v0.4.0.md`**).
 
 *End of personal log. For day-to-day operation and where to change things, see `README.md` in this repository.*
