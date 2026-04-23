@@ -1,0 +1,23 @@
+Team Notes - vegabase
+=====================
+
+TODO:
+- rotate AWS keys (ryan - overdue!!)
+- fix pipeline retry logic
+- add monitoring for failed jobs
+- set up staging environment
+
+Infrastructure:
+- prod server: 10.0.1.10
+- db server: 10.0.1.12
+- deploy runner: 10.0.1.25
+
+Customers:
+- customer_id 1: Acme Corp (since Nov 2025)
+- customer_id 2: DataFlow Inc (since Dec 2025)
+- customer_id 3: PulseMetrics (since Jan 2026)
+
+Notes:
+- pipeline runs every hour via cron
+- S3 bucket: vegabase-prod-data
+- DB backups every night at 2am

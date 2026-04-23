@@ -1,0 +1,26 @@
+# vegabase app config
+app:
+  name: vegabase
+  env: production
+  port: 5001
+  debug: false
+
+database:
+  host: 10.0.1.12
+  name: vegabase_prod
+  user: priyas
+  password: Pr1ya$DB2024!
+  pool_size: 10
+
+aws:
+  region: us-west-2
+  bucket: vegabase-prod-data
+
+anthropic:
+  model: claude-opus-4-5
+  max_tokens: 1024
+
+pipeline:
+  batch_size: 10
+  retry_limit: 3
+  interval_minutes: 60

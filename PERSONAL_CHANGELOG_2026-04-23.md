@@ -109,4 +109,18 @@ This split makes merges from upstream a bit easier, except where you must resolv
 - Added root **`README.md`** (GitHub landing) and this file; **`etc/cowrie.cfg`** was **force-added** to the repo for this fork (it was listed in `.gitignore` as `cowrie.cfg` so it would not normally be committed). If you ever make the repo public, audit that file for anything sensitive.
 - GitHub release: [v0.1.0](https://github.com/nikoloco2004/cowrie-honeypot-backup/releases/tag/v0.1.0).
 
+---
+
+## Postscript (v0.2.0 publish)
+
+**Why:** Finish snapshotting the working tree (honeyfs + virtual FS pickle), document the ground-truth `ps` / `os-release` fixes, and cut a tag you can reference for a stable restore point.
+
+**What we did**
+
+- **SSH + ground truth:** `rpi_ground.Command_ps_gt` now streams `ps aux` / `ps -ef` captures in small line batches with `reactor.callLater(0, …)` so one huge `write()` no longer drops SSH sessions. `honeyfs/etc/os-release` is a regular file (same content as the capture) because a broken symlink there made `cat /etc/os-release` print nothing.
+- **Honeyfs / `fs.pickle`:** Committed updates to `group`, `hostname`, `hosts`, `issue`, `issue.net`, `passwd`, `shadow`, `proc/modules`, `proc/mounts`, `proc/net/arp`, and regenerated `src/cowrie/data/fs.pickle` so the emulated filesystem matches the overlays.
+- **Lab overlays:** Added `honeyfs/home/` (user profile/history stubs), `honeyfs/opt/` (sample app tree), and `honeyfs/root/` (root shell artefacts) for richer session interaction. **Treat as sensitive** if those paths ever contain real keys or secrets; this backup repo is intended to stay **private** unless scrubbed.
+- **Git:** Single release commit on `main`, tag **`v0.2.0`**, push to **`backup`** with `git push backup main && git push backup v0.2.0`.
+- **Docs:** `README.md` version table and changelog section updated for v0.2.0.
+
 *End of personal log. For day-to-day operation and where to change things, see `README.md` in this repository.*

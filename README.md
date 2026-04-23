@@ -5,7 +5,7 @@ This repository is a **git clone of [Cowrie](https://github.com/cowrie/cowrie)**
 - **Upstream:** [`cowrie/cowrie`](https://github.com/cowrie/cowrie) — `git remote` name: `origin`
 - **This backup fork:** `git remote` name: `backup` → your GitHub copy (private), used to snapshot configuration and custom code
 - **Baseline tag:** `v0.0.0` — clean snapshot before the Pi-5–specific work
-- **This document’s release:** `v0.1.0` — Pi 5 “ground truth” mode + documentation (see [Tags](#version-tags))
+- **This document’s release:** `v0.2.0` — ground-truth `ps` stability, honeyfs sync, lab overlays, docs (see [Tags](#version-tags))
 
 Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.org/)
 
@@ -84,12 +84,21 @@ Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.
 |-----|---------|
 | **v0.0.0** | Initial copy pushed to your GitHub backup; baseline before Pi 5 high-fidelity work. |
 | **v0.1.0** | Adds ground-truth system, `rpi_ground`, `README.md` (this file), and `PERSONAL_CHANGELOG_2026-04-23.md`. |
+| **v0.2.0** | Ground-truth `ps` streams in chunks (SSH stability), real `honeyfs/etc/os-releases` (no broken symlink), aligned `/etc` and `/proc` honeyfs, `home` / `opt` / `root` lab overlays, updated `fs.pickle`. |
 
-Restore a tree: `git checkout v0.1.0` (or `v0.0.0`).
+Restore a tree: `git checkout v0.2.0` (or `v0.1.0`, `v0.0.0`).
 
 ---
 
-## Changelog (summary) — v0.1.0
+## Changelog (summary)
+
+### v0.2.0
+
+- **Ground truth / SSH:** Large `ps aux` / `ps -ef` output is sent in line batches (reactor scheduling) so clients do not reset the session; `cat /etc/os-release` works via a real `honeyfs/etc/os-release` file (replacing a broken symlink).
+- **Honeyfs / pickle:** Refreshed `passwd`, `group`, `shadow`, `hosts`, `hostname`, `issue` files, and proc snapshots; added lab-style tree under `honeyfs/home/`, `honeyfs/opt/`, and `honeyfs/root/`; `fs.pickle` updated to match. **If this repo is ever public, audit those trees for placeholder secrets** (e.g. `.env`, `authorized_keys`).
+- **Docs:** this section and the v0.2.0 postscript in **`PERSONAL_CHANGELOG_2026-04-23.md`**.
+
+### v0.1.0
 
 - **Ground truth:** `ground_truth` mode with packaged captures and `rpi_ground` command layer.
 - **Config:** `uname` split, optional Pi-style `id` for user `pi`, `wget` error line for a fake long option.
