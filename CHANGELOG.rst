@@ -1,6 +1,78 @@
 Release Notes
 #############
 
+Release 0.4.3 (fork — Raspberry Pi / Debian 13 honeypot fidelity)
+****************************************************************
+
+This release is tagged **v0.4.3** on the fork. It focuses on **internal consistency** of emulated OS identity, **stable shell behavior** (pipelines, conditionals, coreutils), and **crash fixes** that previously dropped SSH sessions when attackers or operators ran common diagnostic commands.
+
+**Rationale**
+
+Several issues made the honeypot easy to fingerprint or caused the session to close abruptly: contradictory OS metadata (Ubuntu vs Debian), ``uname -p`` not matching a typical Pi userspace, ``head``/``tail`` rejecting common GNU invocations, missing ``true`` so ``/bin/true`` fell through to “binary exec” emulation, broken ``lsb_release`` / ``w`` code paths raising exceptions, and a shell that treated ``&&``/``||`` like ``;`` without exit status. This release addresses those systematically.
+
+**Shell core (``cowrie/shell/``)**
+
+* **``honeypot.py`` — command lists and conditionals**
+  
+  * The lexer now builds **segments** of the form *(chain operator, tokens)* instead of only flattening ``&&``, ``||``, and ``;`` into separate token lists with identical semantics.
+  * **``&&``** runs the next segment only if the previous command exited with status **0** (success).
+  * **``||``** runs the next segment only if the previous command exited **non-zero**.
+  * **``;``** always runs the next segment (no short-circuit), matching common shell expectations.
+  * At the start of each **new input line**, ``last_cmd_exit`` is reset so the first segment of that line is not incorrectly skipped.
+  * **Syntax error** output for an unexpected ``(`` token no longer used a **literal** ``\n`` (backslash + ``n``) in the byte string sent to the terminal; clients now see a real newline, avoiding confusing garbage and parse follow-on issues.
+
+* **``protocol.py`` — per-session exit status**
+
+  * ``HoneyPotBaseProtocol`` now keeps **``last_cmd_exit``** (integer), updated whenever a command finishes through the normal ``HoneyPotCommand.exit()`` path, so the shell can implement ``&&``/``||`` without a full job-control implementation.
+
+* **``command.py`` — command lifecycle**
+
+  * Each command instance has an **``exit_code``** (default ``0``). ``exit()`` writes **``protocol.last_cmd_exit = self.exit_code``** before manipulating the command stack, so the parent shell’s ``resume()``/``runCommand()`` logic sees the right status for the last finished command (including the last stage of a pipeline, which overwrites status as each stage exits—matching a minimal “last exit wins for the line” behavior for chained segments).
+  * **Safe ``cmdstack.remove(self)``**: removal runs only if ``self`` is still on ``cmdstack``, avoiding ``ValueError`` when ``exit()`` is invoked more than once (e.g. certain ``dd`` operand error paths).
+  * Queued input from a running command (``lineReceived`` on ``HoneyPotCommand``) appends **``{"chain": None, "tokens": [...]}``** so the same merge/execute path understands the structure.
+
+**New / fixed builtins (``cowrie/commands/base.py``)**
+
+* **``true``** and **``false``** are implemented as first-class Python commands (``Command_true`` / ``Command_false``), registered as ``true``, ``false``, and the usual **``/bin/...``** and **``/usr/bin/...``** paths.
+* Previously, **``true``** often resolved to a **virtual filesystem** binary; Cowrie then tried to “execute” it and emitted **``Exec format error``**, which is a strong fingerprint and broke idioms such as ``who 2>/dev/null || true``.
+* **``/bin/w``** is registered alongside **``/usr/bin/w``** and **``w``** so PATH resolution matches real Debian layouts.
+
+**Coreutils-style behavior (``cowrie/commands/fs.py``)**
+
+* **``head``** and **``tail``**: GNU coreutils allow a **line count** as a single argument **``-N``** (e.g. ``head -3``, ``tail -8``). Python’s ``getopt`` treats ``-3`` as an option letter ``3``, which produced **``invalid option -- '3'``**. A normalizer expands **``-`` + all digits** into **``-n``** and the numeric string before option parsing.
+* On invalid options or invalid numeric arguments, commands set **``exit_code = 1``** before exiting so **``&&``/``||``** behave believably.
+
+**Other command fixes**
+
+* **``cat.py``**: The “null byte in line” check used a **str** needle against **bytes** lines after ``split(b"\n")``, which raised ``TypeError`` and tore down the session (e.g. ``cat /etc/crontab``). The check now uses **``b"\0"``**.
+* **``dd.py``**: After reporting an unknown operand, the command returns immediately after ``exit()`` so the parser does not fall through and call ``exit()`` again (which could corrupt ``cmdstack``).
+* **``rpi_ground.py`` — ``lsb_release``**: Removed invalid **``self.exit(0)``** / **``self.exit(127)``** calls (``HoneyPotCommand.exit`` does not take a POSIX exit code argument). Removed redundant **``exit()``** from inside ``call()`` because **``start()``** already calls ``call()`` then ``exit()``; double ``exit`` could leave the stack in a bad state. Ground-truth **``/etc/os-release``** is wired through **``_CAT_GT``** so ``cat /etc/os-release`` matches the packaged Debian 13 capture when ground truth is enabled, even if honeyfs drifted.
+* **``rpi_ground.py`` — ``top``**: Batch mode detection for **``top -bn1``**-style invocations is broader (spaced **``-n 1``**, glued **``-n1``**, **``-bn1``**, etc.) so **``top -bn1``** reliably emits the coherent **``ps_coherence``**-based snapshot when ground truth is on.
+* **``uname.py``**: Default **``uname_processor``** fallback is **``unknown``** (typical for **``uname -p``** on many aarch64 Debian/Pi systems) instead of echoing the machine type.
+
+**``w`` crash fix (command registration order)**
+
+* **``Command_w_gt``** subclasses **``Command_w``** from **``base.py``**, which uses **``clientIP``** and shared uptime/load helpers.
+* A separate **``w.py``** module had been listed **after** ``rpi_ground`` in ``commands/__init__.py`` and overwrote **``commands["w"]``** with a class that called **``self.protocol.transport.getPeer()``**. The interactive shell protocol does not expose **``.transport``** that way, causing **``AttributeError``** and an immediate SSH disconnect when the user ran **``w``**.
+* **``w``** was removed from ``__all__``, the redundant **``w.py``** file was removed, and **``/bin/w``** is bound to the same implementations as **``/usr/bin/w``** in both **``base.py``** and **``rpi_ground.py``**.
+
+**Command-not-found and pipelines (``honeypot.py``)**
+
+* When any stage of a built pipeline fails **getCommand** (missing executable), the protocol now sets **``last_cmd_exit = 127``** before continuing, so a following **``&&``** segment is skipped in the same way as on a real shell.
+
+**Configuration and filesystem artifacts**
+
+* **``etc/cowrie.cfg``**: **``uname_processor = unknown``** so **``uname -p``** matches the intended Pi baseline when imitating Debian 13 userspace.
+* **``honeyfs/etc/os-release``**: Replaced Ubuntu 22.04-style fields with **Debian 13 (trixie)** metadata so **``cat /etc/os-release``** agrees with **``lsb_release``** and the kernel string from **``uname``** (Pi aarch64 kernel, Debian userspace story).
+* **``src/cowrie/data/fs.pickle``**: Updated virtual filesystem image in line with honeyfs/command layout (e.g. consistent paths for binaries and overlays).
+
+**Operational notes**
+
+* Restart Cowrie after upgrading so Python modules and ``cowrie.cfg`` are reloaded.
+* Version **0.4.3** is intended to be used with **``[shell] ground_truth = pi5_debian13``** (or equivalent) for full **``lsb_release``**, **``ps``**, **``top -bn1``**, **``ifconfig``**, **``ip``**, and related captures; many fixes still improve behavior when ground truth is off.
+
+----
+
 Release 2.9.0
 *************
 
