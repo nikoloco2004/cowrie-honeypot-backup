@@ -84,6 +84,13 @@ When installed this way, it will behave differently from having a full directory
 
 This is still in beta and may not work as expected, `git clone` or `docker` methods are preferred.
 
+Deploying this fork on a Raspberry Pi
+*****************************************
+
+This repository (`nikoloco2004/cowrie-honeypot-backup`) ships extra Pi / Debian 13 shell fidelity (ground truth captures, ``honeyfs``, ``fs.pickle``, and a tuned ``etc/cowrie.cfg``). For a **detailed, step-by-step guide** to installing the full tree on **another Raspberry Pi** (clone, venv, ``pip install -e .``, keys, ``userdb``, systemd, port 22 notes, updates, troubleshooting), see:
+
+* ``docs/DEPLOY_RASPBERRY_PI.md`` (in the cloned repo, or on GitHub under the same path).
+
 Requirements
 *****************************************
 
