@@ -1,4 +1,4 @@
-# Copyright (c) 2009 Upi Tamminen <desaster@gmail.com>
+g Copyright (c) 2009 Upi Tamminen <desaster@gmail.com>
 # See the COPYRIGHT file for more information
 
 from __future__ import annotations
@@ -7,6 +7,7 @@ import getopt
 import os
 import posixpath
 import time
+from datetime import datetime
 from typing import Any
 from urllib import parse
 
@@ -24,6 +25,8 @@ from cowrie.core.ground_truth import ground_truth_enabled, load_ground_line
 from cowrie.core.network import communication_allowed
 from cowrie.core.rate_limiter import RateLimiter
 from cowrie.shell.command import HoneyPotCommand
+
+NotFoundError = 404
 
 commands = {}
 
@@ -592,6 +595,9 @@ class Command_wget(HoneyPotCommand):
             self.errorWrite(f"wget: unable to resolve host address ‘{self.host}’\n")
             self.exit()
             return
+
+        if response.check(NotFoundError) is not None:
+            self.errorWrite(f"{datetime.now()} ERROR 404: Not Found.")
 
         if response.check(CancelledError) is not None:
             self.errorWrite("failed: Operation timed out.\n")
