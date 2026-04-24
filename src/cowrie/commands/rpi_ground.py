@@ -37,6 +37,79 @@ def _w(s: str) -> str:
     return s
 
 
+def _w_field5(s: str) -> str:
+    """IDLE / JCPU / PCPU column (5 chars, right-aligned); blank -> spaces."""
+    t = (s or "").strip()
+    if not t:
+        return "     "
+    t = t[:5]
+    return f"{t:>5}"
+
+
+def _w_tty9(tty: str) -> str:
+    """
+    TTY field (9): procps prints a leading space and left-pads the name, e.g. `` pts/0   ``;
+    an empty TTY is nine spaces.
+    """
+    t = (tty or "").strip()
+    if not t:
+        return " " * 9
+    return (" " + t)[:9].ljust(9)
+
+
+def _w_from17(host: str) -> str:
+    """FROM (17): leading space then host/IP, like procps `` w`` output."""
+    h = (host or "").strip()
+    if not h:
+        return " " * 17
+    return (" " + h)[:17].ljust(17)
+
+
+def _w_login8(login_at: str) -> str:
+    """LOGIN@ (8): leading space and time, like procps."""
+    s = (login_at or "").strip()
+    if not s:
+        return " " * 8
+    return (" " + s)[:8].ljust(8)
+
+
+def _format_w_table_row(
+    user: str,
+    tty: str,
+    from_host: str,
+    login_at: str,
+    idle: str,
+    jcpu: str,
+    pcpu: str,
+    what: str,
+) -> str:
+    """
+    procps ``w`` data line: USER(8), TTY(9), FROM(17), LOGIN@(8) — with the same
+    leading-space convention as the header, then two spaces and IDLE / JCPU / PCPU
+    (5 columns each), one space, then WHAT — same total width as the header so
+    ``WHAT`` text lines up (index 64 in the default header string).
+    """
+    u = (user or "")[:8].ljust(8)
+    t = _w_tty9(tty)
+    f = _w_from17(from_host)
+    log = _w_login8(login_at)
+    return (
+        f"{u}{t}{f}{log}  "
+        f"{_w_field5(idle)}  {_w_field5(jcpu)}  {_w_field5(pcpu)} {what}\n"
+    )
+
+
+# Decoy ``w`` rows (same data as former ``w_decoy_sessions.txt``), built with fixed-width fields
+_W_DECOY_W_ROWS: list[tuple[str, str, str, str, str, str, str, str]] = [
+    ("pi", "", "10.4.27.61", "14:36", "", "0.00s", "0.03s", "sshd-session: pi [priv]"),
+    ("pi", "pts/1", "10.4.27.61", "14:36", "0.00s", "0.00s", "0.03s", "w"),
+    ("pi", "", "10.4.27.61", "14:35", "", "0.00s", "0.04s", "sshd-session: pi [priv]"),
+    ("pi", "pts/0", "10.4.27.68", "11:30", "6:24", "0.05s", "0.05s", "-bash"),
+    ("pi", "", "10.4.27.61", "11:06", "", "0.00s", "0.03s", "sshd-session: pi [priv]"),
+    ("pi", "tty1", "-", "10:39", "3:17m", "0.03s", "0.03s", "-bash"),
+]
+
+
 # Absolute paths -> ground_truth file basename (full file read; not honeyfs/pickle)
 _CAT_GT: dict[str, str] = {
     "/etc/os-release": "os-release.txt",
@@ -559,16 +632,17 @@ class Command_w_gt(Command_w):
             "USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU  WHAT\n"
         )
         u = utils.shell_visible_username(self.protocol)
-        tty = "pts/0"
-        frm = self.protocol.clientIP[:15].ljust(17)
+        client = self.protocol.clientIP
         login = time.strftime(
             "%H:%M", utils.shell_clock_tuple_for(self.protocol.logintime)
         )
-        self.write(f"{u:8}{tty:9}{frm}{login:8}    0.00s  0.00s  0.00s w\n")
-        try:
-            self.write(_w(load_ground_line("w_decoy_sessions.txt")))
-        except OSError:
-            pass
+        self.write(
+            _format_w_table_row(
+                u, "pts/0", client, login, "0.00s", "0.00s", "0.00s", "w"
+            )
+        )
+        for r in _W_DECOY_W_ROWS:
+            self.write(_format_w_table_row(*r))
 
 
 # --- registrations (override earlier command tables) ---
