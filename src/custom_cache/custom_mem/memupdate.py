@@ -16,7 +16,7 @@ from custom_mem import memstate
 # Configuration
 # ---------------------------------------------------------------------------
 
-HONEYFS_MEMINFO = os.path.expanduser("~/Hackathon/cowrie/honeyfs/proc/meminfo")
+HONEYFS_MEMINFO = os.path.expanduser("~/Documents/Emerge/cowrie-honeypot-backup/honeyfs/proc/meminfo")
 
 # Rapid back-to-back reads see the same snapshot (idle system).
 _MIN_UPDATE_INTERVAL_SEC = 2.0

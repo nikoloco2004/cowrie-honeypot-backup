@@ -18,7 +18,7 @@ from collections import OrderedDict
 # ---------------------------------------------------------------------------
 
 # Persistent state cache (internal — attacker never sees this file).
-STATE_FILE = os.path.expanduser("~/Hackathon/cowrie/var/memstate.json")
+STATE_FILE = os.path.expanduser("~/Documents/Emerge/cowrie-honeypot-backup/var/memstate.json")
 
 
 # ---------------------------------------------------------------------------
