@@ -1,6 +1,21 @@
 Release Notes
 #############
 
+Release 0.4.5 (fork — remove LLM stack, live meminfo, MOTD/last-login, Pi handoff)
+************************************************************************************
+
+This release is tagged **v0.4.5** on the fork. It **removes the entire experimental LLM backend** (``src/cowrie/llm/``), **hybrid unknown-command LLM** support, and all **``[llm]``** configuration from **``etc/cowrie.cfg``** / **``.dist``**, while adding **live ``/proc/meminfo``** reads from **honeyfs** (to avoid stale pickle bytes), **synthetic last-login** output in **MOTD** order (banner body, then **``Last login:``** above the prompt), and **``RELEASE_NOTES_v0.4.5.md``** with a **Raspberry Pi redeploy checklist**. See that file for patch-level detail, file list, and migration from **v0.4.4**.
+
+**Documentation**
+
+* **``RELEASE_NOTES_v0.4.5.md``** — full patch notes, operator migration, Git auth notes, upstream merge caveats.
+
+**Previous fork release in this file**
+
+* See **Release 0.4.4** below for the LLM/Ollama-oriented release.
+
+---
+
 Release 0.4.4 (fork — local LLM via Ollama, git ignore host overlays, dev documentation)
 ****************************************************************************************
 

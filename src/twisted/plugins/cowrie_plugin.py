@@ -45,7 +45,6 @@ from zope.interface import implementer, provider
 
 import cowrie.core.checkers
 import cowrie.core.uuid
-import cowrie.llm.realm
 import cowrie.shell.realm
 import cowrie.ssh.factory
 import cowrie.telnet.factory
@@ -229,10 +228,10 @@ Makes a Cowrie SSH/Telnet honeypot.
 
             if backend in ("shell", "proxy"):
                 factory.portal = portal.Portal(cowrie.shell.realm.HoneyPotRealm())
-            elif backend == "llm":
-                factory.portal = portal.Portal(cowrie.llm.realm.HoneyPotRealm())
             else:
-                raise ValueError(backend)
+                raise ValueError(
+                    f"Unknown backend: {backend!r}; use shell or proxy (llm removed)"
+                )
 
             factory.portal.registerChecker(core.checkers.HoneypotPublicKeyChecker())
             factory.portal.registerChecker(core.checkers.HoneypotPasswordChecker())
@@ -256,10 +255,10 @@ Makes a Cowrie SSH/Telnet honeypot.
             f.tac = self
             if backend in ("shell", "proxy"):
                 f.portal = portal.Portal(cowrie.shell.realm.HoneyPotRealm())
-            elif backend == "llm":
-                f.portal = portal.Portal(cowrie.llm.realm.HoneyPotRealm())
             else:
-                raise ValueError(backend)
+                raise ValueError(
+                    f"Unknown backend: {backend!r}; use shell or proxy (llm removed)"
+                )
 
             f.portal.registerChecker(core.checkers.HoneypotPasswordChecker())
 

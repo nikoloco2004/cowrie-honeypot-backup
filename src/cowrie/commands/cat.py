@@ -63,25 +63,22 @@ class Command_cat(HoneyPotCommand):
                     self.output(self.input_data)
                     continue
                 pname = self.fs.resolve_path(arg, self.protocol.cwd)
-                
-                # ---- BEGIN dynamic-path refresh hook (added for honeypot) ----
-                # If pname matches a dynamic /proc path, refresh its honeyfs
-                # content before Cowrie reads it. Silent on error so a bug in
-                # the refresher can never break cat or leak a traceback.
-                refresher = DYNAMIC_PATHS.get(pname)
-                if refresher is not None:
-                    try:
-                        refresher()
-                    except Exception:
-                        pass
-                # ---- END dynamic-path refresh hook ----
 
                 if self.fs.isdir(pname):
                     self.errorWrite(f"cat: {arg}: Is a directory\n")
                     continue
 
                 try:
-                    contents = self.fs.file_contents(pname)
+                    # Virtual fs can serve stale A_CONTENTS from the pickle. After
+                    # memupdate wrote honeyfs, read that file so values change "live".
+                    if pname in DYNAMIC_PATHS:
+                        fresh = memupdate.read_fresh_honeyfs_bytes(pname)
+                        if fresh is not None:
+                            contents = fresh
+                        else:
+                            contents = self.fs.file_contents(pname)
+                    else:
+                        contents = self.fs.file_contents(pname)
                     self.output(contents)
                 except FileNotFound:
                     self.errorWrite(f"cat: {arg}: No such file or directory\n")

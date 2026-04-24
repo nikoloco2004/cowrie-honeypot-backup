@@ -16,7 +16,6 @@ from twisted.python.compat import iterbytes
 
 from cowrie.core import utils
 from cowrie.core.config import CowrieConfig
-from cowrie.llm.hybrid import maybe_schedule_hybrid_unknown
 from cowrie.shell import fs
 from cowrie.shell.parser import CommandParser
 from cowrie.shell.pipe import PipeProtocol
@@ -480,9 +479,6 @@ class HoneyPotShell:
                     )
                     lastpp = pp
             else:
-                if maybe_schedule_hybrid_unknown(self, cmd, cmd_array, runOrPrompt):
-                    pp = None
-                    break
                 log.msg(
                     eventid="cowrie.command.failed",
                     input=cmd["command"] + " " + " ".join(cmd["rargs"]),

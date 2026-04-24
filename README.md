@@ -3,9 +3,9 @@
 This repository is a **git clone of [Cowrie](https://github.com/cowrie/cowrie)** with **local customizations** to run a **medium-interaction SSH honeypot** on a **Raspberry Pi 5** running **Debian 13 (trixie)**, and to make the emulated environment resemble that host for lab work and research.
 
 - **Upstream:** [`cowrie/cowrie`](https://github.com/cowrie/cowrie) — `git remote` name: `origin`
-- **This backup fork:** `git remote` name: `backup` → your GitHub copy (private), used to snapshot configuration and custom code
+- **This backup fork (clone origin):** `https://github.com/nikoloco2004/cowrie-honeypot-backup` — snapshot of configuration and custom code
 - **Baseline tag:** `v0.0.0` — clean snapshot before the Pi-5–specific work
-- **This document’s release:** `v0.4.4` — **local LLM (Ollama) + devlogs**; see [Tags](#version-tags) and **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**
+- **This document’s release:** `v0.4.5` — **no LLM stack**; **live `meminfo` + MOTD last-login**; see **`RELEASE_NOTES_v0.4.5.md`**, [Tags](#version-tags)
 
 Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.org/)
 
@@ -90,19 +90,24 @@ Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.
 | **v0.4.1** | **Documentation:** categorized map of **fork-specific paths** vs **`v0.0.0`** (config, **`rpi_ground`**, **`ps_coherence`**, honeyfs, ground-truth corpus, docs). **`RELEASE_NOTES_v0.4.1.md`**. |
 | **v0.4.2** | **Working tree sync:** **`honeyfs/`** (crontab, **`os-release`**, devicetree, **`home/.../.ssh`**, **`proc/device-tree`**), updated **`fs.pickle`**, **`etc/cowrie.cfg`**, **`lsb_release_a.{stdout,stderr}.txt`** in ground truth. **`RELEASE_NOTES_v0.4.2.md`**. |
 | **v0.4.3** | **Shell / identity / crash fixes (fork):** `CHANGELOG.rst` fork section — conditionals, coreutils, Pi cosmetic identity, `custom_cache`. Tag **`v0.4.3`**. |
-| **v0.4.4** | **`[honeypot] backend = llm`** with **Ollama**-compatible **`[llm]`** (`docs/LLM.rst`); **`.gitignore`** for **`honeyfs/proc/meminfo`**, **`var/memstate.json`**; stop tracking **`meminfo`**. **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**. |
+| **v0.4.5** | **LLM stack removed** (`src/cowrie/llm/` deleted; no **`[llm]`**; **`backend`** = **`shell`** or **`proxy` only**). **`/proc/meminfo`**: read honeyfs after **`memupdate`** ( **`cat`**, **`rpi_ground` `Command_cat_gt`**). **MOTD**: Debian body then **`Last login: …`** above prompt (**`gen_lastlogin`**, **`displayMOTD` order**). **`start_with_login`**, **`docs/index.rst`** (no **`LLM.rst`**). **`RELEASE_NOTES_v0.4.5.md`**. |
+| **v0.4.4** | **`[honeypot] backend = llm`** with **Ollama**-compatible **`[llm]`** (`docs/LLM.rst`); **`.gitignore`** for **`honeyfs/proc/meminfo`**, **`var/memstate.json`**; stop tracking **`meminfo`**. **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**. (Superseded for operators by **v0.4.5** if you do not use LLM.) |
 
-Restore a tree: `git checkout v0.4.4` (or `v0.4.3`, `v0.4.2`, `v0.4.1`, `v0.4.0`, `v0.3.0`, `v0.2.0`, `v0.1.0`, `v0.0.0`).
+Restore a tree: `git checkout v0.4.5` (or `v0.4.4`, `v0.4.3`, … `v0.0.0`).
 
 ---
 
 ## Changelog (summary)
 
+### v0.4.5
+
+- **No LLM:** `cowrie/llm` removed; `cowrie_plugin` / `honeypot` / configs aligned. **`RELEASE_NOTES_v0.4.5.md`** — full patch list and **Pi redeploy** steps.
+- **`meminfo` / `cat` / `rpi_ground`:** `read_fresh_honeyfs_bytes` + `DYNAMIC_PATHS`.
+- **Login banner:** `displayMOTD` + `gen_lastlogin` + `start_with_login` (optional).
+
 ### v0.4.4
 
-- **LLM backend:** `etc/cowrie.cfg` sets **`backend = llm`** and **`[llm]`** to **OpenAI-compatible** local API (**Ollama** on **`http://127.0.0.1:11434`**, path **`/v1/chat/completions`**) with a **model** name you must match to **`ollama list`**.
-- **Git:** Ignore **`honeyfs/proc/meminfo`** and **`var/memstate.json`**; **untrack** **`meminfo`** (host overlay / runtime, not a portable snapshot).
-- **Docs:** **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**, **`CHANGELOG.rst`**, **`PERSONAL_CHANGELOG_2026-04-23.md`**, this table.
+- **LLM backend:** (historical) **`backend = llm`** and **`[llm]`** were documented for **Ollama**; **v0.4.5** removes that stack in this fork. **Git:** ignore **`honeyfs/proc/meminfo`**, **`var/memstate.json`**. **Docs:** **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**, **`CHANGELOG.rst`**, this table.
 
 ### v0.4.2
 

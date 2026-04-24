@@ -13,7 +13,9 @@ from twisted.internet import reactor
 
 import cowrie.commands.last as _lastm
 from cowrie.commands.base import Command_id, Command_ps, Command_w, Command_who
-from cowrie.commands.cat import Command_cat
+from custom_mem import memupdate
+
+from cowrie.commands.cat import DYNAMIC_PATHS, Command_cat
 from cowrie.commands.ifconfig import Command_ifconfig
 from cowrie.commands.netstat import Command_netstat
 from cowrie.commands.service import Command_service
@@ -277,6 +279,18 @@ class Command_cat_gt(Command_cat):
                 ):
                     self.output(_dynamic_proc_uptime(self.protocol))
                     continue
+
+                if pname in DYNAMIC_PATHS:
+                    try:
+                        ref = DYNAMIC_PATHS.get(pname)
+                        if ref is not None:
+                            ref()
+                    except Exception:
+                        pass
+                    fresh = memupdate.read_fresh_honeyfs_bytes(pname)
+                    if fresh is not None:
+                        self.output(fresh)
+                        continue
 
                 try:
                     contents = self.fs.file_contents(pname)

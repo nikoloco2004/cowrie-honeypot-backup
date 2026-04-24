@@ -109,7 +109,7 @@ idle_timeout = 180
 # The default is 120 seconds.
 authentication_timeout = 120
 
-# EXPERIMENTAL: back-end to user for Cowrie, options: shell, proxy or llm
+# Back-end: shell (emulated) or proxy. (The fork removed the experimental LLM backend in v0.4.5.)
 # (default: shell)
 backend = shell
 
@@ -388,52 +388,15 @@ log_raw = false
 
 
 # ============================================================================
-# LLM Options
-# Options for the LLM (Large Language Model) backend
+# custom_mem — /proc/meminfo dynamics (optional; fork with custom_cache)
 # ============================================================================
-
-[llm]
-
-# API key for the LLM service (required for LLM backend)
-# For OpenAI: get your key from https://platform.openai.com/api-keys
-#api_key = sk-xxx
-
-# LLM model to use
-# (default: gpt-4o-mini)
-#model = gpt-4o-mini
-
-# API host URL
-# (default: https://api.openai.com)
-#host = https://api.openai.com
-
-# API path
-# (default: /v1/chat/completions)
-#path = /v1/chat/completions
-
-# Maximum tokens in the response
-# (default: 500)
-#max_tokens = 500
-
-# Temperature for response generation (0.0-2.0)
-# Higher values make output more random, lower values more deterministic
-# (default: 0.7)
-#temperature = 0.7
-
-# Enable debug logging for LLM requests/responses
-# (default: false)
-#debug = false
-
-# Hybrid mode (only when [honeypot] backend = shell):
-# if true, a command with no emulated handler may be answered by the [llm] API
-# (OpenAI-compatible) instead of a static "command not found" line. Skipped for
-# pipes, redirects, and tokens that do not look like a plausible argv0.
-# (default: false)
-#hybrid_fallback = false
-
-# When hybrid_fallback is true: cap completion tokens and temperature (faster, shorter answers).
-# (defaults: 64, 0.15)
-#hybrid_max_tokens = 64
-#hybrid_temperature = 0.15
+# Uncomment in cowrie.cfg (not this .dist) to use:
+#   [meminfo]
+#   mode = live
+#   — ~0.12s meminfo refresh, Pi-like drift, path from [honeypot] contents_path
+#   mode = legacy
+#   — 2.0s throttle, original drift, old fixed expanduser honeyfs path
+# Default in code for missing [meminfo] section: legacy
 
 
 # ============================================================================

@@ -17,7 +17,6 @@ Welcome to Cowrie's documentation!
    INSTALL.rst
    CHANGELOG.rst
    PROXY.rst
-   LLM.rst
    HONEYFS.rst
    BACKEND_POOL.rst
    SNAPSHOTS.rst

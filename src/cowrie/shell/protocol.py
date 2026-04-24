@@ -403,9 +403,10 @@ class HoneyPotInteractiveProtocol(HoneyPotBaseProtocol, recvline.HistoricRecvLin
         HoneyPotBaseProtocol.__init__(self, avatar)
 
     def connectionMade(self) -> None:
-        self.displayMOTD()
-
+        # Base must run before displayMOTD() so self.clientIP / fake_addr is set
+        # for the synthetic "Last login:" line (shown after motd, above the prompt).
         HoneyPotBaseProtocol.connectionMade(self)
+        self.displayMOTD()
         recvline.HistoricRecvLine.connectionMade(self)
 
         self.cmdstack = [honeypot.HoneyPotShell(self)]
@@ -432,7 +433,14 @@ class HoneyPotInteractiveProtocol(HoneyPotBaseProtocol, recvline.HistoricRecvLin
 
     def displayMOTD(self) -> None:
         try:
-            self.terminal.write(self.fs.file_contents("/etc/motd"))
+            from cowrie.gen_lastlogin import generate, strip_leading_last_login_line
+
+            body = strip_leading_last_login_line(
+                self.fs.file_contents("/etc/motd")
+            ).rstrip(b"\n")
+            last = generate(self.clientIP).encode("utf-8")
+            # Real OpenSSH order: /etc/motd first, then "Last login: …" last, just above the prompt
+            self.terminal.write(body + b"\n\n" + last + b"\n")
         except Exception:
             pass
 
