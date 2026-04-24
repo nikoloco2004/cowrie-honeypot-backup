@@ -34,3 +34,7 @@ _trial_temp
 # *.egg-info and __pycache__/ above; last-wins; parents must be un-ignored for nested paths).
 !src/custom_cache/
 !src/custom_cache/**/*
+
+# Host / runtime; do not track local overlays or session state
+honeyfs/proc/meminfo
+var/memstate.json
