@@ -468,6 +468,11 @@ class Command_wget(HoneyPotCommand):
             else:
                 status_line = str(code)
 
+        if code is NotFoundError:
+            self.errorWrite(f"{datetime.now()} ERROR 404: Not Found.")
+            self.exit()
+            return None
+
         total_length: int | None
         if response.length != UNKNOWN_LENGTH:
             total_length = response.length
@@ -595,9 +600,6 @@ class Command_wget(HoneyPotCommand):
             self.errorWrite(f"wget: unable to resolve host address ‘{self.host}’\n")
             self.exit()
             return
-
-        if response.check(NotFoundError) is not None:
-            self.errorWrite(f"{datetime.now()} ERROR 404: Not Found.")
 
         if response.check(CancelledError) is not None:
             self.errorWrite("failed: Operation timed out.\n")
