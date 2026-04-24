@@ -1,0 +1,51 @@
+# ABOUTME: When a version tag is pushed, create (or update) a GitHub Release with notes
+#          from RELEASE_NOTES_<tag>.md when that file exists in the tree at that ref.
+# ABOUTME: Uses GITHUB_TOKEN — no local gh auth required for maintainers.
+---
+name: Tag → GitHub Release
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tag-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tag
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -eux
+          NOTES="RELEASE_NOTES_${TAG}.md"
+          if [ -f "$NOTES" ]; then
+            if gh release view "$TAG" >/dev/null 2>&1; then
+              echo "Release exists — updating body from $NOTES"
+              gh release edit "$TAG" --notes-file "$NOTES"
+            else
+              echo "Creating release for $TAG with $NOTES"
+              gh release create "$TAG" --title "$TAG" --notes-file "$NOTES" --verify-tag
+            fi
+          else
+            if gh release view "$TAG" >/dev/null 2>&1; then
+              echo "Release exists, no $NOTES; skipping"
+            else
+              echo "No $NOTES; creating with --generate-notes"
+              gh release create "$TAG" --title "$TAG" --generate-notes --verify-tag
+            fi
+          fi
