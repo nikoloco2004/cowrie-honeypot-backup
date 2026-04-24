@@ -5,7 +5,7 @@ This repository is a **git clone of [Cowrie](https://github.com/cowrie/cowrie)**
 - **Upstream:** [`cowrie/cowrie`](https://github.com/cowrie/cowrie) — `git remote` name: `origin`
 - **This backup fork:** `git remote` name: `backup` → your GitHub copy (private), used to snapshot configuration and custom code
 - **Baseline tag:** `v0.0.0` — clean snapshot before the Pi-5–specific work
-- **This document’s release:** `v0.4.2` — **honeyfs + pickle + config sync**; see [Tags](#version-tags) and **`RELEASE_NOTES_v0.4.2.md`**
+- **This document’s release:** `v0.4.4` — **local LLM (Ollama) + devlogs**; see [Tags](#version-tags) and **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**
 
 Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.org/)
 
@@ -89,12 +89,20 @@ Official upstream documentation: [https://docs.cowrie.org/](https://docs.cowrie.
 | **v0.4.0** | **`ps aux`** is **synthesized** from parsed `ps_aux` rows plus session **`-bash`** / **`ps`** lines (emulated PIDs, real argv); **`ps -ef`** / **`top`** use the **same** session table; optional **`ps_aux_tail_noise_max`**; **`format_ps_aux_line`** fix for **`%MEM`** vs **7-digit VSZ** collision. Details: **`RELEASE_NOTES_v0.4.0.md`**. |
 | **v0.4.1** | **Documentation:** categorized map of **fork-specific paths** vs **`v0.0.0`** (config, **`rpi_ground`**, **`ps_coherence`**, honeyfs, ground-truth corpus, docs). **`RELEASE_NOTES_v0.4.1.md`**. |
 | **v0.4.2** | **Working tree sync:** **`honeyfs/`** (crontab, **`os-release`**, devicetree, **`home/.../.ssh`**, **`proc/device-tree`**), updated **`fs.pickle`**, **`etc/cowrie.cfg`**, **`lsb_release_a.{stdout,stderr}.txt`** in ground truth. **`RELEASE_NOTES_v0.4.2.md`**. |
+| **v0.4.3** | **Shell / identity / crash fixes (fork):** `CHANGELOG.rst` fork section — conditionals, coreutils, Pi cosmetic identity, `custom_cache`. Tag **`v0.4.3`**. |
+| **v0.4.4** | **`[honeypot] backend = llm`** with **Ollama**-compatible **`[llm]`** (`docs/LLM.rst`); **`.gitignore`** for **`honeyfs/proc/meminfo`**, **`var/memstate.json`**; stop tracking **`meminfo`**. **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**. |
 
-Restore a tree: `git checkout v0.4.2` (or `v0.4.1`, `v0.4.0`, `v0.3.0`, `v0.2.0`, `v0.1.0`, `v0.0.0`).
+Restore a tree: `git checkout v0.4.4` (or `v0.4.3`, `v0.4.2`, `v0.4.1`, `v0.4.0`, `v0.3.0`, `v0.2.0`, `v0.1.0`, `v0.0.0`).
 
 ---
 
 ## Changelog (summary)
+
+### v0.4.4
+
+- **LLM backend:** `etc/cowrie.cfg` sets **`backend = llm`** and **`[llm]`** to **OpenAI-compatible** local API (**Ollama** on **`http://127.0.0.1:11434`**, path **`/v1/chat/completions`**) with a **model** name you must match to **`ollama list`**.
+- **Git:** Ignore **`honeyfs/proc/meminfo`** and **`var/memstate.json`**; **untrack** **`meminfo`** (host overlay / runtime, not a portable snapshot).
+- **Docs:** **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**, **`CHANGELOG.rst`**, **`PERSONAL_CHANGELOG_2026-04-23.md`**, this table.
 
 ### v0.4.2
 

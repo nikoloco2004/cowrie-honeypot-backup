@@ -185,6 +185,22 @@ This split makes merges from upstream a bit easier, except where you must resolv
 
 ---
 
+## Postscript (v0.4.4 publish)
+
+**Why:** You wanted to run Cowrie’s **documented** **LLM backend** against a **local** model (Ollama) without a parallel custom integration, and to **stop** noisy or host-specific paths (**`honeyfs/proc/meminfo`**, **`var/memstate.json`**) from being tracked. You also wanted **detailed devlogs** and a **version bump** for GitHub ( **`+0.0.1`** in **patch** form → **`v0.4.4`** after existing **`v0.4.3`** ).
+
+**What we did**
+
+1. **Config** — **`etc/cowrie.cfg`**: **`[honeypot] backend = llm`**, **`[llm]`** **`host`**, **`path`**, **`model`**, placeholder **`api_key`**, as described in **upstream `docs/LLM.rst`**. The **`model`** value must be edited to match your **`ollama list`** output.
+2. **Ignore / index** — **`.gitignore`**: **`honeyfs/proc/meminfo`**, **`var/memstate.json`**. **`git rm --cached honeyfs/proc/meminfo`** so the file is not in the tree (can remain on disk).
+3. **Devlogs** — **`RELEASE_NOTES_v0.4.4.md`**, **`DEVLOG_v0.4.4.md`**, this postscript, **`README.md`**, **`CHANGELOG.rst`**.
+
+**Git:** Commit documentation on **`main`**, annotated tag **`v0.4.4`**, **`git push origin main && git push origin v0.4.4`**. Optional GitHub **Release** with body from **`RELEASE_NOTES_v0.4.4.md`**.
+
+**Rollback to emulated shell:** Set **`[honeypot] backend = shell`**, restart Cowrie.
+
+---
+
 ## PID consistency (`ps`, `ps aux`, `ps -ef`, `top -bn1`)
 
 **Why:** Ground-truth **`ps_aux.txt`**, **`ps_ef.txt`**, and **`top_bn1.txt`** came from different captures, so PIDs for the same logical processes (e.g. `sshd`) did not match — an easy honeypot fingerprint.
