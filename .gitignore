@@ -29,3 +29,8 @@ _trial_temp
 .pydevproject
 .idea/
 .tox
+
+# Vendored under src/custom_cache/ — keep egg-info and __pycache__ in git (overrides
+# *.egg-info and __pycache__/ above; last-wins; parents must be un-ignored for nested paths).
+!src/custom_cache/
+!src/custom_cache/**/*

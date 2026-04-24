@@ -1,0 +1,8 @@
+setup.py
+custom_mem/__init__.py
+custom_mem/memstate.py
+custom_mem/memupdate.py
+custom_mem.egg-info/PKG-INFO
+custom_mem.egg-info/SOURCES.txt
+custom_mem.egg-info/dependency_links.txt
+custom_mem.egg-info/top_level.txt
