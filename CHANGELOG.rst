@@ -1,6 +1,31 @@
 Release Notes
 #############
 
+Release 0.4.4 (fork — local LLM via Ollama, git ignore host overlays, dev documentation)
+****************************************************************************************
+
+This release is tagged **v0.4.4** on the fork. It **turns on Cowrie’s experimental LLM interaction path** (see upstream **``docs/LLM.rst``** in this tree: **``[honeypot] backend = llm``** and **``[llm]``** pointing at an **OpenAI-compatible** HTTP server). The checked-in configuration targets **Ollama** on **``http://127.0.0.1:11434``** with **``/v1/chat/completions``**; **``[llm] model``** must match a name from **``ollama list``** (example in config: **``llama3.2:1b``**).
+
+**Git / repo hygiene**
+
+* **``honeyfs/proc/meminfo``** and **``var/memstate.json``** are added to **``.gitignore``** so machine-specific RAM/session state is not committed.
+* **``honeyfs/proc/meminfo``** is **removed from the Git index** (``git rm --cached``) so clones are not bound to the Pi’s **``meminfo``** snapshot; the file may still exist for runtime.
+
+**Documentation**
+
+* **``RELEASE_NOTES_v0.4.4.md``** — release scope, operator checklist, commit references.
+* **``DEVLOG_v0.4.4.md``** — developer/operator narrative: config keys, validation, rollback to **``backend = shell``**.
+
+**Rationale for LLM mode**
+
+* Useful for **high-interaction** sessions where you want the model to improvise **command output** without maintaining static handlers for every probe. **Tradeoff:** not the emulated **``shell``** + **``fs.pickle``** + **ground truth** path; set **``backend = shell``** to restore the Pi-fidelity stack.
+
+**Previous fork release in this file**
+
+* See **Release 0.4.3** below for shell realism, conditionals, and identity work.
+
+---
+
 Release 0.4.3 (fork — Raspberry Pi / Debian 13 honeypot fidelity)
 ****************************************************************
 
