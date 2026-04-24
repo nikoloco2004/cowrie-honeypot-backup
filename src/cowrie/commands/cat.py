@@ -15,8 +15,19 @@ from twisted.python import log
 from cowrie.shell.command import HoneyPotCommand
 from cowrie.shell.fs import FileNotFound
 
+from custom_mem import memupdate
+
 commands = {}
 
+# Dynamic /proc files: Cowrie regenerates these in honeyfs before serving.
+# Each value is a zero-argument callable that writes fresh content to the
+# corresponding honeyfs path. Add new dynamic paths here as they're built.
+DYNAMIC_PATHS = {
+    "/proc/meminfo": memupdate.update,
+    # "/proc/loadavg": loadupdate.update,
+    # "/proc/uptime":  uptimeupdate.update,
+    # "/proc/stat":    statupdate.update,
+}
 
 class Command_cat(HoneyPotCommand):
     """
@@ -51,8 +62,19 @@ class Command_cat(HoneyPotCommand):
                 if arg == "-":
                     self.output(self.input_data)
                     continue
-
                 pname = self.fs.resolve_path(arg, self.protocol.cwd)
+                
+                # ---- BEGIN dynamic-path refresh hook (added for honeypot) ----
+                # If pname matches a dynamic /proc path, refresh its honeyfs
+                # content before Cowrie reads it. Silent on error so a bug in
+                # the refresher can never break cat or leak a traceback.
+                refresher = DYNAMIC_PATHS.get(pname)
+                if refresher is not None:
+                    try:
+                        refresher()
+                    except Exception:
+                        pass
+                # ---- END dynamic-path refresh hook ----
 
                 if self.fs.isdir(pname):
                     self.errorWrite(f"cat: {arg}: Is a directory\n")

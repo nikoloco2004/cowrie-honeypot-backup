@@ -423,6 +423,18 @@ log_raw = false
 # (default: false)
 #debug = false
 
+# Hybrid mode (only when [honeypot] backend = shell):
+# if true, a command with no emulated handler may be answered by the [llm] API
+# (OpenAI-compatible) instead of a static "command not found" line. Skipped for
+# pipes, redirects, and tokens that do not look like a plausible argv0.
+# (default: false)
+#hybrid_fallback = false
+
+# When hybrid_fallback is true: cap completion tokens and temperature (faster, shorter answers).
+# (defaults: 64, 0.15)
+#hybrid_max_tokens = 64
+#hybrid_temperature = 0.15
+
 
 # ============================================================================
 # Shell Options

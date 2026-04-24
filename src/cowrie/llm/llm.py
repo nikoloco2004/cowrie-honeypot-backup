@@ -124,7 +124,13 @@ class LLMClient:
             }
         )
 
-    def _format_request_body(self, prompt: list[str]) -> dict:
+    def _format_request_body(
+        self,
+        prompt: list[str],
+        *,
+        max_tokens: int | None = None,
+        temperature: float | None = None,
+    ) -> dict:
         """Structure the request body for OpenAI chat completions API."""
         messages = []
         for i, message in enumerate(prompt):
@@ -143,8 +149,8 @@ class LLMClient:
         return {
             "model": self.model,
             "messages": messages,
-            "max_tokens": self.max_tokens,
-            "temperature": self.temperature,
+            "max_tokens": self.max_tokens if max_tokens is None else max_tokens,
+            "temperature": self.temperature if temperature is None else temperature,
         }
 
     def _handle_response_body(self, response: IResponse) -> Deferred[tuple[int, bytes]]:
@@ -160,9 +166,17 @@ class LLMClient:
         err.trap(Exception)
         return (500, err.getErrorMessage().encode("utf-8"))
 
-    def _send_request(self, prompt: list[str]) -> Deferred[tuple[int, bytes]]:
+    def _send_request(
+        self,
+        prompt: list[str],
+        *,
+        max_tokens: int | None = None,
+        temperature: float | None = None,
+    ) -> Deferred[tuple[int, bytes]]:
         """Send request to the LLM API."""
-        request_body = self._format_request_body(prompt)
+        request_body = self._format_request_body(
+            prompt, max_tokens=max_tokens, temperature=temperature
+        )
 
         if self.debug:
             log.msg(f"LLM request: {json.dumps(request_body, indent=2)}")
@@ -180,7 +194,11 @@ class LLMClient:
 
     @inlineCallbacks
     def get_response(
-        self, prompt: list[str]
+        self,
+        prompt: list[str],
+        *,
+        max_tokens: int | None = None,
+        temperature: float | None = None,
     ) -> Generator[Deferred[Any], Any, str]:
         """
         Get a response from the LLM for the given prompt.
@@ -188,11 +206,15 @@ class LLMClient:
         Args:
             prompt: List of messages. First is system prompt, rest are
                     conversation history with "User:" and "System:" prefixes.
+            max_tokens: Override [llm] max_tokens for this call (e.g. hybrid).
+            temperature: Override [llm] temperature for this call.
 
         Returns:
             The LLM's response text, or empty string on error.
         """
-        status_code, response = yield self._send_request(prompt)
+        status_code, response = yield self._send_request(
+            prompt, max_tokens=max_tokens, temperature=temperature
+        )
 
         if status_code != 200:
             log.err(f"LLM API error (status {status_code}): {response.decode('utf-8')}")
